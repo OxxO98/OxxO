@@ -1,0 +1,21 @@
+
+.dictionary {
+  overflow: hidden;
+
+  iframe {
+    height: calc(100vh - 112px - 98px - 48px + 169px);
+    width : 100%;
+    position: relative;
+    top: -169px;
+
+    overflow: hidden;
+
+    @include darkmode{
+      background-color: gray-auto(-4);
+    }
+  }
+
+  @include darkmode{
+    background-color: gray-auto(-4);
+  }
+}

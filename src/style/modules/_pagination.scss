@@ -1,0 +1,75 @@
+
+.pagination {
+  border: none;
+
+  border-radius: 0px;
+
+  height: 48px;
+  padding: 8px;
+
+  display: flex;
+
+  background-color: $white;
+
+  @include darkmode{
+    color : $white;
+    background-color: gray-auto(-4);
+  }
+
+  .button_pagination-prev, .button_pagination-next{
+    @include defaultBorder(1px);
+
+    width: 64px;
+    background-color: gray-auto(4);
+
+    padding: 0px;
+
+    color : $black;
+    text-align: center;
+    justify-content: center;
+
+    @include darkmode{
+      color : $white;
+      background-color: gray-auto(-3);
+    }
+  }
+  .button_pagination-item {
+    @include defaultBorder(1px);
+
+    width: 32px;
+    background-color: $white;
+
+    padding: 0px;
+
+    color : $black;
+    text-align: center;
+    justify-content: center;
+
+    @include darkmode{
+      color : $white;
+      background-color: gray-auto(-2);
+    }
+
+    &.active{
+      color: $white;
+      background-color: primary-auto(0);
+    }
+  }
+  .button_pagination-reduce{
+    @include defaultBorder(1px);
+
+    padding: 0px;
+
+    width: 32px;
+    background-color: gray-auto(4);
+
+    color : $black;
+    text-align: center;
+    justify-content: center;
+
+    @include darkmode{
+      color : $white;
+      background-color: gray-auto(-4);
+    }
+  }
+}

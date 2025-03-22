@@ -1,0 +1,190 @@
+$white : #FFFFFF;
+$black : #000000;
+
+$background-color : #e4e6e7;
+
+$defaultGray : rgba(0, 0, 0, 0.1);
+
+$primaryColor : 0;
+$secondaryColor : 40;
+$greenColor : 90;
+
+$theme-bg : hsl(0, 0, 0);
+
+@function primary-auto($level, $alpha : 1){
+  @return hsbDiag($primaryColor, 66, 75, $level, $alpha);
+}
+
+@function primary-bright($level, $alpha : 1){
+  @return hsbBright($primaryColor, 66, 75, $level, $alpha);
+}
+
+@function primary-sat($level, $alpha : 1){
+  @return hsbSaturate($primaryColor, 66, 75, $level, $alpha);
+}
+
+@mixin darkmode {
+  @media (prefers-color-scheme: dark) {
+    @content;
+  }
+}
+
+//삭제 예정...___>
+@function secondary-auto($level){
+  @return hsbDiag($secondaryColor, 66, 75, $level);
+}
+
+@function green-auto($level){
+  @return hsbDiag($greenColor, 66, 75, $level);
+}
+//삭제 예정...___>
+
+@function gray-auto($level){
+  @return hsbBright(0, 0, 50, $level);
+}
+
+@function hsl-10($deg, $saturation, $lightness){
+  //-5 ~ 5
+  @return hsl($deg, ($saturation+5)*10, ($lightness+5)*10);
+}
+
+//hsb기본 사용
+@function hsb($deg, $saturation, $brightness, $alpha : 1){
+  /**
+    hsb=hsv와 같음 h는 각도, s는 0,100 b는 0,100
+  */
+  $lightness : $brightness - $brightness*$saturation/200;
+  @if( $lightness == 0 or $lightness == 100){
+    @return hsla($deg, 0, $lightness, $alpha);
+  }
+  @else{
+    @return hsla($deg, ($brightness - $lightness)/min($lightness, 100 - $lightness)*100, $lightness, $alpha);
+  }
+}
+
+@function hsbDiag($deg, $saturation, $brightness, $level, $alpha : 1){
+  @if( $saturation + $brightness <= 100 ){
+    $max : $saturation + $brightness;
+
+    $lvSat : $saturation - 10*$level;
+    $lvBri : $brightness + 10*$level;
+
+    @if( $lvSat < 0){
+      @return hsb($deg, 0, $max, $alpha);
+    }
+    @else if( $lvBri < 0){
+      @return hsb($deg, $max, 0, $alpha);
+    }
+    @else{
+      @return hsb($deg, $lvSat, $lvBri, $alpha);
+    }
+  }
+  @else{
+    $max : $saturation + $brightness - 100;
+
+    $lvSat : $saturation - 10*$level;
+    $lvBri : $brightness + 10*$level;
+
+    @if( $lvSat > 100){
+      @return hsb($deg, 100, $max, $alpha);
+    }
+    @else if( $lvBri > 100){
+      @return hsb($deg, $max, 100, $alpha);
+    }
+    @else{
+      @return hsb($deg, $lvSat, $lvBri, $alpha);
+    }
+  }
+}
+
+@function hsbBright($deg, $saturation, $brightness, $level, $alpha : 1){
+  $lvBri : $brightness + 10*$level;
+  @if($lvBri > 100){
+    @return hsb($deg, $saturation, 100, $alpha);
+  }
+  @else if($lvBri < 0){
+    @return hsb($deg, $saturation, 0, $alpha);
+  }
+  @else{
+    @return hsb($deg, $saturation, $lvBri, $alpha);
+  }
+}
+
+@function hsbSaturate($deg, $saturation, $brightness, $level, $alpha : 1){
+  $lvSat : $saturation + 10*$level;
+  @if($lvSat > 100){
+    @return hsb($deg, 100, $brightness, $alpha);
+  }
+  @else if($lvSat < 0){
+    @return hsb($deg, 0, $brightness, $alpha);
+  }
+  @else{
+    @return hsb($deg, $lvSat, $brightness, $alpha);
+  }
+}
+
+
+//colorGrid 내용
+@mixin color-diag( $deg, $saturation, $brightness ){
+  @for $i from 1 through 9 {
+    &-#{'0' + $i}{
+      background-color: hsbDiag($deg, $saturation, $brightness, $i - 6);
+      @if( $i == 6){
+        //@include defaultBorder(1px);
+        //border-color: $white;
+      }
+    }
+  }
+  @for $i from 10 through 11 {
+    &-#{$i}{
+      background-color: hsbDiag($deg, $saturation, $brightness, $i - 6);
+    }
+  }
+}
+
+@mixin color-default( $deg ){
+  @for $i from 1 through 9 {
+    &-#{'0' + $i}{
+      background-color: hsb($deg, 50, ($i - 1) * 10);
+    }
+  }
+  @for $i from 10 through 11 {
+    &-#{$i}{
+      background-color: hsb($deg, 50, ($i - 1) * 10);
+    }
+  }
+}
+
+@mixin color-sat( $deg, $saturation, $brightness ){
+  @for $i from 1 through 9 {
+    &-#{'0' + $i}{
+      background-color: hsbSaturate($deg, $saturation, $brightness, $i - 6);
+      @if( $i == 6){
+        //@include defaultBorder(1px);
+        //border-color: $white;
+      }
+    }
+  }
+  @for $i from 10 through 11 {
+    &-#{$i}{
+      background-color: hsbSaturate($deg, $saturation, $brightness, $i - 6);
+    }
+  }
+}
+
+@mixin color-bri( $deg, $saturation, $brightness ){
+  @for $i from 1 through 9 {
+    &-#{'0' + $i}{
+      background-color: hsbBright($deg, $saturation, $brightness, $i - 6);
+      @if( $i == 6){
+        //@include defaultBorder(1px);
+        //border-color: $white;
+      }
+    }
+  }
+  @for $i from 10 through 11 {
+    &-#{$i}{
+      background-color: hsbBright($deg, $saturation, $brightness, $i - 6);
+    }
+  }
+}

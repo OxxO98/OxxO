@@ -1,0 +1,53 @@
+
+.tangochou {
+  background-color: $white;
+
+  @include defaultShadow(5px);
+  @include defaultBorder(1px);
+
+  @include darkmode{
+    color: $white;
+    background-color: gray-auto(-3);
+  }
+
+  &.selected{
+    @include innerColorBorder( 2px, primary-auto(1) );
+
+    @include darkmode{
+      color: $white;
+      background-color: gray-auto(-3);
+    }
+  }
+}
+
+.tangoInfo-button-container{
+
+}
+
+.TangoBunList{
+  background-color: $white;
+
+  @include darkmode{
+    color: $white;
+    background-color: gray-auto(-4);
+  }
+}
+
+.tangoInfo-bunList{
+  height: calc(100% - 28px - 56px);
+
+  overflow: scroll;
+}
+
+.tangoInfo-bun{
+  position: sticky;
+  top: 0;
+
+  background-color: $white;
+  @include defaultShadow(1px);
+
+  @include darkmode{
+    color: $white;
+    background-color: gray-auto(-3);
+  }
+}

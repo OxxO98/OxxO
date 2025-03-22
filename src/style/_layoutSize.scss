@@ -1,0 +1,28 @@
+//전역 설정 필수
+$nav_height : 112px;
+$nav-mobile_height : 56px;
+
+$search_height : 48px;
+$edit_height : 48px;
+$pagination_height : 48px;
+
+
+$tangoComp_height : 144px;
+
+$imiComp_height : 144px;
+
+
+//Youtube
+$youtube-layout_height : calc(100vh - $nav_height);
+
+$youtube-composite-layout_height : calc(100vh - $nav_height - $tangoComp_height);
+
+//marking
+$youtube-container_height : calc(100vh - $nav_height);
+
+$audio-wave-component_height : 166px;
+$video_control-container_height : calc(28px * 4 + 8px * 5);
+
+$sequence-container_height : 120px;
+//calc(30px * 3 + 8px * 4);
+$timeline-container_marking_height : calc(100vh - $nav_height - $sequence-container_height);

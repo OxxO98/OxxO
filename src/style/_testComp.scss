@@ -1,0 +1,56 @@
+//colorTest
+.testComp{
+  grid-column: 1/4;
+  background-color: $white;
+
+  @include darkmode{
+    color: $white;
+    background-color: gray-auto(-4);
+  }
+
+  textarea{
+    display: block;
+    width: 100%;
+    grid-column: 1/4;
+  }
+}
+
+.colorGrid {
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  grid-template-rows: 48px;
+
+  &_gray{
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    grid-template-rows: 72px;
+
+    .bri{
+      @include color-bri(0, 0, 50);
+    }
+  }
+
+  $colorData : (
+    red : 0,
+    orange : 30,
+    green : 120
+  );
+
+  @for $i from 0 to 36 {
+    &_#{$i}{
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      grid-template-rows: repeat(3, 24px);
+
+      .color{
+        @include color-diag($i*10, 66, 75);
+      }
+      .bri{
+        @include color-bri($i*10, 66, 75);
+      }
+      .sat{
+        @include color-sat($i*10, 66, 75);
+      }
+    }
+  }
+}

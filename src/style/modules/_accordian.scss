@@ -1,0 +1,32 @@
+
+.accordian{
+  width: 100%;
+  min-width: 400px;
+
+  .accordian-wrap{
+    .accordian-header{
+      display: flex;
+      text-align: left;
+      @include defaultBorder(1px);
+      justify-content: space-between;
+
+      .accordian-button{
+        flex-grow: 0;
+        width: 64px;
+
+        @include defaultBorder(1px);
+        background-color: primary-auto(0);
+        color: $white;
+      }
+    }
+    .accordian-body{
+      @include defaultBorder(1px);
+      background-color: gray-auto(4);
+
+      @include darkmode{
+        color: $white;
+        background-color: gray-auto(-4);
+      }
+    }
+  }
+}

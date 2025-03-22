@@ -1,0 +1,45 @@
+
+.honyakuComp{
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  grid-gap: 4px;
+
+  flex-wrap: wrap;
+
+  @include defaultBorder(1px);
+
+  padding: 4px;
+
+  @include darkmode{
+    background-color: gray-auto(-3);
+  }
+
+  &.clicked{
+    height: 100%;
+  }
+
+  .dropDown{
+    //override;
+    flex-grow: 0;
+  }
+  //override
+  .bun{
+    display: block;
+    width: 100%;
+  }
+  textarea{
+    width: 100%;
+    max-height: 116px;
+  }
+}
+
+.honyaku-bun{
+  width: 100%;
+  display: flex;
+  max-height: 116px;
+  overflow: scroll;
+}

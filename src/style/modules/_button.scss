@@ -1,0 +1,101 @@
+
+button {
+  border: none;
+  align-items: center;
+  min-height: 32px;
+
+  white-space: nowrap;
+
+  @include darkmode{
+    color: $white;
+    background-color: gray-auto(-3);
+  }
+}
+
+button:focus{
+  outline: 0;
+}
+
+//Test용 HonaykuComp에서 확인가능.
+.button-negative{
+  @include innerColorBorder(2px, primary-auto(0));
+  background-color: $white;
+  color: primary-auto(0);
+
+  @include darkmode{
+    color: primary-auto(2);
+    background-color: gray-auto(-3);
+  }
+}
+.button-neutral{
+  color: $black;
+  background-color: gray-auto(4);
+  @include defaultBorder(1px);
+
+  @include darkmode{
+    color: $white;
+    background-color: gray-auto(-2);
+  }
+}
+.button-positive{
+  color: $white;
+  background-color: primary-auto(0);
+  @include defaultBorder(1px);
+}
+
+//seatchComp에서만 사용.
+.button-search{
+  background-color: primary-auto(0);
+  color: $white;
+}
+
+//BookCardComp에서만 사용. 그저 너비가 넓은 형태.
+.button_flex {
+  min-width: 64px;
+
+  color : $black;
+  background-color: gray-auto(4);
+
+  flex-shrink: 0;
+
+  @include defaultBorder(1px);
+
+  @include darkmode{
+    color: $white;
+    background-color: gray-auto(-2);
+  }
+}
+
+//loginComp에서만 사용
+.button_flex-grow {
+  flex-grow: 1;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+
+  //padding: 0px 8px;
+
+  grid-gap: 8px;
+
+
+  @include mobile {
+    padding: 4px 8px;
+  }
+
+  .button-negative{
+    margin-right: auto;
+  }
+}
+
+.button-container_flexEnd {
+  display: flex;
+  justify-content: flex-end;
+
+  grid-gap: 8px;
+
+  @include mobile {
+    padding: 4px 8px;
+  }
+}

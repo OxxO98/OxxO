@@ -1,0 +1,159 @@
+$hon-layout_height : $book-layout_height;
+$hon-layout-mobile_height : calc($book-layout-mobile_height - $tangoComp_height);
+
+$hon-layout-mobile_toggled_height : 240px;
+
+$hon-composite-layout_height : $book-layout_height;
+$hon-composite-layout-mobile_height : calc($book-layout-mobile_height - $hon-layout-mobile_toggled_height);
+
+$hon-composite-conditional-layout_height : calc($book-layout_height - $search_height - $tangoComp_height);
+
+.hon-layout {
+  display: flex;
+  flex-direction: column;
+
+  background-color : $white;
+  @include defaultShadow(5px);
+
+  @include desktop {
+    grid-column: 1/2;
+    height: $hon-layout_height;
+  }
+  @include tablet {
+    grid-column: 1/2;
+    height: $hon-layout_height;
+  }
+  @include mobile {
+    height : $hon-layout-mobile_height;
+    //height: calc(100vh - 56px - 48px - 48px - $tangoComp_height);
+
+    &.clicked {
+      height: $hon-layout-mobile_toggled_height;
+    }
+
+    &.editing {
+      height: $book-layout-mobile_height;
+    }
+  }
+
+  @include darkmode{
+    color : $white;
+    background-color: gray-auto(-4);
+  }
+}
+
+.hon-composite-layout {
+  display: flex;
+  flex-direction: column;
+  height: $hon-composite-layout_height;
+
+  @include desktop {
+    grid-column: 2/3;
+  }
+  @include tablet {
+    grid-column: 2/3;
+  }
+  @include mobile {
+    display: flex;
+    height: $hon-composite-layout-mobile_height;
+  }
+}
+
+.hon-layout-pagination {
+  width: 100%;
+  height: $pagination_height;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+// PC, Tablet에서만 존재.
+.hon-composite-conditional-layout {
+  @include desktop {
+    display : grid;
+    grid-template-columns: 1fr 1fr;
+    height: $hon-composite-conditional-layout_height;
+  }
+  @include tablet {
+    display: grid;
+    grid-template-columns: 1fr;
+    height: $hon-composite-conditional-layout_height;
+  }
+  @include mobile {
+    display: flex;
+  }
+
+  @include darkmode{
+    background-color: gray-auto(-4);
+  }
+}
+
+.hon-list {
+  background-color: $white;
+  @include defaultBorder(1px);
+  padding: 8px;
+
+  height: $hon-composite-conditional-layout_height;
+  overflow: scroll;
+
+  background-color: gray-auto(4);
+
+  @include desktop {
+    grid-column: 1/2;
+  }
+  @include tablet {
+    grid-column: 1/2;
+  }
+  @include mobile {
+    width : 100%;
+    display: none;
+
+    height : calc($hon-composite-layout-mobile_height - $tangoComp_height);
+
+    &.clicked{
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  @include darkmode{
+    color : $white;
+    background-color: gray-auto(-4);
+  }
+}
+
+.hon-dictionary {
+  height: $hon-composite-conditional-layout_height;
+
+  @include desktop {
+    grid-column: 2/3;
+  }
+  @include tablet {
+    grid-column: 1/2;
+  }
+  @include mobile {
+    width: 100%;
+    display: none;
+
+    height : calc($hon-composite-layout-mobile_height - $tangoComp_height);
+
+    &.clicked{
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  overflow: hidden;
+
+  background-color: $white;
+  @include defaultBorder(1px);
+
+  @include darkmode{
+    color : $white;
+    background-color: gray-auto(-4);
+  }
+}
+
+.hon-searchList-layout {
+  height: $hon-composite-conditional-layout_height;
+  overflow: scroll;
+}

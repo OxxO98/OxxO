@@ -1,0 +1,93 @@
+
+.WrapNav{
+  display: flex;
+  justify-content: center;
+
+  background-color: $white;
+  @include defaultShadow(5px);
+
+  position: sticky;
+  top: 0;
+  z-index: 5;
+
+  @include darkmode{
+    color: $white;
+    background-color: gray-auto(-2);
+  }
+
+  .Nav{
+    display : grid;
+    grid-template-columns: 1fr 3fr;
+    text-align: center;
+
+    min-height: 56px;
+
+    @include desktop-biggerCW {
+      width: $contentWidth;
+    }
+    @include desktop-smallerCW{
+      width: 100%;
+    }
+    @include tablet {
+      width: 100%;
+    }
+    @include mobile {
+      width: 100%;
+    }
+
+    background-color: $white;
+
+    @include darkmode{
+      color : $white;
+      background-color: gray-auto(-2);
+    }
+
+    // @include defaultShadow(15px);
+
+    .logo {
+      padding : 1em;
+
+      &.expend {
+        grid-row: 1/3;
+      }
+    }
+    .itemContainer{
+      display : grid;
+      grid-template-columns: 1fr 1fr 1fr;
+
+      .item {
+        display: flex;
+        height: 56px;
+
+        color : black;
+        background-color: $white;
+
+        @include darkmode{
+          color : $white;
+          background-color: gray-auto(-3);
+        }
+
+        justify-content: center;
+        align-items: center;
+
+        &.active {
+          background-color: primary-auto(0);
+          color : $white;
+
+          @include defaultBorder(1px);
+        }
+        &.disabled {
+          grid-column: 1/4;
+
+          @include darkmode{
+            color : $white;
+            background-color: gray-auto(-2);
+          }
+        }
+      }
+    }
+    .firstDisabled{
+      grid-column: 1;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+
+.honyakuBun {
+  background: none;
+
+  &.selected{
+    @include colorHorizontalBorder(3px, primary-auto(1));
+    // @include defaultBorder(3px);
+  }
+}
+
+
+.honyakuText{
+  padding : 4px;
+  margin-bottom: 4px;
+}

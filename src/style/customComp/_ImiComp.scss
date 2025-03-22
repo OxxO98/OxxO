@@ -1,0 +1,104 @@
+
+.ImiComp{
+  height: $imiComp_height;
+
+  @include desktop{
+    position: relative;
+  }
+  @include tablet{
+    position: relative;
+  }
+  @include mobile {
+    position: fixed;
+    width: 100%;
+    bottom: 0px;
+  }
+
+  &.clicked{
+    position: static;
+    width: 100%;
+  }
+
+  display: grid;
+  grid-template-rows: 48px 48px 48px;
+
+  background-color: $white;
+
+  min-width: 252px;
+  height: 144px;
+
+  @include defaultBorder(1px);
+  @include defaultShadow(5px);
+
+  z-index: 2;
+
+  @include darkmode{
+    color: $white;
+    background-color: gray-auto(-3);
+  }
+
+  .imiContainer{
+    display: flex;
+    padding: 4px;
+
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    justify-content: space-between;
+    align-items: center;
+
+    grid-gap: 4px;
+
+    label{
+      flex-basis: 48px;
+      flex-shrink: 0;
+    }
+    input{
+      min-width: 0;
+      height: 32px;
+      flex-shrink: 1;
+      flex-grow: 1;
+    }
+    button{
+      flex-basis: 48px;
+      height: 32px;
+      flex-shrink: 0;
+      //white-space: nowrap;
+    }
+    span{
+      text-align: left;
+      flex-grow: 1;
+    }
+  }
+
+  .tangoContainer{
+    padding: 4px;
+    grid-row: 1;
+
+    display: flex;
+
+    align-items: center;
+
+    label{
+      width: 48px;
+    }
+    span{
+
+    }
+  }
+  .setStyledContainer{
+    padding: 4px;
+    grid-row: 3;
+
+    display: flex;
+    justify-content: flex-end;
+
+    button{
+      height: 32px;
+      flex-grow: 1;
+
+      color: $white;
+      background-color: primary-auto(0);
+    }
+  }
+}

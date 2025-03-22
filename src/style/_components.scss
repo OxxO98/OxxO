@@ -1,0 +1,59 @@
+
+.backdrop-up {
+  position: relative;
+
+  pointer-events: none;
+
+  &:after{
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(0deg, $defaultGray, rgba(0, 0, 0, 0));
+
+    @include darkmode{
+      background: linear-gradient(0deg, gray-auto(-3.5), rgba(0, 0, 0, 0));
+    }
+  }
+}
+
+.backdrop-down {
+  position: relative;
+
+  pointer-events: none;
+
+  &:after{
+    content: "";
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(180deg, $defaultGray, rgba(0, 0, 0, 0));
+
+    @include darkmode{
+      background: linear-gradient(180deg, gray-auto(-3.5), rgba(0, 0, 0, 0));
+    }
+  }
+}
+
+@keyframes loadingAnimation{
+  0%{
+    background-position: -20em 0;
+  }
+  100%{
+    background-position: 40em 0;
+  }
+}
+
+.loading{
+  //width: 100%;
+  height: 100%;
+  animation: 2s loadingAnimation forwards infinite linear;
+  background: linear-gradient(to right, #eeeeee 10%, #dddddd 28%, #eeeeee 53%);
+  background-size: 100%;
+
+  @include darkmode{
+    background: linear-gradient(to right, gray-auto(-3) 0%, gray-auto(-2.5) 50%, gray-auto(-3) 100%);
+  }
+}

@@ -1,0 +1,50 @@
+
+.dropDown{
+  position: relative;
+  max-width: 100%;
+  //margin-bottom: 8px;
+
+  flex-grow: 1;
+
+  .dropDownRepresentive{
+    padding: 4px;
+    @include defaultBorder(1px);
+  }
+  .dropDownContent{
+    position: absolute;
+
+    &.up{
+      bottom: 100%;
+    }
+
+    background-color: $white;
+    width: 100%;
+
+    overflow: scroll;
+
+    max-height: 500px;
+    @include defaultBorder(1px);
+    @include defaultShadow(5px);
+
+    @include darkmode{
+      color: $white;
+      background-color: gray-auto(-3);
+    }
+
+    .content{
+      padding: 4px;
+
+      background-color: $white;
+
+      @include darkmode{
+        color: $white;
+        background-color: gray-auto(-3);
+      }
+
+      &:hover{
+        @include defaultBorder(1px);
+        border-color: primary-auto(1);
+      }
+    }
+  }
+}

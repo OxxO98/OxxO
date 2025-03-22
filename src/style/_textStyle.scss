@@ -1,0 +1,125 @@
+@import "variables";
+@import "theme";
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;200;300;400;500;600;700;800;900&display=swap'); //Noto Sans JP
+
+@import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css'); //나눔 고딕
+
+.jaText{
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.bold{
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 700;
+
+  @include darkmode{
+    color : primary-auto(0);
+  }
+}
+
+//Bun.js의 KanjiText나 단어장에서 사용중.
+.largeTango{
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 2em;
+  font-weight: 500;
+}
+
+//TangoBunList에서만 사용
+.middleTango{
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+
+.bun {
+  display: inline;
+  font-size: 1rem;
+
+  line-height: 32px;
+  line-break: anywhere;
+
+  //@include defaultBorder(1px);
+
+  margin: 0;
+  padding: 0;
+
+  vertical-align: text-bottom;
+}
+
+.rubyAri{
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+
+  line-height: 32px;
+
+  ruby-align : space-around;
+  ruby-overhang : none;
+
+  margin : 0;
+  padding: 0;
+  rt{
+    font-size: 8px;
+
+    margin : 0;
+    padding: 0;
+    //@include defaultBorder(1px);
+  }
+  //@include defaultBorder(1px);
+}
+.rubyNasi{
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+
+  margin: 0;
+  padding: 0;
+}
+
+.dan{
+  margin-bottom: 0;
+  text-indent: 1em;
+}
+
+.highlight {
+  position: relative;
+  font-family: 'Noto Sans JP', sans-serif;
+
+  //color:$white;
+  //font-weight: bold;
+  z-index: 0;
+
+  rt{
+    //color: $black;
+    position: relative;
+    z-index: 0;
+  }
+  &::before {
+    content: '';
+    position: absolute;
+    height: 80%;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    //background-color: primary-auto(5, 0.9);
+    background-color: primary-bright(5, 0.7);
+    //background-color: primary-bright(3);
+  }
+  //box-shadow: inset 0 -16px 0 hsla(0, 90%, 83%, 0.93);
+}
+
+//CompareBun에서만 사용되고 있음.
+.highlightBlue {
+  font-family: 'Noto Sans JP', sans-serif;
+  box-shadow: inset 0 -10px 0 hsla(240, 90%, 83%, 0.93);
+  padding-bottom:2px;
+}
+
+.highlightRed {
+  text-decoration: none;
+  box-shadow: inset 0 -10px 0 hsla(0, 90%, 83%, 0.93);
+  padding-bottom:2px;
+}

@@ -1,0 +1,94 @@
+
+input[type=range]{
+  border-color: gray-auto(-4);
+	-webkit-appearance: none;
+  background: transparent;
+
+  background-color: gray-auto(4);
+
+  @include darkmode{
+    color : $white;
+    background-color: gray-auto(-4);
+  }
+
+  &:focus {
+    border-color: primary-auto(0);
+  }
+  &::-webkit-slider-thumb {
+    position:relative;
+    z-index:1;
+    -webkit-appearance: none;
+    background-color: primary-auto(0);
+    width: 12px;
+    height: 16px;
+    //border-radius: 50%;
+  }
+  &::-webkit-slider-runnable-track{
+
+    background-color: gray-auto(4);
+
+    @include darkmode{
+      background-color: gray-auto(-3);
+    }
+  }
+}
+
+label {
+  margin: 0;
+}
+
+input {
+  @include defaultBorder(1px);
+
+  @include darkmode{
+    color: $white;
+    background-color: gray-auto(-1);
+  }
+
+  &::placeholder{
+    @include darkmode{
+      color : $white;
+    }
+  }
+
+  &:focus{
+    outline: none;
+    border-color: primary-auto(0);
+  }
+
+  &.input_flex {
+    flex-grow: 1;
+  }
+}
+
+textarea {
+  @include defaultBorder(1px);
+
+  flex-grow: 1;
+
+  @include darkmode{
+    color: $white;
+    background-color: gray-auto(-1);
+  }
+
+  &:focus{
+    outline: none;
+    border-color: primary-auto(0);
+  }
+}
+
+.input.dynamic{
+
+  @for $i from 0 through 2 {
+    &-#{$i}{
+      width: calc(32px + 4px);
+      padding-left: 2px;
+    }
+  }
+  @for $i from 2 through 20 {
+    &-#{$i}{
+      width: calc($i * 18px + 4px);
+      padding-left: 2px;
+    }
+  }
+}

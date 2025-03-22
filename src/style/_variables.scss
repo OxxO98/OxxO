@@ -1,0 +1,40 @@
+$CompBorderWidth : 0.1em;
+
+@mixin defaultBorder($top, $right : $top, $bottom : $top, $left : $top){
+  border-style : solid;
+  border-color: hsla(0, 0, 0, 0.1);
+
+  border-top-width: $top;
+  border-right-width: $right;
+  border-bottom-width: $bottom;
+  border-left-width: $left;
+
+  @include darkmode{
+    border-color: hsla(0, 100, 100, 0.1);
+  }
+};
+
+@mixin innerColorBorder($width, $color){
+  box-shadow: 0 0 0 $width $color inset;
+  background-color: $white;
+
+  @include darkmode{
+    background-color: transparent;
+  }
+};
+
+@mixin innerBorder($width){
+  box-shadow: 0 0 0 $width $defaultGray inset;
+};
+
+@mixin colorHorizontalBorder($width, $color){
+  border-style : solid;
+  border-color: $color;
+
+  // border-width: $width;
+  border-width: $width 0px;
+}
+
+@mixin defaultShadow($leng){
+  box-shadow: 0 $leng $leng -$leng/2 $defaultGray
+}

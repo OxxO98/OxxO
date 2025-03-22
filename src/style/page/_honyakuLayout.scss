@@ -1,0 +1,168 @@
+$honyaku-hon-layout_height : $book-layout_height;
+$honyaku-layout-mobile_height : calc($book-layout-mobile_height - $imiComp_height);
+
+$honyaku-bun_editing_height : 500px;
+
+$honyaku-bun-mobile_clicked_height : 240px;
+$honyaku-bun-mobile_editing_height : 300px;
+
+.honyaku-layout-pagination {
+  display: flex;
+
+  z-index: 1;
+
+  @include defaultShadow(1px);
+
+  background-color: $white;
+
+  @include darkmode{
+    color: $white;
+    background-color: gray-auto(-4);
+  }
+}
+
+.honyaku-hon-layout {
+
+  height: $honyaku-hon-layout_height;
+
+  background-color: $white;
+
+  @include desktop{
+    display: flex;
+    flex-direction: column;
+    grid-column: 1/2;
+  }
+  @include tablet{
+    display: flex;
+    flex-direction: column;
+    grid-column: 1/2;
+  }
+  @include mobile{
+    display: flex;
+    flex-direction: column;
+    height: $honyaku-layout-mobile_height;
+
+    &.clicked {
+      height: $honyaku-bun-mobile_clicked_height;
+    }
+    &.edit{
+      height: $honyaku-bun-mobile_editing_height;
+    }
+    &.focused{
+
+    }
+  }
+
+  @include darkmode{
+    color: $white;
+    background-color: gray-auto(-4);
+  }
+}
+
+.honyaku-bun-comp-layout {
+  padding : 16px;
+
+  height: calc($honyaku-hon-layout_height - $pagination_height);
+
+  @include desktop{
+    grid-column: 1/2;
+    overflow: scroll;
+
+    &.edit{
+      height: calc($honyaku-bun_editing_height - $pagination_height);
+    }
+  }
+  @include tablet{
+    grid-column: 1/2;
+    overflow: scroll;
+
+    &.edit{
+      height: calc($honyaku-bun_editing_height - $pagination_height);
+    }
+  }
+  @include mobile{
+    height : calc($honyaku-layout-mobile_height - $pagination_height);
+    overflow: scroll;
+
+    &.clicked{
+      height: calc($honyaku-bun-mobile_clicked_height - $pagination_height);
+    }
+    &.edit {
+      height: calc($honyaku-bun-mobile_editing_height - $pagination_height);
+    }
+    &.focused {
+
+    }
+  }
+}
+
+.honyaku-composite-layout{
+  @include desktop {
+    grid-column: 2/3;
+    display: flex;
+    flex-direction: column;
+    height: $honyaku-hon-layout_height;
+  }
+  @include tablet {
+    grid-column: 2/3;
+    display: flex;
+    flex-direction: column;
+    height: $honyaku-hon-layout_height;
+  }
+  @include mobile {
+    display: flex;
+    flex-direction: column;
+
+    height: $imiComp_height;
+
+    &.clicked{
+      height: calc($book-layout-mobile_height - $honyaku-bun-mobile_clicked_height);
+    }
+  }
+}
+
+.honyaku-dictionary {
+
+  @include desktop {
+    height: calc($honyaku-hon-layout_height - $imiComp_height);
+  }
+  @include tablet {
+    height: calc($honyaku-hon-layout_height - $imiComp_height);
+  }
+  @include mobile{
+    display: none;
+
+    &.clicked{
+      display: block;
+      height: calc($book-layout-mobile_height - $honyaku-bun-mobile_clicked_height - $imiComp_height);
+    }
+  }
+
+  background-color: $white;
+  @include defaultBorder(1px);
+
+  overflow: hidden;
+
+  @include darkmode{
+    color: $white;
+    background-color: gray-auto(-4);
+  }
+}
+
+.honyakuComp-layout {
+  display: flex;
+
+  @include desktop{
+    height: calc($honyaku-hon-layout_height - $honyaku-bun_editing_height);
+  }
+  @include tablet{
+    height: calc($honyaku-hon-layout_height - $honyaku-bun_editing_height);
+  }
+  @include mobile{
+    height: calc($book-layout-mobile_height - $honyaku-bun-mobile_editing_height);
+
+    &.focused{
+
+    }
+  }
+}

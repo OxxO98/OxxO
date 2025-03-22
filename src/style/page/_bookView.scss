@@ -1,0 +1,81 @@
+$book-layout_height : calc( 100vh - $nav_height);
+$book-layout-mobile_height : calc( 100vh - $nav-mobile_height);
+
+.hon-page-layout {
+  width: 100%;
+
+  @include desktop-biggerCW {
+    width: $contentWidth;
+  }
+
+  height: $book-layout_height;
+
+  @include desktop {
+    display : grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  @include tablet {
+    display : grid;
+    grid-template-columns: 2fr 1fr;
+  }
+  @include mobile {
+    height: $book-layout-mobile_height;
+
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.honyaku-page-layout {
+  // background-color: $white;
+  width: 100%;
+
+  @include desktop-biggerCW {
+    width: $contentWidth;
+  }
+
+  height: $book-layout_height;
+
+  @include desktop {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+  }
+  @include tablet{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+  }
+  @include mobile{
+    display: flex;
+    flex-direction: column;
+
+    height: $book-layout-mobile_height;
+
+    &.edit {
+      height: $book-layout-mobile_height;
+    }
+  }
+}
+
+.tangochou-page-layout {
+
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  @include desktop-biggerCW {
+    width: $contentWidth;
+  }
+
+  height: $book-layout_height;
+  @include mobile {
+    height : $book-layout-mobile_height;
+  }
+
+  background-color: gray-auto(4);
+
+  @include darkmode{
+    color: $white;
+    background-color: gray-auto(-4);
+  }
+}

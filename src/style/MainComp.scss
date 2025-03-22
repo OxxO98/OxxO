@@ -1,0 +1,207 @@
+//나중에 파일명 바꾸기
+@import "mediaquery";
+@import "layoutSize";
+@import "variables";
+@import "theme";
+@import "textStyle";
+
+@import "components";
+
+@import "./modules/nav";
+@import "./modules/modal";
+@import "./modules/card";
+
+@import "./modules/accordian";
+@import "./modules/dropDown";
+@import "./modules/button";
+@import "./modules/input";
+
+@import "./modules/pagination";
+@import "./modules/searchComp";
+
+@import "./page/bookView";
+
+@import "./page/signPage";
+
+@import "./page/honLayout";
+@import "./page/tangochouLayout";
+@import "./page/honyakuLayout";
+
+@import "./page/BookView/HonComp";
+@import "./page/BookView/TangochouComp";
+
+@import "./customComp/TangoComp";
+@import "./customComp/ImiComp";
+@import "./customComp/HonyakuBun";
+@import "./customComp/HonyakuComp";
+@import "./customComp/Dictionary";
+
+@import "./modal/NewHon";
+@import "./modal/EditHon";
+
+@import "./testComp";
+
+@import "youtube-layout";
+
+.hidden {
+  display: none;
+}
+
+html {
+  overflow: hidden;
+  overscroll-behavior: none;
+
+  background-color: $white;
+
+  @include darkmode{
+    background-color: gray-auto(-4);
+  }
+}
+
+*{
+  &::selection{
+    color: $white;
+    //background-color: gray-auto(0);
+    background-color: primary-bright(2);
+  }
+  &::-webkit-scrollbar-track{
+    @include darkmode{
+      background-color: gray-auto(-4);
+    }
+  }
+  &::-webkit-scrollbar {
+    display: none;
+
+    &:hover{
+      display: none;
+    }
+  }
+  -webkit-tap-highlight-color : rgba(0, 0, 0, 0);
+  -webkit-text-size-adjustment : none;
+  -webkit-border-radius : 0px;
+  -webkit-appearance : none;
+  overscroll-behavior: none;
+  overscroll-behavior-y: none;
+}
+
+iframe {
+  border: none;
+  overflow: hidden;
+}
+
+body{
+  overflow: hidden;
+
+  @include mobile{
+    text-size-adjust : none
+  }
+
+
+  @include darkmode{
+    background-color: gray-auto(-4);
+  }
+}
+
+.MainComp {
+  min-height: calc(100vh - 56px);;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+
+  background-color: $white;
+
+  @include darkmode{
+    background-color: gray-auto(-4);
+  }
+}
+
+.WrapCardPane{
+  @include desktop {
+    width: $contentWidth;
+  }
+  @include tablet {
+    width: 100%;
+  }
+  @include mobile {
+    width: 100%;
+  }
+
+  display : grid;
+  grid-template-columns: 1fr 3fr;
+
+  .drawer {
+    grid-column: 1;
+    background-color: gray-auto(3);
+
+    @include darkmode{
+      background-color: gray-auto(-3);
+    }
+  }
+  .CardPane {
+    height: calc(100vh - 56px);
+    display: grid;
+
+    background-color: gray-auto(4);
+
+    @include desktop {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    @include tablet {
+      grid-template-columns: 1fr 1fr;
+    }
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+
+    align-items: flex-start;
+    align-content: flex-start;
+
+    overflow: scroll;
+
+    @include darkmode{
+      background-color: gray-auto(-4);
+    }
+  }
+}
+
+.book-layout {
+  background-color : gray-auto(4);
+  margin : 0;
+  display: flex;
+  justify-content: center;
+
+  //margin-top: 112px;
+  width: 100%;
+  height: calc(100vh - 112px);
+
+  @include mobile {
+    height: $book-layout-mobile_height;
+  }
+
+  //overflow: hidden;
+  @include darkmode{
+    color: $white;
+    background-color: gray-auto(-4);
+  }
+}
+
+.EditBookContainer {
+  grid-column: 1/4;
+
+  .TextareaBook{
+    width: 720px;
+    height: 500px;
+    resize: none;
+  }
+}
+
+.checkDan{
+  text-align: left;
+  @include defaultBorder(1px);
+}
+  //ModalBookContainer에서 사용
+
+//후에 확인 후 삭제 예정
+.inputInline {
+  display: inline-block;
+}

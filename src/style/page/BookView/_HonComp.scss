@@ -1,0 +1,262 @@
+
+$hon_height : calc($hon-layout_height - $pagination_height);
+$hon-mobile_height : calc($hon-layout-mobile_height - $pagination_height);
+
+$hon-edit-layout-mobile_height : calc($book-layout-mobile_height - $search_height - $edit_height - $pagination_height);
+
+$hon_editable_control_height : 200px;
+
+//comp or modules
+.hon {
+  display: flex;
+  flex-direction: column;
+
+  //max-height: 100%;
+
+  padding: 8px;
+
+  height: $hon_height;
+
+  overflow: scroll;
+
+  @include mobile{
+    height : $hon-mobile_height;
+
+    &.clicked{
+      height: calc($hon-layout-mobile_toggled_height - $search_height - $pagination_height );
+    }
+  }
+
+  // 걍 세로쓰기 테스트 용 height나 글자 개수가 out임
+  // writing-mode: vertical-rl;
+  // height: calc(100vh - 112px - 48px);
+  // width: 100%;
+}
+
+.tangolist_comp{
+  display: flex;
+  flex-direction: column;
+  grid-gap: 8px;
+
+  .tango{
+    padding: 4px;
+    @include defaultBorder(1px);
+    @include defaultShadow(5px);
+
+    background-color: $white;
+
+    @include darkmode{
+      color: $white;
+      background-color: gray-auto(-3);
+    }
+
+    .button_container{
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}
+
+.hukumuComp{
+  @include defaultBorder(1px);
+  @include defaultShadow(5px);
+
+  background-color: $white;
+
+  @include darkmode{
+    background-color: gray-auto(-3);
+  }
+}
+
+.hukumuList{
+  display: flex;
+  flex-direction: column;
+
+  grid-gap: 8px;
+}
+
+.hukumu_from_hyouki-container{
+  display: grid;
+  grid-template-rows: 32px 32px 32px;
+  grid-row-gap: 8px;
+
+  padding: 8px;
+  @include defaultShadow(5px);
+
+  background-color: $white;
+  
+  @include darkmode{
+    background-color: gray-auto(-3);
+  }
+
+  .yomiContainer{
+    display: flex;
+    label {
+      flex-grow: 0;
+      width: 64px;
+    }
+  }
+  .hyoukiContainer{
+    display: flex;
+
+    label{
+      flex-grow: 0;
+      width: 64px;
+    }
+  }
+  .buttonContainer{
+    display: flex;
+    justify-content: flex-end;
+
+    button{
+      color : $white;
+      background-color: primary-auto(0);
+    }
+  }
+}
+
+//책 편집
+.hon-edit-layout{
+  display: flex;
+  //flex-direction: column;
+
+  height: $hon_height;
+
+  @include mobile{
+    height: $hon-edit-layout-mobile_height;
+    overflow: scroll;
+  }
+
+  flex-wrap: wrap;
+  align-content: space-between;
+}
+
+.hon-layout-edit-button{
+  display: flex;
+
+  justify-content: flex-end;
+  align-items: center;
+
+  grid-gap: 8px;
+  padding: 8px;
+
+  background-color: $white;
+
+  button.active{
+    color : $white;
+    background-color: primary-auto(0);
+  }
+
+  @include darkmode{
+    color : $white;
+    background-color: gray-auto(-4);
+  }
+}
+
+.hon_editable{
+  flex-grow: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  &.editing{
+    height: calc($hon_height - $hon_editable_control_height);
+
+    @include mobile{
+      height: calc($hon-edit-layout-mobile_height - $hon_editable_control_height);
+    }
+  }
+
+  padding-bottom: 16px;
+
+  overflow: scroll;
+
+  .selected {
+
+    background-color: primary-auto(3);
+
+    @include darkmode{
+      background-color: primary-auto(0);
+    }
+  }
+}
+
+.hon_editable_control{
+  //position: sticky;
+  bottom: 0;
+
+  height: $hon_editable_control_height;
+  width: 100%;
+
+  padding: 4px 0px;
+
+  .editableBun-textarea{
+    width: 100%;
+    resize : none;
+    outline-color: primary-auto(2);
+
+    min-height: 116px;
+    max-height: 148px;
+  }
+}
+
+.edit_button{
+  color : $white;
+
+  background-color: primary-auto(1);
+
+  &.active{
+    background-color: gray-auto(3);
+  }
+
+  @include defaultBorder(1px);
+}
+
+.edit_dan{
+  display: block;
+  width: 100%;
+  min-height: 12px;
+
+  color : $white;
+  background-color: gray-auto(3);
+  border: none;
+
+  &:hover{
+    background-color: primary-auto(1);
+  }
+
+  &.selected{
+    background-color: primary-auto(1);
+  }
+
+  @include darkmode{
+    color : $white;
+    background-color: gray-auto(-2);
+  }
+}
+
+.edit_bun{
+  display: inline;
+
+  width: 22px;
+  height: 24px;
+
+  margin-right: 2px;
+
+  color : $white;
+  background-color: gray-auto(3);
+  border: none;
+
+  &:hover{
+    background-color: primary-auto(1);
+  }
+
+  &.selected{
+    background-color: primary-auto(1);
+  }
+
+  @include darkmode{
+    color : $white;
+    background-color: gray-auto(-3);
+  }
+}

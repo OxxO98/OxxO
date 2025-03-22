@@ -1,0 +1,103 @@
+
+$tangochou-layout_height : calc($book-layout_height - $search_height - $pagination_height);
+$tangochou-layout-mobile_height : calc($book-layout-mobile_height - $search_height - $pagination_height);
+
+$tangochou-info-layout_height : calc($book-layout_height - $search_height - $pagination_height);
+$tangochou-info-layout-mobile_height : calc( $tangochou-layout-mobile_height / 3 * 2 );
+
+$tangochou-info-layout-mobile_focused_height : calc( $tangochou-layout-mobile_height / 5 * 4 );
+
+.tangochou-layout {
+  height: $tangochou-layout_height;
+
+  @include desktop {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  @include tablet {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  @include mobile {
+    flex-grow: 1;
+    flex-shrink: 1;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    height: calc($tangochou-layout_height - $tangochou-info-layout-mobile_height);
+    overflow: scroll;
+  }
+
+  &.focused{
+    height: calc($tangochou-layout_height - $tangochou-info-layout-mobile_focused_height);
+  }
+}
+
+.tangochou-info-layout {
+  @include desktop{
+    grid-column: 3/5;
+    height: $tangochou-info-layout_height;
+  }
+  @include tablet{
+    grid-column: 3/4;
+    height: $tangochou-info-layout_height;
+  }
+
+  @include mobile{
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+
+    height: $tangochou-info-layout-mobile_height;
+  }
+  background-color: $white;
+
+  @include defaultShadow(5px);
+  @include defaultBorder(1px, 1px, 1px, 1px);
+
+  @include darkmode{
+    color: $white;
+    background-color: gray-auto(-4);
+  }
+
+  &.focused{
+    height: $tangochou-info-layout-mobile_focused_height;
+  }
+}
+
+.tangochou-list-layout{
+  background-color: gray-auto(4);
+
+  @include darkmode{
+    background-color: gray-auto(-4);
+  }
+}
+
+.tangochou-layout-pagination {
+  @include mobile {
+    grid-column: 1/3;
+  }
+  @include tablet {
+    grid-column: 1/3;
+  }
+  @include desktop {
+    grid-column: 1/3;
+  }
+}
+
+.tangochou-layout-search{
+  @include mobile {
+    grid-column: 1/3;
+  }
+  @include tablet {
+    grid-column: 3/4;
+  }
+  @include desktop {
+    grid-column: 3/5;
+  }
+}
+
+.tangochou-layout-search-list{
+
+}
