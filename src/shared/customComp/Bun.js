@@ -2,12 +2,15 @@ import React, {useEffect, useState, useRef, useContext } from 'react';
 
 import axios from 'axios';
 
+import { useMediaQuery } from 'react-responsive';
+
 import { useAxios } from 'shared/hook';
 import { useHuri, useJaText } from 'shared/hook';
 
 import { DropDown } from 'components'
 
 import { UnicodeContext } from 'client/MainContext.js';
+import { MediaQueryContext } from 'client/MainContext.js'
 import { UserContext, HonContext, YoutubeContext } from 'client/UserContext.js';
 
 const HonyakuBun = ({ key, bId, styled, edit, selected, handleSelect, clearEdit, ...props }) => {
@@ -16,7 +19,13 @@ const HonyakuBun = ({ key, bId, styled, edit, selected, handleSelect, clearEdit,
     props는 getActive, setActive
   */
 
+  const isMobile = useMediaQuery({
+    query : useContext(MediaQueryContext).mobile
+  });
+
   const isSelected = selected == bId ? "selected" : "";
+
+  const handleMobileTouch = isMobile ? () => { props?.setActive(bId) } : undefined;
 
   return(
     <div key={bId} className={`honyakuBun ${isSelected}`}>
@@ -28,7 +37,7 @@ const HonyakuBun = ({ key, bId, styled, edit, selected, handleSelect, clearEdit,
               <Bun key={key} bId={bId} styled={styled}/>
             </div>
             :
-            <div onMouseDown={ () => props?.setActive(bId) } onTouchStart={ () => props?.setActive(bId) } onTouchMove={ () => props?.setActive(bId) }>
+            <div onMouseDown={ () => props?.setActive(bId) } onTouchStart={handleMobileTouch} onTouchMove={handleMobileTouch}>
               <Bun key={key} bId={bId} styled={styled}/>
             </div>
           :

@@ -50,9 +50,7 @@ const LogInComp = ({ setRoute, changeRoute }) => {
         return;
       }
 
-      let hashPassword = CryptoJS.MD5(input.password).toString(CryptoJS.enc.Hex);
-
-      setParamsLogIn({ userName : input.id, password : hashPassword });
+      setParamsLogIn({ userName : input.id, password : input.password });
     }
   }
 
@@ -119,9 +117,8 @@ const SignUpComp = ({ setRoute }) => {
         if(regex.test(input.id) == false){
           return;
         }
-        let hashPassword = CryptoJS.MD5(input.password).toString(CryptoJS.enc.Hex);
 
-        setParamsSignUp({ userName : input.id, password : hashPassword });
+        setParamsSignUp({ userName : input.id, password : input.password });
       }
     }
   }
@@ -151,9 +148,7 @@ const SignUpComp = ({ setRoute }) => {
   const validateMailCode = () => {
     if( input?.id != null && input?.id != '' && input?.emailCode != null && input?.emailCode != '' ){
 
-      let hashCode = CryptoJS.MD5(input.emailCode).toString(CryptoJS.enc.Hex);
-
-      setPramsMailValidate({ userName : input.id, code : hashCode });
+      setPramsMailValidate({ userName : input.id, code : input.emailCode });
     }
   }
 
