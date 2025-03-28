@@ -400,7 +400,7 @@ function useAxios(url, ...props ) {
 
   const fetchData = async () => {
     if(parameter != null){
-      //console.log(`fetch Parameter ${JSON.stringify(parameter)} url ${baseUrl.concat(url)}`)
+      // console.log(`fetch Parameter ${JSON.stringify(parameter)} url ${baseUrl.concat(url)}`)
       await axios.get(
         baseUrl.concat(url), {params : parameter}
       ).then(
@@ -824,7 +824,7 @@ function useHonPageination(pageCount){
   return { page, setPage, previousPage, nextPage, clickPage }
 }
 
-function useHukumu( document, selectedBun, textOffset, setStyled ){
+function useHukumu( selectedBun, textOffset, setStyled ){
 
   const { userId } = useContext(UserContext);
 
@@ -833,29 +833,46 @@ function useHukumu( document, selectedBun, textOffset, setStyled ){
 
   const [hukumuData, setHukumuData] = useState(null);
 
-  const { response : resInHR, setParams : setParamsInHR, fetch : fetchInHR } = useAxios('/hukumu/check', true, null );
+  const { response : resInHR, setParams, fetch } = useAxios('/hukumu/check', true, null);
 
   //쓸거면
   const debounce = useDebounce();
-  const debouncedSetParamsInHR = debounce( (value) => setParamsInHR(value), 500);
+  const debouncedSetParamsInHR = debounce( (value) => setParams(value), 500);
+
+  const fetchInHR = () => {
+    if(selectedBun != null){
+      if(selectedBun != 0){
+        setParams({
+          startOffset : textOffset.startOffset, endOffset : textOffset.endOffset, bId : selectedBun,
+          userId : userId, hId : hId, ytId : ytId
+        });
+      }
+    }
+  }
 
   useEffect( () => {
     let res = resInHR;
 
     if(res != null){
-      setHukumuData({
-        huId : res.data[0]['HUID'],
-        tId : res.data[0]['TID'],
-        hyId : res.data[0]['HYID'],
-        yId : res.data[0]['YID'],
-        hyouki : res.data[0]['HYOUKI'],
-        yomi : res.data[0]['YOMI'],
-        startOffset : res.data[0]['STARTOFFSET'],
-        endOffset : res.data[0]['ENDOFFSET']
-      });
+      if(res.data.length !== 0){
+        setHukumuData({
+          huId : res.data[0]['HUID'],
+          tId : res.data[0]['TID'],
+          hyId : res.data[0]['HYID'],
+          yId : res.data[0]['YID'],
+          hyouki : res.data[0]['HYOUKI'],
+          yomi : res.data[0]['YOMI'],
+          startOffset : res.data[0]['STARTOFFSET'],
+          endOffset : res.data[0]['ENDOFFSET']
+        });
 
-      setStyled({ bId : selectedBun, startOffset : res.data[0]['STARTOFFSET'], endOffset : res.data[0]['ENDOFFSET'], opt : 'highlight' });
-      document.getSelection().removeAllRanges();
+        setStyled({ bId : selectedBun, startOffset : res.data[0]['STARTOFFSET'], endOffset : res.data[0]['ENDOFFSET'], opt : 'highlight' });
+
+        // document.getSelection().removeAllRanges();
+      }
+      else{
+        setHukumuData(null);
+      }
     }
     else{
       setHukumuData(null);
@@ -865,7 +882,7 @@ function useHukumu( document, selectedBun, textOffset, setStyled ){
   useEffect( () => {
     if(selectedBun != null){
       if(selectedBun != 0){
-        setParamsInHR({
+        setParams({
           startOffset : textOffset.startOffset, endOffset : textOffset.endOffset, bId : selectedBun,
           userId : userId, hId : hId, ytId : ytId
         });
@@ -876,7 +893,7 @@ function useHukumu( document, selectedBun, textOffset, setStyled ){
   return { hukumuData, setHukumuData, fetchInHR }
 }
 
-function useOsusumeList( selection ){
+function useOsusumeList( selection, hukumuData ){
 
   const { userId } = useContext(UserContext);
 
@@ -893,7 +910,7 @@ function useOsusumeList( selection ){
   useEffect( () => {
     let res = resHukumuList;
     if(res != null){
-      console.log(res.data);
+      // console.log(res.data);
       setHukumuList(res.data);
     }
     else{
@@ -902,7 +919,7 @@ function useOsusumeList( selection ){
   }, [resHukumuList]);
 
   useEffect( () => {
-    if(selection != null && selection != ''){
+    if(selection != null && selection != '' && hukumuData == null){
       //useJatext를 통해 일본어만 검색.
       let katachi = checkKatachi(selection);
 
@@ -918,10 +935,10 @@ function useOsusumeList( selection ){
     else{
       setHukumuList(null);
     }
-  }, [selection]);
+  }, [selection, hukumuData]);
 
 
-  return { osusumeList : hukumuList, }
+  return { osusumeList : hukumuList }
 }
 
 function useHukumuList( hukumuData ){

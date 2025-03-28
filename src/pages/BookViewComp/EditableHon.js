@@ -139,6 +139,15 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
     refetchTangoList();
   }
 
+  const handleBIdRefetch = (bId) => {
+    setValue('');
+    cancelEdit();
+    fetch();
+    fetchBunAll();
+    refetch(bId);
+    refetchTangoList();
+  }
+
   const handleCustomScroll = () => {
     console.log('handleScroll', editBId, addPoint);
     if(editBId != null){
@@ -263,7 +272,7 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
               <div className="button-container_flexEnd">
                 {
                   editBIdObj['JATEXT'] != value &&
-                  <ModalModifyBun bId={editBId} jaText={editBIdObj['JATEXT']} value={value} handleRefetch={handleRefetch} cancelEdit={cancelEdit}/>
+                  <ModalModifyBun bId={editBId} jaText={editBIdObj['JATEXT']} value={value} handleRefetch={handleBIdRefetch} cancelEdit={cancelEdit}/>
                 }
                 <ModalDeleteBunHon bId={editBId} jaText={editBIdObj['JATEXT']} handleRefetch={handleRefetch} cancelEdit={cancelEdit}/>
                 <button className="button-neutral" onClick={cancelEdit}>취소</button>

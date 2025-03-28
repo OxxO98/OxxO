@@ -4,7 +4,7 @@ import { useMediaQuery } from 'react-responsive';
 
 import { MediaQueryContext } from 'client/MainContext.js'
 
-const Nav = ({route, changeRoute}) => {
+const Nav = ({ route, changeRoute, userName }) => {
   const [selected, setSelected] = useState({
     parent : "Book",
     children : "Hon"
@@ -97,7 +97,7 @@ const Nav = ({route, changeRoute}) => {
         route.idRoute == null ?
         <>
           <div className="logo">
-            OxxO
+            {userName}
           </div>
           <div className="itemContainer">
             {
@@ -108,7 +108,7 @@ const Nav = ({route, changeRoute}) => {
         :
         <>
           <div className={`logo ${isMobile == false ? "expand" : "" }`} onClick={() => {changeRoute("parent")}}>
-            OxxO
+            {userName}
           </div>
           <div className="itemContainer">
             {

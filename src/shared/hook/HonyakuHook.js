@@ -15,7 +15,7 @@ function useHonyakuView( page, rowLength, pageLength, selection, selectedBun, te
 
   const [bunList, setBunList] = useState();
 
-  const {response : res, setParams, fetch} = useAxios('/hon/bun/range', true, { hId : hId, page : page, rowLength : rowLength, pageLength : pageLength} );
+  const { response : res, setParams, fetch } = useAxios('/hon/bun/range', true, { hId : hId, page : page, rowLength : rowLength, pageLength : pageLength} );
 
   useEffect( () => {
     if(res != null){

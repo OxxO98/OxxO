@@ -11,14 +11,14 @@ import { useAxios, useAxiosPost } from 'shared/hook';
 
 import { StepPage } from 'components';
 
-const SignPage = ({ changeRoute }) => {
+const SignPage = ({ changeRoute, setUserName }) => {
   const [ route, setRoute ] = useState('logIn');
 
   return (
     <>
       {
         route === 'logIn' &&
-        <LogInComp setRoute={setRoute} changeRoute={changeRoute}/>
+        <LogInComp setRoute={setRoute} changeRoute={changeRoute} setUserName={setUserName}/>
       }
       {
         route === 'signUp' &&
@@ -28,7 +28,7 @@ const SignPage = ({ changeRoute }) => {
   )
 }
 
-const LogInComp = ({ setRoute, changeRoute }) => {
+const LogInComp = ({ setRoute, changeRoute, setUserName }) => {
   const { userId, setUserId } = useContext(UserContext);
 
   const [input, setInput] = useState();
@@ -61,6 +61,7 @@ const LogInComp = ({ setRoute, changeRoute }) => {
       if( res.data.uId != null){
         setUserId(res.data.uId);
         changeRoute("Book");
+        setUserName(input.id);
       }
       else{
 

@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 
 import { MediaQueryContext } from 'client/MainContext.js'
 import { UserContext, HonContext } from 'client/UserContext.js';
@@ -17,6 +17,7 @@ import { HonyakuBun, HonyakuOnlyBun } from 'shared/customComp';
 import { Dictionary } from 'shared/customComp';
 
 import { useAxios, useHandleSelection, useHonPageination, useActive, useBunRefetch } from 'shared/hook';
+import { useWebSocket, useWsRefetch, useWsPageCount } from 'shared/hook';
 import { useHukumu, useOsusumeList, useHukumuList } from 'shared/hook';
 
 import { useMediaQuery } from 'react-responsive';
@@ -37,7 +38,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength }) => {
   //EditableHon
   const [edit, setEdit] = useState(false);
 
-  const [pageCount, setPageCount] = useState();
+  const [pageCount, setPageCount] = useState(0);
 
   const [styled, setStyled] = useState(null);
 
@@ -47,14 +48,13 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength }) => {
   //HonyakuComp
   const { getActive, setActive } = useActive();
 
-  const { refetch, resetList, bIdRef } = useBunRefetch();
+  const { refetch : refetchBun, resetList, bIdRef } = useBunRefetch();
 
   const { selection, hurigana, offset, selectedBun, selectedMultiBun, textOffset } = useHandleSelection( document, "activeRange" );
 
+  const { hukumuData, setHukumuData, fetchInHR } = useHukumu( selectedBun, textOffset, setStyled );
 
-  const { hukumuData, setHukumuData, fetchInHR } = useHukumu( document, selectedBun, textOffset, setStyled );
-
-  const { osusumeList } = useOsusumeList(selection);
+  const { osusumeList } = useOsusumeList(selection, hukumuData);
 
   const { hukumuList, fetch : fetchHukumuList } = useHukumuList(hukumuData);
 
@@ -99,8 +99,14 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength }) => {
 
   const { tangoData, refetch : refetchTangoList } = useTangoListCompHook( page, pageLength, rowLength );
 
-  const { response : resCount, fetch } = useAxios('/hon/page/count', false, { hId : hId, rowLength : rowLength, pageLength : pageLength } );
+  const { response : resCount, fetch : fetchPageCount } = useAxios('/hon/page/count', false, { hId : hId, rowLength : rowLength, pageLength : pageLength } );
 
+  //webSocket
+  const { ws } = useWebSocket();
+
+  const { wsRefetch : refetch } = useWsRefetch(ws, refetchBun, fetchInHR, selectedBun, textOffset);
+
+  const { wsRefetch : wsFetchPageCount } = useWsPageCount(ws, fetchPageCount);
 
   const isMobile = useMediaQuery({
     query : useContext(MediaQueryContext).mobile
@@ -121,6 +127,17 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength }) => {
     }
   }
 
+  const setWsEdit = (editValue) => {
+    // console.log('setEdit', sync.edit);
+
+    if(editValue == true){
+      ws.current.emit('join edit', { userId : userId, hId : hId });
+    }
+    else{
+      ws.current.emit('leave edit', { userId : userId, hId : hId });
+    }
+  }
+
   useEffect( () => {
     let res = resCount;
     if(res != null){
@@ -132,6 +149,30 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength }) => {
     handleScrollHon(selectedBun);
   }, [toggleHon])
 
+  useEffect( () => {
+    if(ws.current != null){
+
+      ws.current.on('connected', () => {
+        ws.current.emit('join', { userId : userId, hId : hId });
+      })
+
+      ws.current.on('reject edit', () => {
+        setEdit(false);
+      })
+      ws.current.on('accept edit', () => {
+        setEdit(true);
+      })
+
+      ws.current.on('accept leave edit', () => {
+        setEdit(false);
+      })
+
+      ws.current.on('refetch pageCount', () => {
+        fetchPageCount();
+      })
+    }
+  }, [])
+
   const isHonaykuEdit = honyakuEdit == true ? "edit" : "";
 
   const isClicked = isMobile && toggleHon ? "clicked" : "";
@@ -140,6 +181,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength }) => {
   const isFocusedHonyaku = isMobile && isFocused ? "focused" : "";
 
   const isFocusedInfo = isMobile && isFocusedTangochou ? "focused" : "";
+
 
   switch( navRoute ){
     case 'Tangochou' :
@@ -472,7 +514,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength }) => {
             }
             {
               toggleHon == false && isMobile &&
-              <HonGrantWrapper restrict='ADMIN'>
+              <HonGrantWrapper restrict='WRITER'>
                 <div className="hon-layout-edit-button">
                   {
                     edit == true &&
@@ -480,9 +522,9 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength }) => {
                   }
                   {
                     edit == false ?
-                      <button className={`button-positive ${edit == false ? 'active' : ''}`} onClick={() => setEdit(true)}>편집</button>
+                      <button className={`button-positive ${edit == false ? 'active' : ''}`} onClick={() => setWsEdit(true)}>편집</button>
                     :
-                      <button className={`button-positive`} onClick={() => setEdit(false)}>확인</button>
+                      <button className={`button-positive`} onClick={() => setWsEdit(false)}>확인</button>
                   }
                 </div>
               </HonGrantWrapper>
@@ -491,7 +533,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength }) => {
               <Pagination page={page} pageCount={pageCount} nextPage={nextPage} previousPage={previousPage} clickPage={clickPage}/>
               {
                 ( isPc || isTablet ) &&
-                <HonGrantWrapper restrict='ADMIN'>
+                <HonGrantWrapper restrict='WRITER'>
                   <div className="hon-layout-edit-button">
                     {
                       edit == true &&
@@ -499,9 +541,9 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength }) => {
                     }
                     {
                       edit == false ?
-                        <button className={`button-positive ${edit == false ? 'active' : ''}`} onClick={() => setEdit(true)}>편집</button>
+                        <button className={`button-positive ${edit == false ? 'active' : ''}`} onClick={() => setWsEdit(true)}>편집</button>
                       :
-                        <button className={`button-positive`} onClick={() => setEdit(false)}>확인</button>
+                        <button className={`button-positive`} onClick={() => setWsEdit(false)}>확인</button>
                     }
                   </div>
                 </HonGrantWrapper>
@@ -516,14 +558,14 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength }) => {
                 setScroll={setScrollHon}/>
               </div>
             }
-            <HonGrantWrapper restrict='ADMIN'>
+            <HonGrantWrapper restrict='WRITER'>
             {
               edit === true &&
               <div className="hon-edit-layout">
                 <EditableHon page={page}
                 rowLength={rowLength} pageLength={pageLength}
                 bIdRef={bIdRef} styled={styled}
-                importData={importData} fetchPageCount={fetch}
+                importData={importData} fetchPageCount={fetchPageCount}
                 refetch={refetch} refetchTangoList={refetchTangoList}/>
               </div>
             }
@@ -543,7 +585,8 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength }) => {
             {
               isMobile && edit === false &&
               <TangoComp hurigana={hurigana} tango={selection} selectedBun={selectedBun} textOffset={textOffset} refetch={refetch} setStyled={setStyled} hukumuData={hukumuData}
-              fetchInHR={fetchInHR} setToggle={handleMobileHon} toggle={toggleHon}/>
+              fetchInHR={fetchInHR} refetchTangoList={refetchTangoList}
+              setToggle={handleMobileHon} toggle={toggleHon}/>
             }
             {
               ( isTablet || isPc ) &&

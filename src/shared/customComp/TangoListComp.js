@@ -31,7 +31,7 @@ const BookTangoListComp = ({ tangoData, changeRoute, setView, setInfo }) => {
   }
 
   return(
-    <div className={`tangolist_comp ${tangoData == null ? "loading" : ""}`} onWheel={(e) => onWheelFunction(e)}>
+    <div className={`tangolist_comp`} onWheel={(e) => onWheelFunction(e)}>
       {
         tangoData != null &&
         <>

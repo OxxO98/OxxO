@@ -146,8 +146,8 @@ const Bun = ({ bId, styled, ...props}) => {
   const hId = useContext(HonContext);
   const ytId = useContext(YoutubeContext);
 
-  const { response : resBun, loading : resBunLoad, fetch : fetchBun} = useAxios('/bun', false, { bId : bId });
-  const { response : resHukumu, setParams : setParamsHukumu, loading : resHukumuLoad, fetch : fetchHukumu} = useAxios('/hukumu', true, { userId : userId, hId : hId, ytId : ytId, bId : bId} );
+  const { response : resBun, loading : resBunLoad, fetch : fetchBun } = useAxios('/bun', false, { bId : bId });
+  const { response : resHukumu, setParams : setParamsHukumu, loading : resHukumuLoad, fetch : fetchHukumu } = useAxios('/hukumu', true, { userId : userId, hId : hId, ytId : ytId, bId : bId} );
 
   useEffect( () => {
     let res = resBun;
@@ -196,12 +196,6 @@ const Bun = ({ bId, styled, ...props}) => {
       };
     }
   }, [resHukumu]);
-
-  useEffect( () => {
-    if( styled?.bId == bId){
-      console.log(styled);
-    }
-  }, [styled])
 
 /*
   if(hukumuData.length > 0){

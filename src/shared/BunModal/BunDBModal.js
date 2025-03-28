@@ -324,8 +324,7 @@ const ModalModifyBun = ({ bId, jaText, value, handleRefetch, cancelEdit }) => {
     let res = resUpdate;
     if( res != null ){
       console.log(res.data);
-      cancelEdit();
-      handleRefetch();
+      handleRefetch(bId);
     }
   }, [resUpdate])
 

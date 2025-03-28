@@ -65,12 +65,10 @@ const TangoComp = ({hurigana, tango, selectedBun, textOffset, setStyled, hukumuD
     if( isMobile == true ){
       if(props.toggle == true ){
         setEdit(true)
-        //setEditValue(hukumuData.yomi);
       }
     }
     else{
       setEdit(true)
-      //setEditValue(hukumuData.yomi);
     }
   }
 

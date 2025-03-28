@@ -65,6 +65,7 @@
 
     margin : 0;
     padding: 0;
+    user-select: none;
     //@include defaultBorder(1px);
   }
   //@include defaultBorder(1px);
@@ -95,6 +96,7 @@
     //color: $black;
     position: relative;
     z-index: 0;
+    user-select: none;
   }
   &::before {
     content: '';

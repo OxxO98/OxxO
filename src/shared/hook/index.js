@@ -7,3 +7,5 @@ export * from './TangoListCompHook.js'
 export * from './VideoPlayHook.js'
 
 export * from './mobileHook.js';
+
+export * from './SocketHook.js';

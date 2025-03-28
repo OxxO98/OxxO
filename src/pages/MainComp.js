@@ -33,6 +33,7 @@ const MainComp = () => {
   const {route, changeRoute} = useRoute();
 
   const [userId, setUserId] = useState();
+  const [userName, setUserName] = useState();
 
   const isMobile = useMediaQuery({
     query : useContext(MediaQueryContext).mobile
@@ -72,7 +73,7 @@ const MainComp = () => {
     <>
       {
         route.parentRoute != "Login" &&
-        <Nav route={route} changeRoute={changeRoute}/>
+        <Nav route={route} changeRoute={changeRoute} userName={userName}/>
       }
       <UserContext.Provider value={{userId, setUserId}}>
       {
@@ -81,7 +82,7 @@ const MainComp = () => {
             <div className="MainComp">
             {
               route.parentRoute == "Login" ?
-                <SignPage changeRoute={changeRoute}/>
+                <SignPage changeRoute={changeRoute} setUserName={setUserName}/>
               :
                 <div className="WrapCardPane">
                   <div className="drawer">
