@@ -29,7 +29,7 @@ const HonyakuComp = ({ bId, clearEdit, refetch, ...props }) => {
   const [repTL, setRepTL] = useState(null);
   const [tls, setTLs] = useState(null);
 
-  const { response, loading, setParams, fetch} = useAxios('/translate', false, { userId : userId, bId : bId, hId : hId, ytId : ytId });
+  const { response, loading, setParams, fetch } = useAxios('/translate', false, { userId : userId, bId : bId, hId : hId, ytId : ytId });
 
   const handleChange = (e) => {
     setValue(e.target.value);
@@ -38,7 +38,6 @@ const HonyakuComp = ({ bId, clearEdit, refetch, ...props }) => {
   useEffect(()=>{
     let res = response;
     if(res != null){
-      //console.log(res.data);
       setRepTL(res.data.r_tl);
       setTLs(res.data.translateList);
     }
@@ -50,13 +49,21 @@ const HonyakuComp = ({ bId, clearEdit, refetch, ...props }) => {
   }, [bId])
 
   useEffect( () => {
-    if(repTL != null){
-      setValue(repTL['KOTEXT']);
+    if(props.ws != null){
+      let ws = props.ws;
+
+      if(ws.current != null){
+        ws.current.removeAllListeners('refetch translate');
+
+        ws.current.on('refetch translate', (wsBId) => {
+          if(bId == wsBId){
+            // console.log('ws tl Refetch', wsBId, bId);
+            setParams({ userId : userId, bId : bId, hId : hId, ytId : ytId });
+          }
+        })
+      }
     }
-    else{
-      setValue('');
-    }
-  }, [repTL])
+  }, [props.ws, bId])
 
   const isClicked = isMobile && props.toggle ? "clicked" : "";
 
@@ -74,12 +81,19 @@ const HonyakuComp = ({ bId, clearEdit, refetch, ...props }) => {
             <Bun key={bId} bId={bId}/>
           </div>
           {
-            tls != null && tls.length != 0 &&
+            (tls != null && tls.length != 0) ?
             <HonyakuTLDropDown bId={bId} repTL={repTL} tls={tls} fetch={fetch} refetch={refetch}/>
+            :
+            <>
+            {
+              repTL != null &&
+              <span onClick={() => setValue(repTL['KOTEXT'])}>{repTL['KOTEXT']}</span>
+            }
+            </>
           }
           <HonaykuInput value={value} handleChange={handleChange}
           handleFocus={mobileFocus} handleBlur={mobileBlur}/>
-          <div className="button-container_flexEnd">
+          <div className="button-container">
             <HonyakuController bId={bId} repTL={repTL} value={value} clearEdit={clearEdit} fetch={fetch} refetch={refetch}/>
           </div>
         </>
@@ -122,8 +136,6 @@ const HonyakuTLDropDown = ({ bId, repTL, tls, fetch, refetch }) => {
       refetch(bId);
     }
   }, [resSetR_TL])
-
-    console.log(tls);
 
   return(
     <>
@@ -222,7 +234,7 @@ const HonyakuController = ({ bId, repTL, value, clearEdit, fetch, refetch }) => 
     if(res != null){
       fetch();
       refetch(bId);
-      //clearEdit();
+      clearEdit();
     }
   }, [resInsert])
 
@@ -231,7 +243,7 @@ const HonyakuController = ({ bId, repTL, value, clearEdit, fetch, refetch }) => 
     if(res != null){
       fetch();
       refetch(bId);
-      //clearEdit();
+      clearEdit();
     }
   }, [resDelete])
 
@@ -240,7 +252,7 @@ const HonyakuController = ({ bId, repTL, value, clearEdit, fetch, refetch }) => 
     if(res != null){
       fetch();
       refetch(bId);
-      //clearEdit();
+      clearEdit();
     }
   }, [resUpdate])
 

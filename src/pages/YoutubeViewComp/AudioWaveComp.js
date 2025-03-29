@@ -102,20 +102,20 @@ const AudioWaveComp = ({ audioData, audioError, videoId, videoTime, duration, fr
     let seekTimeFrame = timeObj(range + zoom*x/rect.width).getFloorFrame(frameRate);
     let seekRange = seekTimeFrame - range
 
-    console.log(e.shiftKey);
+    // console.log(e.shiftKey);
 
     if(e.shiftKey == false){
       if(e.deltaY > 0){
         let afterZoom = zoomOut();
         if(afterZoom != null){
-          console.log(seekTimeFrame, afterZoom, x/rect.width);
+          // console.log(seekTimeFrame, afterZoom, x/rect.width);
           setRangeCrit(seekTimeFrame - afterZoom*x/rect.width + afterZoom/2, afterZoom);
         }
       }
       else{
         let afterZoom = zoomIn();
         if(afterZoom != null){
-          console.log(seekTimeFrame, afterZoom, x/rect.width);
+          // console.log(seekTimeFrame, afterZoom, x/rect.width);
           setRangeCrit(seekTimeFrame - afterZoom*x/rect.width + afterZoom/2, afterZoom);
         }
       }
@@ -184,7 +184,7 @@ const AudioWaveComp = ({ audioData, audioError, videoId, videoTime, duration, fr
 
   const changeRange = (e) => {
     let a = Number(e.target.value);
-    console.log('changeRange', a + 1);
+    // console.log('changeRange', a + 1);
     setRange(a);
   }
 
@@ -197,10 +197,10 @@ const AudioWaveComp = ({ audioData, audioError, videoId, videoTime, duration, fr
         let temp = filteredData.slice(a*10000, (a+1)*10000 );
         let max = Math.max( ...temp );
         arr.push( max );
-        console.log(max);
+        // console.log(max);
         a++;
       }
-      console.log(arr);
+      // console.log(arr);
       peak = Math.max(...arr);
     }
     else {
@@ -222,8 +222,8 @@ const AudioWaveComp = ({ audioData, audioError, videoId, videoTime, duration, fr
     ctx.scale(dpr, dpr);
 
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-    ctx.fillStyle = '#BFA0A0'; // 캔버스 배경색
-    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+    // ctx.fillStyle = '#BFA0A0'; // 캔버스 배경색
+    // ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
     // 샘플 1개가 차지할 넓이
     //const sampleWidth = waveAreaWidth / (rangeFilteredData.length - 1);
@@ -259,65 +259,64 @@ const AudioWaveComp = ({ audioData, audioError, videoId, videoTime, duration, fr
       }
     }
 
-    if(audioError == false){
-      //zoom된 범위 필터
-      const rangeFilteredDataR = filteredData.right.filter( (arr, index) => (
-        Math.round( range*frameRate ) < index && index <= Math.round( range*frameRate + zoom*frameRate ) + 1
-      ) );
-      const rangeFilteredDataL = filteredData.left.filter( (arr, index) => (
-        Math.round( range*frameRate ) < index && index <= Math.round( range*frameRate + zoom*frameRate ) + 1
-      ) );
-      let lastXR = 0; // x축 좌표
+    //zoom된 범위 필터
+    const rangeFilteredDataR = filteredData.right.filter( (arr, index) => (
+      Math.round( range*frameRate ) < index && index <= Math.round( range*frameRate + zoom*frameRate ) + 1
+    ) );
+    const rangeFilteredDataL = filteredData.left.filter( (arr, index) => (
+      Math.round( range*frameRate ) < index && index <= Math.round( range*frameRate + zoom*frameRate ) + 1
+    ) );
 
-      let lastXL = 0; //Left 데이터.
-      //오디오 파형 그래프 right
-      ctx.beginPath(); // 선을 그리기 위해 새로운 경로를 만든다.
-      ctx.moveTo(0, 10+waveAreaHeight);
-      ctx.strokeStyle = '#BF4040'; // 라인 컬러 설정
-      ctx.fillStyle = '#BF4040'; // 그래프 내부를 채울 컬러 설정
+    let lastXR = 0; // x축 좌표
 
-      rangeFilteredDataR.forEach( (sample, index) => { // 샘플 데이터 배열 루프
-        let x = sampleWidth * index; // x 좌표
-        ctx.lineWidth = 1; // 라인 그래프의 두께
-        ctx.lineTo(
-          x,
-          canvasHeight - Math.abs(sample * waveAreaHeight) - waveAreaHeight // y축 좌표
-        );
+    let lastXL = 0; //Left 데이터.
+    //오디오 파형 그래프 right
+    ctx.beginPath(); // 선을 그리기 위해 새로운 경로를 만든다.
+    ctx.moveTo(0, 10+waveAreaHeight);
+    ctx.strokeStyle = '#BF4040'; // 라인 컬러 설정
+    ctx.fillStyle = '#BF4040'; // 그래프 내부를 채울 컬러 설정
 
-        lastXR = x;
-      });
-      // 라인 그래프 닫기.
-      ctx.lineTo(lastXR, frameArea+waveAreaHeight);
-      ctx.moveTo(0, frameArea+waveAreaHeight);
-      ctx.stroke();
-      ctx.fill();
-      ctx.closePath(); // 그래프가 완성되었으므로 경로를 닫는다.
+    rangeFilteredDataR.forEach( (sample, index) => { // 샘플 데이터 배열 루프
+      let x = sampleWidth * index; // x 좌표
+      ctx.lineWidth = 1; // 라인 그래프의 두께
+      ctx.lineTo(
+        x,
+        canvasHeight - Math.abs(sample * waveAreaHeight) - waveAreaHeight // y축 좌표
+      );
 
-      //오디오 파형 그래프 left
-      ctx.beginPath(); // 선을 그리기 위해 새로운 경로를 만든다.
-      ctx.moveTo(lastXL, canvasHeight);
-      ctx.strokeStyle = '#BF4040'; // 라인 컬러 설정
-      ctx.fillStyle = '#BF4040'; // 그래프 내부를 채울 컬러 설정
+      lastXR = x;
+    });
+    // 라인 그래프 닫기.
+    ctx.lineTo(lastXR, frameArea+waveAreaHeight);
+    ctx.moveTo(0, frameArea+waveAreaHeight);
+    ctx.stroke();
+    ctx.fill();
+    ctx.closePath(); // 그래프가 완성되었으므로 경로를 닫는다.
 
-      rangeFilteredDataL.forEach( (sample, index) => { // 샘플 데이터 배열 루프
-        let x = sampleWidth * index; // x 좌표
-        ctx.lineWidth = 1; // 라인 그래프의 두께
-        ctx.lineTo(
-          x,
-          canvasHeight - Math.abs(sample * waveAreaHeight) // y축 좌표
-        );
+    //오디오 파형 그래프 left
+    ctx.beginPath(); // 선을 그리기 위해 새로운 경로를 만든다.
+    ctx.moveTo(lastXL, canvasHeight);
+    ctx.strokeStyle = '#BF4040'; // 라인 컬러 설정
+    ctx.fillStyle = '#BF4040'; // 그래프 내부를 채울 컬러 설정
 
-        lastXL = x;
-      });
+    rangeFilteredDataL.forEach( (sample, index) => { // 샘플 데이터 배열 루프
+      let x = sampleWidth * index; // x 좌표
+      ctx.lineWidth = 1; // 라인 그래프의 두께
+      ctx.lineTo(
+        x,
+        canvasHeight - Math.abs(sample * waveAreaHeight) // y축 좌표
+      );
 
-      ctx.lineTo(lastXL, canvasHeight);
-      ctx.moveTo(0, canvasHeight);
-      ctx.stroke();
-      ctx.fill();
-      ctx.closePath();
-    }
+      lastXL = x;
+    });
 
-    //frame 표시.
+    ctx.lineTo(lastXL, canvasHeight);
+    ctx.moveTo(0, canvasHeight);
+    ctx.stroke();
+    ctx.fill();
+    ctx.closePath();
+
+    //frame 표시 부분 그리기.
     if(zoom < 5){
       let rangeTimeObj = timeObj(range);
       let xOffset = 1 - (range - rangeTimeObj.getFloorFrame(frameRate))*frameRate;
@@ -325,7 +324,7 @@ const AudioWaveComp = ({ audioData, audioError, videoId, videoTime, duration, fr
       let rangeFrame = rangeTimeObj.getFrameTime(frameRate).frame;
       let zoomLength = Math.floor(zoom*frameRate);
       let lastFrameX = 0;
-      console.log(rangeFrame, xOffset);
+      // console.log(rangeFrame, xOffset);
       if(xOffset > 0){
         let currFrame = rangeFrame;
         ctx.fillStyle = currFrame%2 == 0 ? '#FFFFFF' : '#AAAAAA';
@@ -453,6 +452,7 @@ const AudioWaveComp = ({ audioData, audioError, videoId, videoTime, duration, fr
   }, [videoTime])
 
   useEffect( () => {
+    console.log(audioData);
     if(audioData != null){
       const samplesPerSec = frameRate;
       const {
@@ -464,11 +464,11 @@ const AudioWaveComp = ({ audioData, audioError, videoId, videoTime, duration, fr
         right : audioData.getChannelData(0),
         left : audioData.getChannelData(1)
       }; // 첫번쨰 채널의 AudioBuffer
-      console.log('audioData', audioData);
-      console.log('duration', duration);
-      console.log('sampleRate', sampleRate);
-      console.log('rawData 0', audioData.getChannelData(0));
-      console.log('rawData 1', audioData.getChannelData(1));
+      // console.log('audioData', audioData);
+      // console.log('duration', duration);
+      // console.log('sampleRate', sampleRate);
+      // console.log('rawData 0', audioData.getChannelData(0));
+      // console.log('rawData 1', audioData.getChannelData(1));
       const totalSamples = duration * samplesPerSec;
       const blockSize = Math.floor(sampleRate / samplesPerSec);
       const filteredData = {
@@ -517,10 +517,15 @@ const AudioWaveComp = ({ audioData, audioError, videoId, videoTime, duration, fr
 
   useEffect( () => {
     if(audioError == true){
+      let dummyLength = Math.floor(duration*frameRate);
+      const dummyData = Array.from({ length : dummyLength }, (v, i) =>  Math.random() > 0.5 ? Math.random()*0.7 + 0.3 : Math.random()*0.2 + 0.4 );
+
+      console.log('audiodata error');
+
       setFilteredData({
-        right : null,
-        left : null,
-        length : duration*frameRate
+        right : [...dummyData],
+        left : [...dummyData],
+        length : dummyLength
       });
     }
   }, [audioError])

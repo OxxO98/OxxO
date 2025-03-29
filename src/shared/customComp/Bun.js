@@ -13,7 +13,7 @@ import { UnicodeContext } from 'client/MainContext.js';
 import { MediaQueryContext } from 'client/MainContext.js'
 import { UserContext, HonContext, YoutubeContext } from 'client/UserContext.js';
 
-const HonyakuBun = ({ key, bId, styled, edit, selected, handleSelect, clearEdit, ...props }) => {
+const HonyakuBun = ({ key, bId, styled, edit, selected, handleSelect, clearEdit, bIdRef, ...props }) => {
 
   /*
     props는 getActive, setActive
@@ -34,19 +34,19 @@ const HonyakuBun = ({ key, bId, styled, edit, selected, handleSelect, clearEdit,
           props?.getActive ?
             props.getActive(bId) ?
             <div id="activeRange">
-              <Bun key={key} bId={bId} styled={styled}/>
+              <Bun key={key} bId={bId} styled={styled} bIdRef={bIdRef}/>
             </div>
             :
             <div onMouseDown={ () => props?.setActive(bId) } onTouchStart={handleMobileTouch} onTouchMove={handleMobileTouch}>
-              <Bun key={key} bId={bId} styled={styled}/>
+              <Bun key={key} bId={bId} styled={styled} bIdRef={bIdRef}/>
             </div>
           :
           <div>
-            <Bun key={key} bId={bId}/>
+            <Bun key={key} bId={bId} bIdRef={bIdRef}/>
           </div>
         }
       </div>
-      <HonyakuRepresentive bId={bId} handleSelect={handleSelect} bIdRef={props.bIdRef}/>
+      <HonyakuRepresentive bId={bId} handleSelect={handleSelect} bIdRef={bIdRef}/>
     </div>
   )
 
@@ -63,16 +63,20 @@ const HonyakuRepresentive = ({ bId, handleSelect, ...props }) => {
 
   const [repTL, setRepTL] = useState(null);
 
-  const { response, loading, setParams, fetch} = useAxios('/translate/represent', true, { userId : userId, bId : bId, hId : hId, ytId : ytId } );
+  const { response, loading, setParams, fetch } = useAxios('/translate/represent', true, { userId : userId, bId : bId, hId : hId, ytId : ytId });
 
   useEffect( () => {
     let res = response;
     if(res != null){
       setRepTL(res.data['KOTEXT']);
     }
+    else{
+      setRepTL(null);
+    }
     if(props != null && props.bIdRef != null){
       props.bIdRef.current['bId'+bId] = {
-        fetchBun : fetch
+        ...props.bIdRef.current['bId'+bId],
+        fetchTL : fetch
       };
     }
   }, [response])
@@ -192,6 +196,7 @@ const Bun = ({ bId, styled, ...props}) => {
   useEffect( () => {
     if(props != null && props.bIdRef != null){
       props.bIdRef.current['bId'+bId] = {
+        ...props.bIdRef.current['bId'+bId],
         fetchBun : fetchBun, fetchHukumu: fetchHukumu
       };
     }

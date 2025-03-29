@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef, useContext } from 'react';
 
 import axios from 'axios';
-import YouTube from 'react-youtube';
 
 import { UserContext, YoutubeContext } from 'client/UserContext.js';
 
@@ -84,7 +83,7 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
 
   const handleChange = (e) => {
     setValue(e.target.value);
-    console.log(value);
+    // console.log(value);
   }
 
   const cancelEdit = () => {
@@ -232,19 +231,17 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
   }
 
   const moveCurrentTimeLine = () => {
-    console.group('moveCurrentTimeLine');
     if(videoTime != null){
-      console.log('videoTime')
+      // console.log('videoTime')
       if(bunIds != null){
-        console.log('bunIds')
+        // console.log('bunIds')
         let curTL = getCurrentTimeLine();
         if( curTL != null){
-          console.log('curTL')
+          // console.log('curTL')
           setCurrentBunId( curTL );
         }
       }
     }
-    console.groupEnd();
   }
 
   const getCurrentTimeLine = ( time ) => {
@@ -256,7 +253,7 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
     let b = bunIds.findIndex( (arr) =>
      tsToTime(arr['startTime']) == cTime
     );
-    console.log(cTime, bunIds, a, b);
+    // console.log(cTime, bunIds, a, b);
     if( a != -1 ){
       if( b != -1 ){
         return b;
@@ -345,7 +342,7 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
     if(importData != null){
       if(selectImportBun != null){
         if(selectImportBun['JATEXT'] !== value){
-          console.log('selectImportBun');
+          // console.log('selectImportBun');
           setSelectImportBun(null);
         }
       }

@@ -165,7 +165,6 @@ function useVideoPlayHook( target, filteredData, frame, markStart, markEnd, star
     if(selectMarker != null){
       if(selectMarker == 'startTime'){
         let autoMarkerPoint = getPrevAutoMarkerPoint( startTime, 1, 0.5 );
-        console.log('autoStartTime', startTime, autoMarkerPoint)
         setStartTime( autoMarkerPoint );
         gotoTime(autoMarkerPoint, true);
         setScratch(true, autoMarkerPoint, endTime, false);
@@ -197,7 +196,6 @@ function useVideoPlayHook( target, filteredData, frame, markStart, markEnd, star
     if(selectMarker != null){
       if(selectMarker == 'endTime'){
         let autoMarkerPoint = getNextAutoMarkerPoint( endTime, 1, 0.5);
-        console.log('autoEndTime', endTime, autoMarkerPoint);
         setEndTime(autoMarkerPoint);
         gotoTime(startTime, true);
         setScratch(true, startTime, autoMarkerPoint, false);
@@ -306,21 +304,17 @@ function useVideoPlayHook( target, filteredData, frame, markStart, markEnd, star
     let rangePointIndex = timeObj(time).getFloorFrame(frame)*frame;
     let rangePrevIndex = rangePointIndex - range*frame;
     let minThreshold = 0.01;
-    console.log(time, timeObj(time).getFrameStamp(frame));
     if(filteredData != null){
       let rangeFilteredData = filteredData.right.filter( (arr, index) => ( rangePrevIndex < index && index <= rangePointIndex ) );
-      console.log('rangeFilteredData', rangeFilteredData);
-      console.log('rangeFilteredDataLength', rangeFilteredData.length);
 
       let currTimeWaveRate = rangeFilteredData[rangeFilteredData.length - 1];
-      console.log('thisTime', time, currTimeWaveRate);
 
       if( threshold > currTimeWaveRate ){
         for(let i = rangeFilteredData.length-2; i >= 0; i--){
           let currFrameTime = rangeFilteredData.length-1-i;
 
           if( rangeFilteredData[i] > rangeFilteredData[i+1] ){
-            console.log('threshold Up', rangeFilteredData[i], rangeFilteredData[i+1]);
+            // console.log('threshold Up', rangeFilteredData[i], rangeFilteredData[i+1]);
             let prevTimeObj = timeObj(time - (currFrameTime-1)/frame);
 
             return prevTimeObj.getFloorFrame(frame);
@@ -340,7 +334,6 @@ function useVideoPlayHook( target, filteredData, frame, markStart, markEnd, star
       let lastThreshold = null;
       for(let i = rangeFilteredData.length-2; i >= 0; i-- ){
         let currFrameTime = rangeFilteredData.length-1-i;
-        console.log('i', i, rangeFilteredData[i]);
 
         if( maxWaveRate - rangeFilteredData[i] > threshold ){
           if(lastThreshold != null){
@@ -348,7 +341,7 @@ function useVideoPlayHook( target, filteredData, frame, markStart, markEnd, star
               lastThreshold = i;
             }
             else{
-              console.log('threshold');
+              // console.log('threshold');
               let thresholdObj = timeObj(time - (rangeFilteredData.length-1-lastThreshold)/frame);
 
               return thresholdObj.getFloorFrame(frame);
@@ -359,7 +352,7 @@ function useVideoPlayHook( target, filteredData, frame, markStart, markEnd, star
           }
         }
         else if( minThreshold > rangeFilteredData[i] ){
-          console.log('minThreshold');
+          // console.log('minThreshold');
           let currTimeObj = timeObj(time - (currFrameTime)/frame);
 
           return currTimeObj.getFloorFrame(frame);
@@ -379,21 +372,18 @@ function useVideoPlayHook( target, filteredData, frame, markStart, markEnd, star
     let rangePointIndex = timeObj(time).getFloorFrame(frame)*frame;
     let rangeNextIndex = rangePointIndex + range*frame;
     let minThreshold = 0.01;
-    console.log(time, timeObj(time).getFrameStamp(frame));
+
     if(filteredData != null){
       let rangeFilteredData = filteredData.right.filter( (arr, index) => ( rangePointIndex <= index && index < rangeNextIndex ) );
-      console.log('rangeFilteredData', rangeFilteredData);
-      console.log('rangeFilteredDataLength', rangeFilteredData.length);
 
       let currTimeWaveRate = rangeFilteredData[0];
-      console.log('thisTime', time, currTimeWaveRate);
 
       if( threshold > currTimeWaveRate ){
         for(let i = 1; i <= rangeFilteredData.length-1; i++){
           let currFrameTime = i;
 
           if( rangeFilteredData[i] > rangeFilteredData[i-1] ){
-            console.log('threshold Up', rangeFilteredData[i], rangeFilteredData[i+1]);
+            // console.log('threshold Up', rangeFilteredData[i], rangeFilteredData[i+1]);
             let prevTimeObj = timeObj(time + (currFrameTime-1)/frame);
 
             return prevTimeObj.getFloorFrame(frame);
@@ -412,7 +402,6 @@ function useVideoPlayHook( target, filteredData, frame, markStart, markEnd, star
       let lastThreshold = null;
       for(let i = 1; i <= rangeFilteredData.length-1; i++){
         let currFrameTime = i;
-        console.log('i', i, rangeFilteredData[i]);
 
         if( maxWaveRate - rangeFilteredData[i] > threshold ){
           if(lastThreshold != null){
@@ -420,7 +409,7 @@ function useVideoPlayHook( target, filteredData, frame, markStart, markEnd, star
               lastThreshold = i;
             }
             else{
-              console.log('threshold');
+              // console.log('threshold');
               let thresholdObj = timeObj(time + (lastThreshold)/frame);
 
               return thresholdObj.getFloorFrame(frame);
@@ -431,7 +420,7 @@ function useVideoPlayHook( target, filteredData, frame, markStart, markEnd, star
           }
         }
         else if( minThreshold > rangeFilteredData[i] ){
-          console.log('minThreshold');
+          // console.log('minThreshold');
           let currTimeObj = timeObj(time + (currFrameTime)/frame);
 
           return currTimeObj.getFloorFrame(frame);
@@ -445,7 +434,7 @@ function useVideoPlayHook( target, filteredData, frame, markStart, markEnd, star
   }
 
   const handleKeyboard = (e) =>{
-    console.log(e.key);
+    // console.log(e.key);
     switch(e.key){
       case " ":
         pauseYT();
@@ -497,7 +486,7 @@ function useVideoPlayHook( target, filteredData, frame, markStart, markEnd, star
   useEffect(()=>{
     //아마 played useEffect전에 키입력이 발생할 경우 씹히는 듯함
     if(autoStop.set == true){
-      console.log(`autoStop ${autoStop.startOffset} : ${autoStop.endOffset}`);
+      // console.log(`autoStop ${autoStop.startOffset} : ${autoStop.endOffset}`);
       if(played*duration > autoStop.endOffset){
         if(autoStop.loop == false){
           target.current.seekTo(autoStop.startOffset, 'seconds');
@@ -655,16 +644,6 @@ function useTimeStamp(){
     }
 
     return sec + frame*(1/frameRate);
-
-    /*
-    console.log(time);
-    let sec = Math.floor(time);
-    let tick = time*1000 % 1000;
-    console.log('sec', sec);
-    console.log('tick', tick, sec + Math.floor(tick/frameRate)/frameRate );
-
-    return Number(sec) + Number( Math.floor(tick/frameRate)/frameRate );
-    */
   }
 
   const timeObj = function( time ){

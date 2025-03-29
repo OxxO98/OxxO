@@ -80,7 +80,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength }) => {
   const { listPage : searchListPage, nextPage : nextTangochouSearchPage, previousPage : previousTangochouSearchPage, clickPage : clickTangochouSearchPage, page : tcSearchPage, pageCount : tcSearchPageCount } = useTangochouPagination( searchList?.length/10, view );
 
   //Honyaku관련
-  const { bunList, fetch : honyakuRefetch } = useHonyakuView( page, rowLength, pageLength, selection, selectedBun, textOffset, hukumuData, setHukumuData, osusumeList, setStyled);
+  const { bunList, fetch : honyakuRefetch } = useHonyakuView( page, rowLength, pageLength, selection, selectedBun, textOffset, hukumuData, setHukumuData, osusumeList, setStyled, resetList);
 
   const { toggle : toggleHonyaku, handleMobile : handleMobileHonyaku, clearToggle : clearToggleHonyaku } = useMobileToggle();
 
@@ -181,7 +181,6 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength }) => {
   const isFocusedHonyaku = isMobile && isFocused ? "focused" : "";
 
   const isFocusedInfo = isMobile && isFocusedTangochou ? "focused" : "";
-
 
   switch( navRoute ){
     case 'Tangochou' :
@@ -443,7 +442,8 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength }) => {
               ( isPc || isTablet ) && honyakuEdit == true &&
               <div className="honyakuComp-layout">
                 <HonyakuComp bId={honyakuSelected} clearEdit={honyakuClearEdit} refetch={refetch} getActive={getActive} setActive={setActive} styled={styled}
-                handleScroll={handleScroll}/>
+                handleScroll={handleScroll}
+                ws={ws}/>
               </div>
             }
           </div>
@@ -497,7 +497,8 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength }) => {
             <div className={`honyakuComp-layout ${isHonaykuEdit} ${isClickedHonyaku} ${isFocusedHonyaku}`}>
               <HonyakuComp bId={honyakuSelected} clearEdit={honyakuClearEdit}
               refetch={refetch}  getActive={getActive} setActive={setActive} styled={styled}
-              handleScroll={handleScroll} handleFocus={handleFocus} handleBlur={handleBlur}/>
+              handleScroll={handleScroll} handleFocus={handleFocus} handleBlur={handleBlur}
+              ws={ws}/>
             </div>
           }
         </div>

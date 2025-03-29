@@ -28,11 +28,13 @@ function useWsRefetch(ws, refetch, fetchInHR, selectedBun, textOffset){
 
   const hId = useContext(HonContext);
 
-  const wsRefetch = () => {
+  const wsRefetch = (bId) => {
 
-    ws.current.emit('refetch bun', { userId : userId, hId : hId, bId : selectedBun, offset : textOffset })
+    ws.current.emit('refetch bun', { userId : userId, hId : hId, bId : bId, offset : textOffset })
 
-    refetch(selectedBun);
+    refetch(bId);
+    // console.log('wsRefetch', selectedBun);
+    // console.log('wsRefetch', bId);
   }
 
   useEffect( () => {
@@ -56,6 +58,10 @@ function useWsRefetch(ws, refetch, fetchInHR, selectedBun, textOffset){
       })
     }
   }, [selectedBun, textOffset])
+
+  //쓴다면 HonyakuComp의 Controller관련도,
+  //useEffect [honyakuSelected]로 둘지는 고민.
+  //이것도 한다면 ref로 해야할 듯.
 
   return { wsRefetch }
 }

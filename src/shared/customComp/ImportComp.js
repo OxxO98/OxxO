@@ -139,7 +139,6 @@ const ImportYoutubeModal = ({ importData, setImportData }) => {
   useEffect( () => {
     let res = resGetBun;
     if(res != null){
-      console.log(res.data);
       setBunData(res.data);
     }
     else{

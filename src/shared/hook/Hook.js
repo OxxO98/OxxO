@@ -713,12 +713,16 @@ function useBunRefetch(){
     for(let key in bIdRef.current ){
       let fetchBUN = bIdRef.current[key]?.fetchBun;
       let fetchHUKUMU = bIdRef.current[key]?.fetchHukumu;
+      let fetchTL = bIdRef.current[key]?.fetchTL;
 
       if(fetchBUN != null && fetchBUN != undefined){
         fetchBUN();
       }
       if(fetchHUKUMU != null && fetchHUKUMU != undefined){
         fetchHUKUMU();
+      }
+      if(fetchTL != null && fetchTL != undefined){
+        fetchTL();
       }
     }
   }
@@ -731,12 +735,16 @@ function useBunRefetch(){
 
     let fetchBUN = bIdRef.current['bId'+bId]?.fetchBun;
     let fetchHUKUMU = bIdRef.current['bId'+bId]?.fetchHukumu;
+    let fetchTL = bIdRef.current['bId'+bId]?.fetchTL;
 
     if(fetchBUN != null && fetchBUN != undefined){
       fetchBUN();
     }
     if(fetchHUKUMU != null && fetchHUKUMU != undefined){
       fetchHUKUMU();
+    }
+    if(fetchTL != null && fetchTL != undefined){
+      fetchTL();
     }
   }
 
@@ -755,7 +763,6 @@ function useTestBook( str ) {
 
   const testStr = () => {
     if(str == null || str == ''){
-      console.log("빈문자열");
       return;
     }
 
@@ -794,6 +801,7 @@ function useTestBook( str ) {
   return { objData, dataList }
 }
 
+//삭제 예정
 function useConsole(){
   const group = (data, groupStr) => {
     console.group(groupStr);
@@ -869,6 +877,8 @@ function useHukumu( selectedBun, textOffset, setStyled ){
         setStyled({ bId : selectedBun, startOffset : res.data[0]['STARTOFFSET'], endOffset : res.data[0]['ENDOFFSET'], opt : 'highlight' });
 
         // document.getSelection().removeAllRanges();
+        // console.log(res.data[0]['STARTOFFSET'] - textOffset.startOffset);
+        // console.log(res.data[0]['ENDOFFSET'] - textOffset.endOffset);
       }
       else{
         setHukumuData(null);

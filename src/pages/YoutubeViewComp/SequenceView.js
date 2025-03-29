@@ -181,7 +181,7 @@ const YoutubeCCModal = ({ ytsId }) => {
           timeCode : mergeStartTime+" - "+mergeEndTime
         });
         //console.log(res.data);
-        console.log(res.data);
+        // console.log(res.data);
         setReviseObj(a);
       }
     )
@@ -280,7 +280,7 @@ const YoutubeCCModal = ({ ytsId }) => {
       'http://localhost:5000/youtube/bun/multi', { userId : userId, ytId : ytId, array : queryArr, ytsId : ytsId }
     ).then(
       res => {
-        console.log(res.data);
+        // console.log(res.data);
       }
     )
   }
@@ -291,7 +291,7 @@ const YoutubeCCModal = ({ ytsId }) => {
       ...input,
       ret : jsString
     })
-    console.log(timelineData);
+    // console.log(timelineData);
     //setIsRevise(true);
   }
 
@@ -311,7 +311,7 @@ const YoutubeCCModal = ({ ytsId }) => {
 
   useEffect( () => {
     if(timelineData != null){
-      console.log(timelineData);
+      // console.log(timelineData);
       let jsString = JSON.stringify(timelineData);
       setInput({
         ...input,
@@ -332,7 +332,7 @@ const YoutubeCCModal = ({ ytsId }) => {
       for(let key in res.data){
         let huri = yomiToHuri( res.data[key]['DATA'], res.data[key]['RUBY'] );
 
-        console.log(huri);
+        // console.log(huri);
       }
     }
   }, [resHukumu])
@@ -341,7 +341,7 @@ const YoutubeCCModal = ({ ytsId }) => {
     let res = resGetTimeLine;
 
     if(res != null && res.data.length > 0){
-      console.log(res.data);
+      // console.log(res.data);
       let a = new Array();
 
       for(let key in res.data){
@@ -371,12 +371,12 @@ const YoutubeCCModal = ({ ytsId }) => {
     }
     else{
       if(res != null){
-        console.log('res length', res.data.length);
+        // console.log('res length', res.data.length);
       }
       //setTimelineData(null);
       if( ytId != null && ytsId != null){
         setParamsNonProp({ ytId : ytId, ytsId : ytsId });
-        console.log('setParamsNonProp');
+        // console.log('setParamsNonProp');
       }
     }
   }, [resGetTimeLine])
@@ -384,7 +384,7 @@ const YoutubeCCModal = ({ ytsId }) => {
   useEffect( () => {
     let res = resGetTimeLineNonProp;
     if( res != null ){
-      console.log(res.data);
+      // console.log(res.data);
       let a = new Array();
       for(let key in res.data){
         a.push({
@@ -398,7 +398,7 @@ const YoutubeCCModal = ({ ytsId }) => {
       }
       setTimelineData(a);
       setInput(a);
-      console.log('resGetTimeLineNonProp');
+      // console.log('resGetTimeLineNonProp');
     }
   }, [resGetTimeLineNonProp])
 

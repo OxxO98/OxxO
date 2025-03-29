@@ -42,8 +42,6 @@ const ModalInsertDan = ({ importData, selectImportBun, addPoint, value, handleRe
           bunObj[key] = replaceSpecial(bunArr[key]);
         }
 
-        console.log(bunObj);
-
         setParamsInsertDan({ userId : userId, hId : hId, critDId : dId, prev : prev, bunObj : bunObj });
       }
     }
@@ -69,8 +67,6 @@ const ModalInsertDan = ({ importData, selectImportBun, addPoint, value, handleRe
           multiObj[key] = dan;
         }
 
-        console.log(multiObj);
-
         setParamsInsertMultiDan({ userId : userId, hId : hId, critDId : dId, prev : prev, multiObj : multiObj });
       }
     }
@@ -89,8 +85,6 @@ const ModalInsertDan = ({ importData, selectImportBun, addPoint, value, handleRe
       handleRefetch();
     }
   }, [resInsertMultiDan])
-
-  console.log('modalDan', addPoint);
 
   return(
     <>
@@ -306,7 +300,6 @@ const ModalModifyBun = ({ bId, jaText, value, handleRefetch, cancelEdit }) => {
   const modifyHukumu = () => {
     let jaText = replaceSpecial(value);
 
-    console.log(searchedList);
     let modifyObj = new Object();
     for(let key in modifiedList){
       modifyObj[key] = modifiedList[key];
@@ -323,7 +316,6 @@ const ModalModifyBun = ({ bId, jaText, value, handleRefetch, cancelEdit }) => {
   useEffect( () => {
     let res = resUpdate;
     if( res != null ){
-      console.log(res.data);
       handleRefetch(bId);
     }
   }, [resUpdate])
@@ -333,17 +325,12 @@ const ModalModifyBun = ({ bId, jaText, value, handleRefetch, cancelEdit }) => {
     if(res != null){
 
       setHukumuData(res.data);
-
-      console.log(res.data);
     }
   }, [resHukumu]);
 
   useEffect( () => {
     if(hukumuData != null){
       let { trace, add, del } = traceHukumu(hukumuData, jaText, value);
-
-      console.log('hukumuData', hukumuData);
-      console.log('trace', trace);
 
       let searchArr = new Array();
       let modifyArr = new Array();
@@ -389,9 +376,6 @@ const ModalModifyBun = ({ bId, jaText, value, handleRefetch, cancelEdit }) => {
           })
         }
       }
-
-      console.log(modifyArr);
-      console.log(deleteArr);
 
       setSearchedList(searchArr);
       setModifiedList(modifyArr);
@@ -495,7 +479,6 @@ const ModalDeleteBunHon = ({ bId, jaText, handleRefetch, cancelEdit }) => {
   }
 
   useEffect( () => {
-    console.log(resDelete);
     let res = resDelete;
     if(res != null){
       handleRefetch();
@@ -553,7 +536,6 @@ const ModalDeleteBun = ({ bId, jaText, cancelEdit, deleteHukumu }) => {
   useEffect( () => {
     let res = response;
     if( res != null ){
-      console.log(res.data);
       setDeleteData(res.data);
     }
   }, [response])
@@ -714,7 +696,6 @@ const ImportDropDown = ({ importData, bunIds, setSelectImportBun, setValue, dire
       if(bunIds != null){
         let notInBunIds = importData.filter( (arr) => bunIds.some( (val) => val['bId'] === arr['BID'] ) == false );
 
-        console.log('notInBunIds', notInBunIds);
         if(notInBunIds.length > 0){
           setRepBun(notInBunIds[0]);
           setFilteredImportedData(notInBunIds);
@@ -725,7 +706,6 @@ const ImportDropDown = ({ importData, bunIds, setSelectImportBun, setValue, dire
         }
       }
       else{
-        console.log('importData', importData);
         setRepBun(importData[0]);
         setFilteredImportedData(importData);
       }

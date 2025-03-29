@@ -67,7 +67,6 @@ const ImiComp = ({ hukumuData, selection, selectedBun, setStyled, textOffset, ch
   useEffect( () => {
     let res = resGetImiFromHukumu;
     if(res != null){
-      console.log(res.data);
       if(res.data[0]['IID'] != null){
         setIId(res.data[0]['IID']);
       }
@@ -83,11 +82,9 @@ const ImiComp = ({ hukumuData, selection, selectedBun, setStyled, textOffset, ch
         //단어로 IID가져오기.
         if(iId != null){
           //HUKUMU의 IID가 있는 경우
-          console.log(iId);
           let dropDownIIds = res.data.iIds;
           dropDownIIds = dropDownIIds.filter( (arr) => arr['IID'] != iId );
           setDropDownImi(dropDownIIds);
-          console.log(dropDownIIds);
 
           let imiArr = res.data.iIds.filter((arr) => arr['IID'] == iId);
           if( imiArr.length != 0 ){
@@ -97,7 +94,6 @@ const ImiComp = ({ hukumuData, selection, selectedBun, setStyled, textOffset, ch
             setImi(null);
           }
 
-          console.log(imiArr);
         }
         else{
           setImi(null);
