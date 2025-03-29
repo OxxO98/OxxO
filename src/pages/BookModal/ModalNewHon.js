@@ -122,7 +122,7 @@ const ModalBookContainer = ({ handleClose, fetch }) => {
 
   const newHonNonTest = () => {
     if(input.title == null || input.title == ''){
-      console.log("타이틀 없음");
+      // console.log("타이틀 없음");
       return;
     }
 
@@ -180,8 +180,6 @@ const ExpModalBookContainer = ({ handleClose, fetch }) => {
   const { response : resPostNewHon, setParams : setParamsPostNH } = useAxiosPost('/exp/newHon', true, null);
   const { response : resNewHonNonTest, setParams : setParamsNewHonNonTest } = useAxiosPost('/hon', true, null);
 
-  console.log(handleClose);
-
   //test용
   const [input, setInput] = useState({
     title : null,
@@ -191,13 +189,13 @@ const ExpModalBookContainer = ({ handleClose, fetch }) => {
 
   const testNewHon = () => {
     if(input.str == null || input.str == ''){
-      console.log("빈문자열");
+      // console.log("빈문자열");
       return;
     }
 
     let kagiCheck = input.str.match(/[「」]/g);
     if(kagiCheck == null || kagiCheck?.length%2 == 0 ){
-      console.log(`kagiCheck true`);
+      // console.log(`kagiCheck true`);
     }
     else{
       return;
@@ -208,7 +206,7 @@ const ExpModalBookContainer = ({ handleClose, fetch }) => {
 
   const newHon = () => {
     if(input.title == null || input.title == ''){
-      console.log("타이틀 없음");
+      // console.log("타이틀 없음");
       return;
     }
 
@@ -217,7 +215,7 @@ const ExpModalBookContainer = ({ handleClose, fetch }) => {
 
   const newHonNonTest = () => {
     if(input.title == null || input.title == ''){
-      console.log("타이틀 없음");
+      // console.log("타이틀 없음");
       return;
     }
 
@@ -242,7 +240,6 @@ const ExpModalBookContainer = ({ handleClose, fetch }) => {
       }
     }
     setDataList(a);
-    console.log(a);
   }
 
   const dataListToObj = (dataList) => {
@@ -254,7 +251,6 @@ const ExpModalBookContainer = ({ handleClose, fetch }) => {
         ['B' + dataList[key]['bun'] ] : dataList[key]['text']
       }
     }
-    console.log(ret);
     setObjData(ret);
   }
 
@@ -270,11 +266,9 @@ const ExpModalBookContainer = ({ handleClose, fetch }) => {
     let dan = editPoint.dan;
     let bun = editPoint.bun;
 
-    console.log(Object.values(objData[dan]));
     //merge인 경우 단락 끝
     if( 'B'+(Object.values(objData[dan]).length-1) == bun ){
       //merge
-      console.log(`merge ${dan} ${dan}+1`);
 
       let danNum = Number(dan.substring(1));
       let bunNum = Number(bun.substring(1));
@@ -292,13 +286,9 @@ const ExpModalBookContainer = ({ handleClose, fetch }) => {
           arr.dan--;
         }
       })
-
-      console.log(`after : `);
-      console.log(dataList);
     }
     else{
       //cut
-      console.log(`cut ${dan} ${bun} ${bun}+1`);
 
       let danNum = Number(dan.substring(1));
       let bunNum = Number(bun.substring(1));
@@ -317,8 +307,6 @@ const ExpModalBookContainer = ({ handleClose, fetch }) => {
         }
       })
 
-      console.log(`after : `);
-      console.log(dataList);
     }
 
     dataListToObj(dataList);
@@ -376,7 +364,6 @@ const ExpModalBookContainer = ({ handleClose, fetch }) => {
   let testList = new Array();
 
   if(objData != null){
-    console.log(objData);
     for(let key in objData){
       testList.push( <CheckDan dan={key} object={objData[key]} setEditPoint={setEditPoint}/> );
     }

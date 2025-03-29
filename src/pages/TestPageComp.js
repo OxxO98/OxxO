@@ -160,7 +160,7 @@ const ValidateHonComp = () => {
   const { response : resGetTest, setParams : setParamsGetTest } = useAxios('/user/validate/hon/range', false, {hId : 1});
 
   const submit = () => {
-    console.log(input);
+    // console.log(input);
     let obj = new Object();
 
     for(let key in validateData){
@@ -170,7 +170,7 @@ const ValidateHonComp = () => {
         text : input[key]
       }
     }
-    console.log(obj);
+    // console.log(obj);
     setParamsTest({
       hId : 1,
       dataObj : obj
@@ -278,11 +278,11 @@ const TestSelectionComp = () => {
 
   const handleSelection = () => {
     let tmpSelection = document.getSelection();
-    console.log( 'Selection', tmpSelection );
-    console.log( 'string', tmpSelection.toString() );
+    // console.log( 'Selection', tmpSelection );
+    // console.log( 'string', tmpSelection.toString() );
     let startNode = tmpSelection.anchorNode;
     let endNode = tmpSelection.focusNode;
-    console.log('node', startNode, endNode);
+    // console.log('node', startNode, endNode);
   }
 
   const debouncedHandleSelection = debounce( (value) => handleSelection(value), 300);

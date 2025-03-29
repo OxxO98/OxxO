@@ -164,7 +164,7 @@ const UploadThumbnailComp = ({ hId, setImgSrc, handleRefetch }) => {
 
   const fileUpload = (e) => {
     e.preventDefault();
-    console.log(imgFile);
+    // console.log(imgFile);
 
     if(imgFile != null && imgFile != undefined){
 
@@ -210,7 +210,7 @@ const EditBookSearch = ({hId, text, dataList, searchList, setSearchList}) => {
 
   useEffect( () => {
     if(loading == false){
-      console.log(response.data);
+      // console.log(response.data);
       if(response.data.length == 0){
         setData({
           bId : '없음',

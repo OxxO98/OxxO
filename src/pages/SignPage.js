@@ -192,7 +192,7 @@ const SignUpComp = ({ setRoute }) => {
         setRoute('logIn');
       }
       else{
-        console.log('이미 존재하는 userName입니다.');
+        // console.log('이미 존재하는 userName입니다.');
       }
     }
   }, [resSignUp])

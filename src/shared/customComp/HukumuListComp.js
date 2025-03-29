@@ -14,7 +14,6 @@ const HonHukumuListComp = ({ hukumuData, hukumuList, refetch, rowLength, pageLen
   const {response : resHukumuInsert, setParams : setParamsHukumuInsert} = useAxiosPost('/hukumu', true, null);
 
   const commitOne = (obj) => {
-    console.log(hukumuData);
     setParamsHukumuInsert({
       userId : userId, hId : hId,
       bId : obj.bId, startOffset : obj.startOffset, endOffset : obj.endOffset,
@@ -26,7 +25,6 @@ const HonHukumuListComp = ({ hukumuData, hukumuList, refetch, rowLength, pageLen
   useEffect( () => {
     let res = resHukumuInsert;
     if(res != null){
-      console.log(`fetching : ${hukumuData.hyouki}`)
       // setParamsHukumuBun({ userId : userId, hId : hId, text : hukumuData.hyouki});
       fetchHukumuList();
       refetch(res.data[0]['BID']);
@@ -54,7 +52,6 @@ const YoutubeHukumuListComp = ({ hukumuData, hukumuList, refetch, setStyled, fet
   const {response : resHukumuInsert, setParams : setParamsHukumuInsert} = useAxiosPost('/hukumu', true, null);
 
   const commitOne = (obj) => {
-    console.log(hukumuData);
     setParamsHukumuInsert({
       userId : userId, ytId : ytId,
       bId : obj.bId, startOffset : obj.startOffset, endOffset : obj.endOffset,
@@ -65,9 +62,7 @@ const YoutubeHukumuListComp = ({ hukumuData, hukumuList, refetch, setStyled, fet
 
   useEffect( () => {
     let res = resHukumuInsert;
-    console.log(res);
     if(res != null){
-      console.log(`fetching : ${hukumuData.hyouki}`)
       fetchHukumuList();
       refetch(res.data[0]['BID']);
     }
@@ -123,7 +118,6 @@ const HukumuBunCompMovePage = ({ arr, rowLength, pageLength, setPage, setStyled,
   }, [res])
 
   const handleMovePage = () => {
-    console.log(arr);
     setPage(movePage);
     setStyled({bId : arr.bId, startOffset : arr.startOffset, endOffset : arr.endOffset, opt : 'highlight'});
     //refetch(arr.bId);

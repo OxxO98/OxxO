@@ -83,7 +83,7 @@ const YoutubeView = ({ navRoute, changeRoute, videoId }) => {
 
   const { selection, hurigana, offset, selectedBun, selectedMultiBun, textOffset } = useHandleSelection( document, "activeRange" );
 
-  const { hukumuData, setHukumuData, fetchInHR } = useHukumu( document, selectedBun, textOffset, setStyled );
+  const { hukumuData, setHukumuData, fetchInHR } = useHukumu( selectedBun, textOffset, setStyled );
 
   const { osusumeList } = useOsusumeList(selection);
 
@@ -108,7 +108,7 @@ const YoutubeView = ({ navRoute, changeRoute, videoId }) => {
       }
     ).catch(
       function(error){
-        console.log('error');
+        // console.log('error');
         setAudioError(true);
       }
     );

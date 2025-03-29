@@ -227,7 +227,7 @@ const ModalTangoDB = ({ tango, value, selectedBun, textOffset, handleRefetch }) 
   const { response : resNewTango, setParams : setParamsNewTango, fetch : fetchNewTango } = useAxiosPost( '/tango', true, null);
 
   const modifyHurigana = (hyouki, yomi, tId) => {
-    console.log(`HonComp : ${hyouki} ${yomi} ${tId} ${textOffset.startOffset} ${textOffset.endOffset} ${selectedBun}`);
+    // console.log(`HonComp : ${hyouki} ${yomi} ${tId} ${textOffset.startOffset} ${textOffset.endOffset} ${selectedBun}`);
     setParamsNewTango({
       userId: userId, hId : hId, ytId : ytId,
       bId : selectedBun, startOffset : textOffset.startOffset, endOffset : textOffset.endOffset,
@@ -236,12 +236,12 @@ const ModalTangoDB = ({ tango, value, selectedBun, textOffset, handleRefetch }) 
   }
 
   const openFunction = () => {
-    console.log(`hyouki ${tango} yomi ${value}`);
+    // console.log(`hyouki ${tango} yomi ${value}`);
     setSearchText({hyouki : tango, yomi : value});
   }
 
   const handleSubmit = (tId) => {
-    console.log('handleSubmit', tId);
+    // console.log('handleSubmit', tId);
     modifyHurigana(tango, value, tId);
   }
 
@@ -272,7 +272,7 @@ const ModalTangoDB = ({ tango, value, selectedBun, textOffset, handleRefetch }) 
 
   useEffect( () => {
     if(response != null){
-      console.log(response.data);
+      // console.log(response.data);
       let kanzenSame = new Array(); //표기 읽기 완전 일치
       let orSame = new Array(); //표기 or 읽기 완전 일치
       let prefix = new Array(); //전방일치 (표기)
@@ -283,7 +283,7 @@ const ModalTangoDB = ({ tango, value, selectedBun, textOffset, handleRefetch }) 
       let a = searchText.hyouki.match( okuriRegex );
       let text = a?.groups != null ? a.groups.any+a.groups.kanji : tango; //검색어
 
-      console.log(`tango : ${tango} a: ${a} - ${text} value ${value}`);
+      // console.log(`tango : ${tango} a: ${a} - ${text} value ${value}`);
       for(let key in response.data){
         let cpr = response.data[key];
 
@@ -591,7 +591,6 @@ const ModalDeleteHukumu = ({ huId, handleRefetch, hyouki, yomi }) => {
   useEffect( () => {
     let res = resCheck;
     if(res != null){
-      console.log(res.data);
       setDeleteData(res.data);
     }
   }, [resCheck])

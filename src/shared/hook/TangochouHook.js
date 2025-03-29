@@ -74,7 +74,6 @@ function useTangochouSearch(){
   useEffect( () => {
     let res = resSearch;
     if(res != null){
-      console.log(res.data);
       let a = new Array();
 
       for(let key in res.data){

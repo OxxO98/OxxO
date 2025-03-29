@@ -39,7 +39,6 @@ const SearchComp = ({ value, setValue, rowLength, pageLength, setPage, setStyled
 
   useEffect( () => {
     if(res != null && res.data.length != 0){
-      console.log(res.data);
       let a = new Array();
 
       for(let key in res.data){

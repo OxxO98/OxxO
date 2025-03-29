@@ -10,7 +10,7 @@ import { MediaQueryContext } from 'client/MainContext.js'
 
 import { HonContext } from 'client/UserContext.js';
 
-function useHonyakuView( page, rowLength, pageLength, selection, selectedBun, textOffset, hukumuData, setHukumuData, hukumuList, setStyled ){
+function useHonyakuView( page, rowLength, pageLength, selection, selectedBun, textOffset, hukumuData, setHukumuData, hukumuList, setStyled, resetList ){
   const hId = useContext(HonContext);
 
   const [bunList, setBunList] = useState();
@@ -26,6 +26,7 @@ function useHonyakuView( page, rowLength, pageLength, selection, selectedBun, te
   useEffect( () => {
     if(page != null){
       setParams( { hId : hId, page : page, rowLength : rowLength, pageLength : pageLength} );
+      // resetList();
     }
   }, [page]);
 

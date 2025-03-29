@@ -149,13 +149,13 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
   }
 
   const handleCustomScroll = () => {
-    console.log('handleScroll', editBId, addPoint);
+    // console.log('handleScroll', editBId, addPoint);
     if(editBId != null){
       handleScroll(editBId);
-        console.log('handleScroll', editBId);
+      // console.log('handleScroll', editBId);
     }
     else if(addPoint != null && addPoint.type != null){
-      console.log('handleScroll', addPoint);
+      // console.log('handleScroll', addPoint);
       if(addPoint.type == 'DAN'){
         handleScroll(`ap${addPoint.dId}${addPoint.prev == false ? "_last" : ""}`);
       }
@@ -196,7 +196,6 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
         bNum : arr['B_NUM'],
         dNum : arr['D_NUM']
       } })
-      console.log(a);
       setBunIds(a);
     }
   }, [resGetBunAll])
@@ -204,7 +203,7 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
   useEffect( () => {
     let res = resGetRangeBun;
     if(res != null){
-      console.log('resGetRangeBun', res.data);
+      // console.log('resGetRangeBun', res.data);
       let a = new Array();
       //let tmpBunList = new Array();
       let prevDanId;
@@ -229,7 +228,7 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
           });
         }
       }
-      console.log(a);
+      // console.log(a);
       setRangeBIdObj(res.data);
       setRangeBunIds(a);
     }
@@ -238,8 +237,6 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
       setRangeBunIds(null);
     }
   }, [resGetRangeBun])
-
-  console.log('addPoint', addPoint);
 
   const isEditable = editBId != null || ( addPoint != null && addPoint.type != null );
 

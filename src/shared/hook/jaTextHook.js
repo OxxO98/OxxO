@@ -68,8 +68,7 @@ function useHuri(){
   const hysToHuri = (bunText, hys, huri) => {
     //HYS는 표기를 전각 공백으로 연결 한 것
     let hurigana = "";
-    //console.warn(`test : ${yomiToHuri( "申し込み", "もうしこみ" )}`);
-    console.log(`${bunText} ${hys} ${huri}`);
+    // console.log(`${bunText} ${hys} ${huri}`);
     if(huri != null && hys != null){
       let kanjiBunArr = bunText.match(kanjiRegex);
       let hyoukiArr = hys.split('　');
@@ -102,7 +101,6 @@ function useHuri(){
       })
       //console.log(hurigana);
     }
-    console.log(hurigana);
 
     return hurigana;
   }
@@ -706,7 +704,8 @@ function useJaText(){
         'g'
       )
       let match = bunText.match(reviseRegex);
-      console.log(match);　//두개 이상일경우 다 나옴. 근데 이단계에서 값이 나오는건 그다지 쓸모 없을 듯함.
+      // console.log(match);　
+      //두개 이상일경우 다 나옴. 근데 이단계에서 값이 나오는건 그다지 쓸모 없을 듯함.
 
       if(match == null){
         return [null, -1, -1];
@@ -810,7 +809,7 @@ function useJaText(){
       }
       else{
         if( min == medArr[i][j-1]){
-          console.log(`${newText[j-1]} 추가`);
+          // console.log(`${newText[j-1]} 추가`);
           ret.add.push({
             text : newText[j-1], offset : j-1
            });
@@ -818,7 +817,7 @@ function useJaText(){
           j -= 1;
         }
         else if( min == medArr[i-1][j]){
-          console.log(`${bunText[i-1]} 삭제`);
+          // console.log(`${bunText[i-1]} 삭제`);
           ret.del.push({
             text : bunText[i-1], offset : i-1
           });
@@ -826,7 +825,7 @@ function useJaText(){
           i -= 1;
         }
         else{
-          console.log(`${bunText[i-1]}를 ${newText[j-1]}로 변경`);
+          // console.log(`${bunText[i-1]}를 ${newText[j-1]}로 변경`);
           ret.del.push({
             text : bunText[i-1], offset : i-1
           });
@@ -851,7 +850,7 @@ function useJaText(){
       function getIsDel(start, end){
         return medValue.reduce( (acc, v, i) => {
           if( start <= i && i < end ){
-            console.log('v, i', v, i);
+            // console.log('v, i', v, i);
             return acc + v;
           }
           return acc;
@@ -892,7 +891,7 @@ function useJaText(){
       function getIsAdd(start, end){
         return medValue.reduce( (acc, v, i) => {
           if( start <= i && i < end ){
-            console.log('v, i', v, i);
+            // console.log('v, i', v, i);
             return acc + v;
           }
           return acc;
@@ -931,10 +930,6 @@ function useJaText(){
 
     //일단 현재 getHukumuData의 양식에 따라서.
     const matchArr = hukumu.map( (arr) => { return matchOkuriExec(arr.DATA, arr.RUBY, newText) });
-
-    console.log(hukumu);
-    console.log(bunText);
-    console.log(newText);
 
     let ret = [...hukumu]; // 일단 얕은 복사로 되어서 hukumu의 내용을 수정하게 됨. 근데 딱히 문제는 없는 듯.
 
@@ -1001,8 +996,8 @@ function useJaText(){
         }
       }
     }
-    console.log('jaTextHook DEL', del.getValue());
-    console.log('ret', ret);
+    // console.log('jaTextHook DEL', del.getValue());
+    // console.log('ret', ret);
 
     return { trace : ret, del : del, add : add };
   }
@@ -1065,7 +1060,6 @@ function useJaText(){
         bunText = bunText.concat('。');
       }
     }
-    console.log(bunText);
     return bunText;
   }
 
@@ -1083,7 +1077,6 @@ function useKirikae(value, handleChange){
   const { isAllHangul, isAllHira, koNFCToHira } = useJaText();
 
   const handleKrikae = (e) => {
-    console.log(e);
     if( isKirikae == true ){
       setIsKirikae(false);
     }
