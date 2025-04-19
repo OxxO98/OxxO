@@ -6,7 +6,7 @@ import { useAxios } from  'shared/hook';
 
 import { useMobileScroll } from 'shared/hook';
 
-import { ImportDropDown, ModalInsertDan, ModalInsertBun, ModalModifyBun, ModalDeleteBunHon, ModalMergeDan, ModalDivideDan } from 'shared/BunModal';
+import { ImportDropDown, ModalInsertDan, ModalInsertBun, ModalModifyBun, ModalDeleteBunHon, ModalMergeDan, ModalDivideDan } from 'shared/bunModal';
 
 import { Bun } from 'shared/customComp'
 

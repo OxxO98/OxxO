@@ -178,7 +178,7 @@ const ImiComp = ({ hukumuData, selection, selectedBun, setStyled, textOffset, ch
                 </DropDown.Representive>
                 <DropDown.Content>
                 {
-                  dropDownImi != null && dropDownImi.length != 0 &&
+                  ( dropDownImi != null && dropDownImi.length != 0 ) ?
                     <>
                       {
                         dropDownImi.map( (arr) =>
@@ -188,6 +188,10 @@ const ImiComp = ({ hukumuData, selection, selectedBun, setStyled, textOffset, ch
                           {arr['IMI']}
                         </div> )
                       }
+                    </>
+                    :
+                    <>
+                    없음
                     </>
                 }
                 </DropDown.Content>

@@ -1,7 +1,5 @@
 import React, {useEffect, useState, useContext} from 'react';
 
-import axios from 'axios';
-
 import { UserContext, YoutubeContext } from 'client/UserContext.js';
 
 import { Bun, HonyakuBun } from 'shared/customComp';
