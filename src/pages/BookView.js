@@ -13,7 +13,7 @@ import { Pagination } from 'components';
 
 import { SearchComp, SearchListComp, HonGrantWrapper, BookTangoListComp, HonHukumuListComp, ImportYoutubeModal } from 'shared/customComp';
 import { OsusumeListComp } from 'shared/customComp';
-import { HonyakuBun, HonyakuOnlyBun } from 'shared/customComp';
+import { HonyakuBun } from 'shared/customComp';
 import { Dictionary } from 'shared/customComp';
 
 import { useAxios, useHandleSelection, useHonPageination, useActive, useBunRefetch } from 'shared/hook';
@@ -80,7 +80,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength }) => {
   const { listPage : searchListPage, nextPage : nextTangochouSearchPage, previousPage : previousTangochouSearchPage, clickPage : clickTangochouSearchPage, page : tcSearchPage, pageCount : tcSearchPageCount } = useTangochouPagination( searchList?.length/10, view );
 
   //Honyaku관련
-  const { bunList, fetch : honyakuRefetch } = useHonyakuView( page, rowLength, pageLength, selection, selectedBun, textOffset, hukumuData, setHukumuData, osusumeList, setStyled, resetList);
+  const { bunList, fetch : honyakuRefetch } = useHonyakuView( page, rowLength, pageLength);
 
   const { toggle : toggleHonyaku, handleMobile : handleMobileHonyaku, clearToggle : clearToggleHonyaku } = useMobileToggle();
 

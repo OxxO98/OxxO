@@ -1,23 +1,22 @@
-import { createContext } from 'react'
-
-export const ServerContext = createContext('http://localhost:5000');
-
-export const MediaQueryContext = createContext({
-  pc : "(min-width:1024px)",
-  tablet : "(min-width:758px) and (max-width:1023px)",
-  mobile : "(max-width:757px)"
-})
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.UnicodeRangeContext = exports.UnicodeContext = exports.MediaQueryContext = exports.ServerContext = void 0;
+const react_1 = require("react");
+exports.ServerContext = (0, react_1.createContext)('http://localhost:5000');
+exports.MediaQueryContext = (0, react_1.createContext)({
+    pc: "(min-width:1024px)",
+    tablet: "(min-width:758px) and (max-width:1023px)",
+    mobile: "(max-width:757px)"
+});
 //사실상 hiragana는 한자가 아닌 모두
-export const UnicodeContext = createContext({
-  kanji : /[\u3400-\u9fff\u3005]+/g,
-  kanjiStart : /^[\u3400-\u9fff\u3005]+/g,
-  hiragana : /[^\u3400-\u9fff\u3005]+/g,
-  okuri : /(?<any>.*)(?<kanji>[\u3400-\u9fff]+)(?<okuri>[^\u3400-\u9fff]+)$/
-})
-
-export const UnicodeRangeContext = createContext({
-  kanji : '\\u3400-\\u9fff\u3005',
-  hiragana : '\\3040-\\u309f',
-  katakana : '\\u30a0-\\u30ff'
-})
+exports.UnicodeContext = (0, react_1.createContext)({
+    kanji: /[\u3400-\u9fff\u3005]+/g,
+    kanjiStart: /^[\u3400-\u9fff\u3005]+/g,
+    hiragana: /[^\u3400-\u9fff\u3005]+/g,
+    okuri: /(?<any>.*)(?<kanji>[\u3400-\u9fff]+)(?<okuri>[^\u3400-\u9fff]+)$/
+});
+exports.UnicodeRangeContext = (0, react_1.createContext)({
+    kanji: '\\u3400-\\u9fff\u3005',
+    hiragana: '\\3040-\\u309f',
+    katakana: '\\u30a0-\\u30ff'
+});

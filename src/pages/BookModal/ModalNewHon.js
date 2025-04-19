@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
 
-import axios from 'axios';
-
 import CryptoJS from "crypto-js"
 
 import { Modal, StepPage, DropDown } from 'components';

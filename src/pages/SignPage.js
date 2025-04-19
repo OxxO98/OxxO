@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import axios from 'axios';
 import CryptoJS from "crypto-js"
 import { useMediaQuery } from 'react-responsive';
 

@@ -1,54 +1,36 @@
-import React, { useContext, useEffect, useState } from 'react';
-//import { ServerContext } from 'client/MainContext.js';
-
-//import axios from 'axios';
-import { useMediaQuery } from 'react-responsive';
-
-import { useAxios } from './Hook.js';
-
-import { MediaQueryContext } from 'client/MainContext.js'
-
-import { HonContext } from 'client/UserContext.js';
-
-function useHonyakuView( page, rowLength, pageLength, selection, selectedBun, textOffset, hukumuData, setHukumuData, hukumuList, setStyled, resetList ){
-  const hId = useContext(HonContext);
-
-  const [bunList, setBunList] = useState();
-
-  const { response : res, setParams, fetch } = useAxios('/hon/bun/range', true, { hId : hId, page : page, rowLength : rowLength, pageLength : pageLength} );
-
-  useEffect( () => {
-    if(res != null){
-      setBunList(res.data);
-    }
-  }, [res])
-
-  useEffect( () => {
-    if(page != null){
-      setParams( { hId : hId, page : page, rowLength : rowLength, pageLength : pageLength} );
-      // resetList();
-    }
-  }, [page]);
-
-  return { hukumuData, setHukumuData, hukumuList, bunList, fetch }
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.useHonyakuView = useHonyakuView;
+exports.useSelectEdit = useSelectEdit;
+const react_1 = require("react");
+const hook_1 = require("shared/hook");
+const client_1 = require("client");
+function useHonyakuView(page, rowLength, pageLength) {
+    const hId = (0, react_1.useContext)(client_1.HonContext);
+    const [bunList, setBunList] = (0, react_1.useState)();
+    const { response: res, setParams, fetch } = (0, hook_1.useAxios)('/hon/bun/range', true, { hId: hId, page: page, rowLength: rowLength, pageLength: pageLength });
+    (0, react_1.useEffect)(() => {
+        if (res != null) {
+            setBunList(res.data);
+        }
+    }, [res]);
+    (0, react_1.useEffect)(() => {
+        if (page != null) {
+            setParams({ hId: hId, page: page, rowLength: rowLength, pageLength: pageLength });
+        }
+    }, [page]);
+    return { bunList, fetch };
 }
-
-function useSelectEdit(){
-  const [edit, setEdit] = useState(false);
-
-  const [selected, setSelected] = useState(null);
-
-  const handleSelect = (selectId) => {
-    setSelected(selectId);
-    setEdit(true);
-  }
-
-  const clearEdit = () => {
-    setSelected(null);
-    setEdit(false);
-  }
-
-  return { edit, selected, handleSelect, clearEdit };
+function useSelectEdit() {
+    const [edit, setEdit] = (0, react_1.useState)(false);
+    const [selected, setSelected] = (0, react_1.useState)(null);
+    const handleSelect = (selectId) => {
+        setSelected(selectId);
+        setEdit(true);
+    };
+    const clearEdit = () => {
+        setSelected(null);
+        setEdit(false);
+    };
+    return { edit, selected, handleSelect, clearEdit };
 }
-
-export { useHonyakuView, useSelectEdit }

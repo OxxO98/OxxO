@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useContext, useMemo, useRef } from 'react';
 
-import axios from 'axios';
-
 import CryptoJS from "crypto-js"
 
 import { useMediaQuery } from 'react-responsive';
@@ -164,7 +162,6 @@ const UploadThumbnailComp = ({ hId, setImgSrc, handleRefetch }) => {
 
   const fileUpload = (e) => {
     e.preventDefault();
-    // console.log(imgFile);
 
     if(imgFile != null && imgFile != undefined){
 
@@ -174,12 +171,10 @@ const UploadThumbnailComp = ({ hId, setImgSrc, handleRefetch }) => {
       formData.append("hId", hId);
 
       setParamsNewImage(formData);
-      // console.log('post', formData);
     }
   }
 
   const handleChangeImg = (e) => {
-    //console.log(e.target.files);
     setImgFile(e.target.files[0]);
   }
 
@@ -201,76 +196,4 @@ const UploadThumbnailComp = ({ hId, setImgSrc, handleRefetch }) => {
   )
 }
 
-//현재 기능하지 않음.
-const EditBookSearch = ({hId, text, dataList, searchList, setSearchList}) => {
-  const {response, error, loading} = useAxios(
-    '/hon/bun/search', {hId : hId, text : text}
-  );
-  const [data, setData] = useState({});
-
-  useEffect( () => {
-    if(loading == false){
-      // console.log(response.data);
-      if(response.data.length == 0){
-        setData({
-          bId : '없음',
-          dNum : 0,
-          bNum : 0,
-          text : null
-        });
-
-        let copy = [...searchList];
-
-        copy.push({
-          dan : Number(dataList['dan'].substring(1)),
-          bun : Number(dataList['bun'].substring(1)),
-          bool : false
-        });
-        setSearchList(copy);
-      }
-      else{
-        setData({
-          bId : response.data[0]['BID'],
-          dNum : response.data[0]['DNUM'],
-          bNum : response.data[0]['BNUM'],
-          text : response.data[0]['JATEXT']
-        });
-        let copy = [...searchList];
-
-        copy.push({
-          dan : response.data[0]['DNUM'],
-          bun : response.data[0]['BNUM'],
-          bool : true
-        });
-        setSearchList(copy);
-      }
-    }
-  }, [loading]);
-
-  if(loading == true){
-    return(
-      <>
-        <div>loading...</div>
-      </>
-    )
-  }
-
-  let testCompared;
-
-  if(data?.text != null){
-    testCompared = <CompareBun key={data.bId} strA={data.text} strB={dataList['text']}/>;
-  }
-  else{
-    testCompared = <CompareBun key="asdf" strA="生き生きと目の前のことばが理由を探ることにより、より動きし事の桜にしっかりと根づいたのである。"
-      strB="しかし、理由を探ることにより、目の前のことばがより生き生きと動き出し、自分の中にしっかりと根づいてのである。"/>;
-  }
-
-  return(
-    <>
-      <div>bId : {data['bId']} dNum : {data['dNum']} bNum : {data['bNum']}</div>
-      {testCompared}
-    </>
-  );
-}
-
-export { ModalEditHon, EditBookSearch }
+export { ModalEditHon }

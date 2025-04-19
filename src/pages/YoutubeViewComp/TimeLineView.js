@@ -1,11 +1,9 @@
 import React, { useEffect, useState, useRef, useContext } from 'react';
 
-import axios from 'axios';
-
 import { UserContext, YoutubeContext } from 'client/UserContext.js';
 
-import { Bun, HonyakuBun, HonyakuRepresentive, ComplexText, CompareBun, YoutubeGrantWrapper } from 'shared/customComp';
-import { ImportDropDown, ModalModifyBun, ModalDeleteBunYoutube } from 'shared/BunModal';
+import { Bun, HonyakuBun, HonyakuRepresentive, ComplexText, YoutubeGrantWrapper } from 'shared/customComp';
+import { ImportDropDown, ModalModifyBun, ModalDeleteBunYoutube } from 'shared/bunModal';
 import { Modal, Accordian, DropDown } from 'components';
 
 import { HonyakuComp } from 'pages';
@@ -522,41 +520,6 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
       }
     </>
   )
-  //2025 03 15 리팩토링중..
-  /*
-  {
-    editYtbId == null ?
-    <>
-    <div className="timeline-control timeline">
-      <div className="jaText" id="activeRange">
-        <Bun key={bunIds[currentBunId]['bId']} bId={bunIds[currentBunId]['bId']} bIdRef={bIdRef} styled={styled}/>
-      </div>
-      <label></label>
-    </div>
-    <div className="timeline-control timeline">
-      <input className="input-default" type="text" value={value} onChange={handleChange}/>
-      <button className="button-delete" onClick={cancelEdit}>취소</button>
-    </div>
-    <div className="timeline-control timeline">
-      <button className="button-positive" type="button" onClick={ () => { insertBun(value)} }>저장</button>
-    </div>
-  */
-
-
-  //HonyakuBun을 사용하는 대신에 조금더 생각해보기
-  /*
-  <HonyakuOnlyBun key={bunIds[currentBunId]['bId']} bId={bunIds[currentBunId]['bId']}/>
-  */
-  //activeRange를 사용하는 것은 BUN관련 컴포넌트에서만 동작
-
-  /*
-  <div className="koText">해석</div>
-  <button className="button-positive" onClick={
-    () => {
-      setEditYtbId(bunIds[currentBunId]['bId']);
-    }
-  }>수정</button>
-  */
 }
 
 const TimeLineBun = ({bId, ytbId, jaText, startTimestamp, endTimestamp, startTime, endTime, setStartTime, setEndTime, setValue, setEditYtbId, setEditBId, target, setScratch, bIdRef, styled, ...props}) => {
