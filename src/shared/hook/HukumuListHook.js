@@ -23,15 +23,19 @@ function useHukumuList(hukumuData) {
     }, [hukumuData]);
     (0, react_1.useEffect)(() => {
         let res = resHon;
-        dbToHukumuList(res);
+        if (res != null) {
+            dbToHukumuList(res.data);
+        }
     }, [resHon]);
     (0, react_1.useEffect)(() => {
         let res = resYoutube;
-        dbToHukumuList(res);
+        if (res != null) {
+            dbToHukumuList(res.data);
+        }
     }, [resYoutube]);
-    const dbToHukumuList = (res) => {
-        if (res !== null) {
-            setHukumuList(res.data.map((arr) => {
+    const dbToHukumuList = (data) => {
+        if (data !== null) {
+            setHukumuList(data.map((arr) => {
                 return {
                     startOffset: arr['OFFSET'],
                     endOffset: arr['OFFSET'] + hukumuData.hyouki.length,

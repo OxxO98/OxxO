@@ -6,7 +6,7 @@ function useDebounce(){
     return useCallback<(callback : any, delay :number) => void>(
       ( callback : any, delay : number ) => (...arg : any) => {
         clearTimeout(timer.current);
-        timer.current = setTimeout(() => {
+        timer.current = window.setTimeout(() => {
           callback(...arg);
         }, delay);
       }, []
@@ -24,7 +24,7 @@ function useDebounce(){
   
         isThrottle.current = true;
   
-        setTimeout( () => {
+        window.setTimeout( () => {
           callback(...arg);
           isThrottle.current = false;
         }, delay)

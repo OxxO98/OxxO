@@ -43,7 +43,6 @@ const HonGrantWrapper = ({ restrict, children }) => {
     (0, react_1.useEffect)(() => {
         let res = response;
         if (res !== null) {
-            console.log(res, restrict);
             if (isRestrict(res?.data?.grant) === true) {
                 setGranted(true);
             }

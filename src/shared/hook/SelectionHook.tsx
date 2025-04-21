@@ -207,7 +207,7 @@ function useHandleSelection( document : Document, restrictId : string ) {
     useEffect(() => {
         document.addEventListener('selectionchange', debouncedHandleSelection);
         return () => {
-        document.removeEventListener('selectionchange', debouncedHandleSelection);
+            document.removeEventListener('selectionchange', debouncedHandleSelection);
         };
     }, []);
 

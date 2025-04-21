@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState, useRef, useCallback } from 'rea
 import { UserContext, YoutubeContext, HonContext } from 'client';
 
 import { useAxios } from 'shared/hook';
-import { AxiosPromise, AxiosResponse } from 'axios';
 
 interface HukumuResponse {
   OFFSET : number;
@@ -45,19 +44,23 @@ function useHukumuList( hukumuData : HukumuDataObj ){
     useEffect( () => {
       let res = resHon;
   
-      dbToHukumuList(res);
+      if(res != null){
+        dbToHukumuList(res.data);
+      }
     }, [resHon])
   
     useEffect( () => {
       let res = resYoutube;
   
-      dbToHukumuList(res);
+      if(res != null){
+        dbToHukumuList(res.data);
+      }
     }, [resYoutube])
   
-    const dbToHukumuList = ( res : AxiosResponse<Array<HukumuResponse>> ) => {
-      if(res !== null){
+    const dbToHukumuList = ( data : Array<HukumuResponse> ) => {
+      if(data !== null){
         setHukumuList(
-          res.data.map(
+          data.map(
             (arr : HukumuResponse) => {
               return{
                 startOffset : arr['OFFSET'],

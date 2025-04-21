@@ -46,7 +46,6 @@ function useAxios(url, ...props ) {
         baseUrl.concat(url)
       ).then(
         response => {
-          console.log(response);
            if(response.data.length != 0){
              setResponse(response);
            }

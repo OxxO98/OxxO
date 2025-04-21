@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState, useMemo } from 'react';
 
 import { useMediaQuery } from 'react-responsive';
 
-import { useAxios, useKirikae, useDebounce, useJaText } from 'shared/hook';
+import { useAxios, useKirikae } from 'shared/hook';
 
 import { MediaQueryContext } from 'client';
 import { UserContext, HonContext } from 'client';

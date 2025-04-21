@@ -68,7 +68,7 @@ function useRoute() {
                 setRoute({
                     ...route,
                     idRoute: defaultRoute[route.parentRoute],
-                    id: key
+                    id: parseInt(key)
                 });
                 break;
         }
@@ -76,7 +76,7 @@ function useRoute() {
     return { route, changeRoute };
 }
 function useBunRefetch() {
-    const bIdRef = (0, react_1.useRef)({});
+    const bIdRef = (0, react_1.useRef)(null);
     const refetchAll = () => {
         for (let key in bIdRef.current) {
             let fetchBUN = bIdRef.current[key]?.fetchBun;
@@ -98,6 +98,9 @@ function useBunRefetch() {
             refetchAll();
             return;
         }
+        if (bIdRef.current == null) {
+            return;
+        }
         let fetchBUN = bIdRef.current['bId' + bId]?.fetchBun;
         let fetchHUKUMU = bIdRef.current['bId' + bId]?.fetchHukumu;
         let fetchTL = bIdRef.current['bId' + bId]?.fetchTL;
@@ -112,7 +115,7 @@ function useBunRefetch() {
         }
     };
     const resetList = () => {
-        bIdRef.current = {};
+        bIdRef.current = null;
     };
     // console.log('useBunRefetch', Object.keys(bIdRef.current)[0], bIdRef.current);
     return { refetch, resetList, bIdRef };
@@ -139,7 +142,6 @@ function useHukumu(selectedBun, textOffset, setStyled) {
     (0, react_1.useEffect)(() => {
         let res = resInHR;
         if (res != null) {
-            console.log(res.data);
             if (res.data.length !== 0) {
                 setHukumuData({
                     huId: res.data[0]['HUID'],
@@ -174,6 +176,6 @@ function useHukumu(selectedBun, textOffset, setStyled) {
             }
         }
     }, [textOffset.startOffset, textOffset.endOffset]);
-    console.log(selectedBun, textOffset);
+    // console.log(selectedBun, textOffset);
     return { hukumuData, setHukumuData, fetchInHR };
 }

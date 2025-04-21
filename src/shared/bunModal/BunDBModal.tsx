@@ -9,13 +9,6 @@ import { useAxios, useAxiosPut, useAxiosPost, useAxiosDelete, useJaText, useBun 
 
 import { HonGrantWrapper, YoutubeGrantWrapper } from 'shared/customComp';
 
-interface AddPointObj {
-  type : "DAN" | "BUN";
-  dId : number,
-  bId : number,
-  prev : boolean
-}
-
 interface ImportDataObj {
   BID : number;
   JATEXT : string;

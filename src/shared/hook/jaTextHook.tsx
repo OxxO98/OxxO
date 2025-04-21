@@ -774,14 +774,14 @@ function useJaText(){
 
     let arr;
     while( (arr = match.exec()) != null ){
-      console.log(arr);
+      // console.log(arr);
     }
   }
 
   const getMED = (bunText : string, newText : string) => {
     let medArr = Array.from( Array(bunText.length+1), () => new Array(newText.length+1));
 
-    console.log(bunText.length, newText.length);
+    // console.log(bunText.length, newText.length);
 
     for(let i = 0; i < medArr.length; i++){
       for(let j = 0; j < medArr[i].length; j++){

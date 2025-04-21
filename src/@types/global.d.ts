@@ -2,6 +2,7 @@ export {};
 
 declare global {
 
+  ///Context
   interface MediaQueryContextInterface {
     pc : string;
     tablet : string;
@@ -22,11 +23,11 @@ declare global {
   }
 
   interface UserContextInterface {
-    userId : number;
-    setUser : (userId : number) => void;
+    userId : number | null;
+    setUserId : (userId : numbe | null) => void;
   }
 
-
+  //
   interface ObjStringKey<T> extends Array<T> {
     [index : string | number] : T;
   }
@@ -34,6 +35,11 @@ declare global {
   type ObjKey = {
     [index : string | number] : any;
   }
+
+  //type
+
+
+  //Interface
 
   interface StyledObj {
     bId : number;
@@ -62,5 +68,20 @@ declare global {
     yomi : string;
     startOffset : number;
     endOffset : number;
+  }
+
+  interface AddPointObj {
+    type : "DAN" | "BUN" | null;
+    dId : number | null;
+    bId : number | null;
+    prev : boolean;
+  }
+
+  ///youtube
+  interface AutoStopObj {
+    set : boolean;
+    startOffset : number;
+    endOffset : number;
+    loop : boolean;
   }
 }

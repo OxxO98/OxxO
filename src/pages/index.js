@@ -11,7 +11,7 @@ export * from './BookViewComp/TangoComp.js'
 export * from './YoutubeViewComp/SequenceView.js'
 export * from './YoutubeViewComp/AudioWaveComp.js'
 export * from './YoutubeViewComp/TimeLineView.js'
-export * from './YoutubeViewComp/YTHonyakuComp.js'
+// export * from './YoutubeViewComp/YTHonyakuComp.js'
 
 export * from './TestPageComp.js'
 

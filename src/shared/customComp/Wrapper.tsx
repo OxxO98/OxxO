@@ -6,7 +6,7 @@ import { UserContext, HonContext, YoutubeContext } from 'client';
 
 interface GrantWrapperProps {
   restrict : "ADMIN" | 'admin' | 'WRITER' | 'writer' | 'READER' | 'reader';
-  children : React.ReactNode;
+  children : any;
 }
 
 const HonGrantWrapper = ({ restrict, children } : GrantWrapperProps ) => {
@@ -51,7 +51,6 @@ const HonGrantWrapper = ({ restrict, children } : GrantWrapperProps ) => {
   useEffect( () => {
     let res = response;
     if(res !== null){
-      console.log(res, restrict);
       if( isRestrict(res?.data?.grant) === true ){
         setGranted(true);
       }
@@ -148,13 +147,13 @@ const GrantWrapper = ({ restrict, children } : GrantWrapperProps ) => {
         {
           ( hId !== null && hId !== undefined ) &&
           <HonGrantWrapper restrict={restrict}>
-          {children}
+            {children}
           </HonGrantWrapper>
         }
         {
           ( ytId !== null && ytId !== undefined ) &&
           <YoutubeGrantWrapper restrict={restrict}>
-          {children}
+            {children}
           </YoutubeGrantWrapper>
         }
         </>

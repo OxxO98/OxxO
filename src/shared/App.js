@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-import { ServerContext } from 'client/MainContext';
-
 import { useAxios } from 'shared/hook';
 
 import { MainComp } from 'pages';
 
 import { Accordian } from 'components';
+
+import { ServerContext } from 'client';
 
 const App = () => {
   //서버 켜져있는지 체크용도.
@@ -29,7 +29,9 @@ const App = () => {
         serverChecked == false ?
         <DeadServerComp/>
         :
-        <MainComp/>
+        <ServerContext.Provider value={process.env.REACT_APP_API_URL}>
+          <MainComp/>
+        </ServerContext.Provider>
       }
     </>
   )
@@ -50,52 +52,5 @@ const DeadServerComp = () => {
     </Accordian>
   )
 }
-
-/*
-class App extends React.Component{
-  constructor(props){
-    const location = window.location;
-    super(props);
-    if(location.pathname == "/"){
-      this.state = {
-        page : "/Home"
-      };
-    }
-    else{
-      this.state = {
-        page : location.pathname
-      };
-    }
-  }
-
-  handlePageChange = (e) =>{
-    this.setState({
-      page : e.target.getAttribute("michi")
-    });
-    console.log("target:" + e.target.getAttribute("michi"));
-    console.log("page:"+this.state.page);
-  }
-
-  render(){
-    //console.log("App:"+this.state.page);
-    return (
-      <Container fluid className="px-0 ms-0 me-0">
-
-        <Container fluid="xl" className="px-0 ms-0 me-0">
-          <Route exact path="/">
-            <Home onChange={this.handlePageChange}/>
-          </Route>
-        </Container>
-      </Container>
-    );
-  }
-}
-/*
-<Navbar page={this.state.page} onChange={this.handlePageChange}/>
-<Route path="/Home">
-  <Home onChange={this.handlePageChange}/>
-</Route>
-*/
-
 
 export default App;
