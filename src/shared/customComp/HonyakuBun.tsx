@@ -81,7 +81,7 @@ const HonyakuRepresentive = ({ bId, handleSelect, ...props } : HonyakuRepresenti
     else{
       setRepTL(null);
     }
-    if(props !== null && props.bIdRef !== null && props.bIdRef !== undefined){
+    if(props !== null && props.bIdRef !== null && props.bIdRef !== undefined && props.bIdRef.current !== null && props.bIdRef.current !== undefined){
       props.bIdRef.current['bId'+bId] = {
         ...props.bIdRef.current['bId'+bId],
         fetchTL : fetch

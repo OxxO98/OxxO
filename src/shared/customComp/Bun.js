@@ -46,9 +46,9 @@ const Bun = ({ bId, styled, ...props }) => {
         }
     }, [resHukumu]);
     (0, react_1.useEffect)(() => {
-        if (props !== null && props.bIdRef !== null && props.bIdRef != undefined) {
-            props.bIdRef.current['bId' + bId] = {
-                ...props.bIdRef.current['bId' + bId],
+        if (props !== null && props.bIdRef !== null && props.bIdRef !== undefined && props.bIdRef.current !== null && props.bIdRef.current !== undefined) {
+            props.bIdRef.current['bId'.concat(bId.toString())] = {
+                ...props.bIdRef.current['bId'.concat(bId.toString())],
                 fetchBun: fetchBun, fetchHukumu: fetchHukumu
             };
         }

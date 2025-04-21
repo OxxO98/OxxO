@@ -7,7 +7,7 @@ import { useAxios, useDebounce } from 'shared/hook';
 interface RouteObj {
   parentRoute : string;
   idRoute : string | null;
-  id : string | null
+  id : number | null
 }
 
 function useActive(){
@@ -77,7 +77,7 @@ function useRoute() {
         setRoute({
           ...route,
           idRoute : defaultRoute[route.parentRoute],
-          id : key
+          id : parseInt(key)
         });
         break;
     }
@@ -88,7 +88,7 @@ function useRoute() {
 
 function useBunRefetch(){
 
-  const bIdRef = useRef<ObjKey>({});
+  const bIdRef = useRef<ObjStringKey<RefetchObj> | null>(null);
 
   const refetchAll = () => {
     for(let key in bIdRef.current ){
@@ -114,6 +114,10 @@ function useBunRefetch(){
       return;
     }
 
+    if(bIdRef.current == null){
+      return;
+    }
+
     let fetchBUN = bIdRef.current['bId'+bId]?.fetchBun;
     let fetchHUKUMU = bIdRef.current['bId'+bId]?.fetchHukumu;
     let fetchTL = bIdRef.current['bId'+bId]?.fetchTL;
@@ -130,7 +134,7 @@ function useBunRefetch(){
   }
 
   const resetList = () => {
-    bIdRef.current = {};
+    bIdRef.current = null;
   }
 
   // console.log('useBunRefetch', Object.keys(bIdRef.current)[0], bIdRef.current);
@@ -168,7 +172,7 @@ function useHukumu( selectedBun : number, textOffset : OffsetObj, setStyled : (o
     let res = resInHR;
 
     if(res != null){
-      console.log(res.data);
+      
       if(res.data.length !== 0){
         setHukumuData({
           huId : res.data[0]['HUID'],
@@ -207,7 +211,7 @@ function useHukumu( selectedBun : number, textOffset : OffsetObj, setStyled : (o
     }
   }, [textOffset.startOffset, textOffset.endOffset]);
 
-  console.log(selectedBun, textOffset);
+  // console.log(selectedBun, textOffset);
 
   return { hukumuData, setHukumuData, fetchInHR }
 }

@@ -7,7 +7,7 @@ function useDebounce() {
     const timer = (0, react_1.useRef)(0);
     return (0, react_1.useCallback)((callback, delay) => (...arg) => {
         clearTimeout(timer.current);
-        timer.current = setTimeout(() => {
+        timer.current = window.setTimeout(() => {
             callback(...arg);
         }, delay);
     }, []);
@@ -19,7 +19,7 @@ function useThrottle() {
             return;
         }
         isThrottle.current = true;
-        setTimeout(() => {
+        window.setTimeout(() => {
             callback(...arg);
             isThrottle.current = false;
         }, delay);
