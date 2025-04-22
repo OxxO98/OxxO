@@ -23,7 +23,7 @@ const AcceptInviteHonComp = ({ fetch }) => {
     const { userId } = (0, react_1.useContext)(client_1.UserContext);
     const { response, setParams } = (0, hook_1.useAxiosPost)('/user/invite/accept', true, null);
     const acceptInviteCode = () => {
-        if (input != '' && userId != null) {
+        if (input !== '' && userId !== null) {
             let hashCode = crypto_js_1.default.MD5(input).toString(crypto_js_1.default.enc.Hex);
             setParams({ userId: userId, code: hashCode });
         }
@@ -33,7 +33,7 @@ const AcceptInviteHonComp = ({ fetch }) => {
     };
     (0, react_1.useEffect)(() => {
         let res = response;
-        if (res != null) {
+        if (res !== null) {
             fetch();
         }
     }, [response]);
@@ -47,7 +47,7 @@ const ModalBookContainer = ({ fetch, ...props }) => {
         title: null
     });
     const newHonNonTest = () => {
-        if (input.title == null || input.title == '') {
+        if (input.title === null || input.title === '') {
             // console.log("타이틀 없음");
             return;
         }
@@ -62,12 +62,12 @@ const ModalBookContainer = ({ fetch, ...props }) => {
     };
     (0, react_1.useEffect)(() => {
         let res = resNewHonNonTest;
-        if (res != null) {
+        if (res !== null) {
             fetch();
             props?.handleClose !== undefined && props?.handleClose();
         }
     }, [resNewHonNonTest]);
-    const isValidateTitle = input.title != null && input.title != '';
+    const isValidateTitle = input.title !== null && input.title !== '';
     return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsx)(components_1.StepPage, { children: (0, jsx_runtime_1.jsxs)(components_1.StepPage.Comp, { children: [(0, jsx_runtime_1.jsx)("label", { children: "\uCC45 \uC81C\uBAA9" }), (0, jsx_runtime_1.jsx)("input", { type: "text", name: "title", id: "title", onChange: handleChange }), isValidateTitle &&
                         (0, jsx_runtime_1.jsx)("div", { children: (0, jsx_runtime_1.jsx)("button", { onClick: newHonNonTest, children: "\uCC45 \uCD94\uAC00\uD558\uAE30" }) })] }) }) }));
 };

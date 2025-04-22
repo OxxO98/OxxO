@@ -10,12 +10,12 @@ function useHonyakuView(page, rowLength, pageLength) {
     const [bunList, setBunList] = (0, react_1.useState)();
     const { response: res, setParams, fetch } = (0, hook_1.useAxios)('/hon/bun/range', true, { hId: hId, page: page, rowLength: rowLength, pageLength: pageLength });
     (0, react_1.useEffect)(() => {
-        if (res != null) {
+        if (res !== null) {
             setBunList(res.data);
         }
     }, [res]);
     (0, react_1.useEffect)(() => {
-        if (page != null) {
+        if (page !== null) {
             setParams({ hId: hId, page: page, rowLength: rowLength, pageLength: pageLength });
         }
     }, [page]);

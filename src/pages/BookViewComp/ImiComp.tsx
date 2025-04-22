@@ -90,8 +90,8 @@ const ImiComp = ({ hukumuData, selection, selectedBun, setStyled, textOffset, ch
 
   useEffect( () => {
     let res = resGetImiFromHukumu;
-    if(res != null){
-      if(res.data[0]['IID'] != null){
+    if(res !== null){
+      if(res.data[0]['IID'] !== null){
         setIId(res.data[0]['IID']);
       }
       setParamsT({ tId : hukumuData.tId });
@@ -100,18 +100,18 @@ const ImiComp = ({ hukumuData, selection, selectedBun, setStyled, textOffset, ch
 
   useEffect( () => {
     let res = resGetImiFromTango;
-    if(res != null){
+    if(res !== null){
       //console.log(res.data);
-      if(res.data.count != 0){
+      if(res.data.count !== 0){
         //단어로 IID가져오기.
-        if(iId != null){
+        if(iId !== null){
           //HUKUMU의 IID가 있는 경우
           let dropDownIIds : Array<IIdsObj> = res.data.iIds;
-          dropDownIIds = dropDownIIds.filter( (arr : IIdsObj) => arr['IID'] != iId );
+          dropDownIIds = dropDownIIds.filter( (arr : IIdsObj) => arr['IID'] !== iId );
           setDropDownImi(dropDownIIds);
 
-          let imiArr = res.data.iIds.filter( (arr : IIdsObj) => arr['IID'] == iId);
-          if( imiArr.length != 0 ){
+          let imiArr = res.data.iIds.filter( (arr : IIdsObj) => arr['IID'] === iId);
+          if( imiArr.length !== 0 ){
             setImi(imiArr[0]['IMI']);
           }
           else{
@@ -134,7 +134,7 @@ const ImiComp = ({ hukumuData, selection, selectedBun, setStyled, textOffset, ch
 
   useEffect( () => {
     let res = resPostImi;
-    if(res != null){
+    if(res !== null){
       fetchH();
       fetchT();
     }
@@ -142,7 +142,7 @@ const ImiComp = ({ hukumuData, selection, selectedBun, setStyled, textOffset, ch
 
   useEffect( () => {
     let res = resSetImiHukumu;
-    if(res != null){
+    if(res !== null){
       fetchH();
       // setShow(false);
     }
@@ -150,13 +150,13 @@ const ImiComp = ({ hukumuData, selection, selectedBun, setStyled, textOffset, ch
 
   useEffect( () => {
     let res = resDeleteImi;
-    if(res != null){
+    if(res !== null){
       fetchH();
     }
   }, [resDeleteImi])
 
   useEffect( () => {
-    if(hukumuData != null){
+    if(hukumuData !== null){
       setParamsH({ huId : hukumuData.huId });
 
       // setShow(false);
@@ -169,13 +169,13 @@ const ImiComp = ({ hukumuData, selection, selectedBun, setStyled, textOffset, ch
 
   const isClicked = isMobile && props.toggle ? "clicked" : "";
 
-  const mobileSetToggle = isMobile ? (e : React.MouseEvent<HTMLElement>) => { props.setToggle != undefined && props.setToggle(e) } : undefined;
+  const mobileSetToggle = isMobile ? (e : React.MouseEvent<HTMLElement>) => { props.setToggle !== undefined && props.setToggle(e) } : undefined;
 
   return(
     <>
       <div className={`ImiComp ${isClicked}`} onClick={mobileSetToggle}>
         {
-          hukumuData != null ?
+          hukumuData !== null ?
           <>
             <div className="imiContainer">
               <label>단어</label>
@@ -188,13 +188,13 @@ const ImiComp = ({ hukumuData, selection, selectedBun, setStyled, textOffset, ch
             </div>
             <div className="imiContainer">
               {
-                iId != null &&
+                iId !== null &&
                 <button className="button-negative" onClick={() => deleteImi(iId)}>삭제</button>
               }
               <DropDown>
                 <DropDown.Representive>
                   {
-                    (iId != null && imi != null) ?
+                    (iId !== null && imi !== null) ?
                       <>{imi}</>
                       :
                       <>없음</>
@@ -202,7 +202,7 @@ const ImiComp = ({ hukumuData, selection, selectedBun, setStyled, textOffset, ch
                 </DropDown.Representive>
                 <DropDown.Content>
                 {
-                  ( dropDownImi != null && dropDownImi.length != 0 ) ?
+                  ( dropDownImi !== null && dropDownImi.length !== 0 ) ?
                     <>
                       {
                         dropDownImi.map( (arr) =>
@@ -229,7 +229,7 @@ const ImiComp = ({ hukumuData, selection, selectedBun, setStyled, textOffset, ch
               <span>{selection}</span>
             </div>
             {
-              selection != null && selection != '' && children != null &&
+              selection !== null && selection !== '' && children !== null &&
               <>
                 {children}
               </>

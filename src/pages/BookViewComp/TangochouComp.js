@@ -12,7 +12,7 @@ const TangochouListComp = ({ startListNum, setView, setInfo, selectedTId, ...pro
     const [list, setList] = (0, react_1.useState)([]);
     const { response: res, setParams, fetch } = (0, hook_1.useAxios)('/hon/tangochou', false, { userId: userId, hId: hId, start: startListNum * 10 + 1, end: (startListNum + 1) * 10 });
     (0, react_1.useEffect)(() => {
-        if (res != null) {
+        if (res !== null) {
             //console.log(res);
             setList(res.data);
         }
@@ -39,14 +39,14 @@ const TangoInfo = ({ tId, setView, setInfo, ...props }) => {
     const { response: res, setParams, fetch } = (0, hook_1.useAxios)('/hon/tangochou/pattern', false, { userId: userId, hId: hId, tId: tId });
     const { response: resK, setParams: setParamsK } = (0, hook_1.useAxios)('/tango/kanji', false, { tId: tId });
     const getKId = (kanji) => {
-        if (kanjiList != null) {
-            let ret = kanjiList.filter((arr) => arr.kanji == kanji)[0]?.kId;
+        if (kanjiList !== undefined) {
+            let ret = kanjiList.filter((arr) => arr.kanji === kanji)[0]?.kId;
             setView('kanji');
             setInfo({ kId: ret, jaText: kanji });
         }
     };
     (0, react_1.useEffect)(() => {
-        if (res != null) {
+        if (res !== null) {
             //console.log(res);
             setDefaultData({ tId: res.data[0]['TID'], hyouki: res.data[0]['HYOUKI'], yomi: res.data[0]['YOMI'] });
             setDefaultList((0, jsx_runtime_1.jsx)("div", { className: "largeTango", children: (0, jsx_runtime_1.jsx)(customComp_1.ComplexText, { data: res.data[0]['HYOUKI'], ruby: res.data[0]['YOMI'] }) }));
@@ -54,7 +54,7 @@ const TangoInfo = ({ tId, setView, setInfo, ...props }) => {
         }
     }, [res]);
     (0, react_1.useEffect)(() => {
-        if (resK != null) {
+        if (resK !== null) {
             let a = new Array();
             for (let key in resK.data) {
                 a.push({
@@ -67,15 +67,15 @@ const TangoInfo = ({ tId, setView, setInfo, ...props }) => {
         }
     }, [resK]);
     (0, react_1.useEffect)(() => {
-        if (tId != null) {
+        if (tId !== null) {
             setParams({ userId: userId, hId: hId, tId: tId });
             setParamsK({ tId: tId });
-            if (props?.handleScroll != null) {
+            if (props?.handleScroll !== undefined) {
                 props.handleScroll(tId.toString());
             }
         }
     }, [tId]);
-    if (tangoBunList == null || defaultList == null || defaultData == null) {
+    if (tangoBunList === null || defaultList === null || defaultData === null) {
         return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, {}));
     }
     return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("div", { className: "tangoInfo-button-container button-container_flexEnd", children: (0, jsx_runtime_1.jsx)("button", { className: "button-neutral", onClick: () => setView(null), children: "\uB2EB\uAE30" }) }), (0, jsx_runtime_1.jsx)(customComp_1.KanjiText, { hyouki: defaultData.hyouki, yomi: defaultData.yomi, onClick: getKId }), (0, jsx_runtime_1.jsx)("div", { className: "tangoInfo-bunList", children: tangoBunList })] }));
@@ -87,12 +87,12 @@ const TangoBunList = ({ tId, hyId, yId, hyouki, yomi }) => {
     const [list, setList] = (0, react_1.useState)();
     const { response: res, setParams } = (0, hook_1.useAxios)('/hon/tangochou/bun', false, { userId: userId, hId: hId, hyId: hyId, yId: yId });
     (0, react_1.useEffect)(() => {
-        if (res != null) {
+        if (res !== null) {
             setList(res.data.map((arr, index) => (0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsxs)("p", { className: "jaText", children: [arr['JATEXT'].substring(0, arr['STARTOFFSET']), (0, jsx_runtime_1.jsx)("a", { className: "bold", children: arr['JATEXT'].substring(arr['STARTOFFSET'], arr['ENDOFFSET']) }), arr['JATEXT'].substring(arr['ENDOFFSET'])] }), (0, jsx_runtime_1.jsx)(TangoBun, { bId: arr['BID'] })] }, `B${arr['BID']}_T${tId}_${index}`)));
         }
     }, [res]);
     (0, react_1.useEffect)(() => {
-        if (hyId != null) {
+        if (hyId !== null) {
             setParams({ userId: userId, hId: hId, hyId: hyId, yId: yId });
         }
     }, [hyId]);
@@ -104,11 +104,11 @@ const TangoBun = ({ bId }) => {
     const [r_tl, setR_tl] = (0, react_1.useState)(null);
     const { response: res, setParams } = (0, hook_1.useAxios)('/translate/represent', false, { userId: userId, hId: hId, bId: bId });
     (0, react_1.useEffect)(() => {
-        if (res != null) {
+        if (res !== null) {
             setR_tl(res.data['KOTEXT']);
         }
     }, [res]);
-    return ((0, jsx_runtime_1.jsx)("p", { children: r_tl != null &&
+    return ((0, jsx_runtime_1.jsx)("p", { children: r_tl !== null &&
             (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: r_tl }) }));
 };
 const KanjiInfo = ({ kanji, kId, setView, setInfo }) => {
@@ -117,7 +117,7 @@ const KanjiInfo = ({ kanji, kId, setView, setInfo }) => {
     const [list, setList] = (0, react_1.useState)();
     const { response: res, setParams } = (0, hook_1.useAxios)('/hon/tangochou/kanji/tango', false, { userId: userId, hId: hId, kId: kId });
     (0, react_1.useEffect)(() => {
-        if (res != null) {
+        if (res !== null) {
             //  부분 볼드처리는 불가능한것으로 판명 useHandleSelection에서 오류. 할거면 따로 만들기 바람
             setList(res.data.map((arr) => (0, jsx_runtime_1.jsx)("div", { className: "middleTango", onClick: () => {
                     setView('tango');

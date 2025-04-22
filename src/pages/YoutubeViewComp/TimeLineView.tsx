@@ -103,7 +103,7 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
   }
 
   const insertBun = (value : string) => {
-    if(selectImportBun != null){
+    if(selectImportBun !== null){
       setParamsInsert({
         userId : userId, ytId : ytId,
         ytsId : ytsId, start : timeToTS(startTime), end : timeToTS(endTime), jaText : value, bId : selectImportBun['BID']
@@ -119,7 +119,7 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
   }
 
   const updateYTBunTime = () => {
-    if(editYtbId != null){
+    if(editYtbId !== null){
       setParamsModify({
         userId : userId, ytId : ytId,
         ytbId : editYtbId, start : timeToTS(startTime), end : timeToTS(endTime)
@@ -142,15 +142,15 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
     fetch();
   }
 
-  //type == 'marking'
+  //type === 'marking'
   const moveTimeLine = () => {
-    if(videoTime != null){
-      if(bunIds != null){
+    if(videoTime !== null){
+      if(bunIds !== null){
         let a = bunIds.findIndex( (arr) =>
          tsToTime(arr['startTime']) < videoTime &&
          videoTime < tsToTime(arr['endTime'])
         )
-        if( a != -1 && currentTimelineBun.current[a] != null){
+        if( a !== -1 && currentTimelineBun.current[a] !== null){
           //console.log(currentTimelineBun.current[a]);
 
           currentTimelineBun.current[a].scrollIntoView();
@@ -178,11 +178,11 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
       return;
     }
 
-    if(startTime != null || endTime != null){
-      if(selectMarker != null && startTime != null && endTime != null){
-        if(selectMarker == 'startTime'){
+    if(startTime !== null || endTime !== null){
+      if(selectMarker !== null && startTime !== null && endTime !== null){
+        if(selectMarker === 'startTime'){
           let curTL = getCurrentTimeLine();
-          if(curTL != null){
+          if(curTL !== null){
             if(curTL > 0){
               let curr = bunIds[curTL-1];
               setStartTime( tsToTime(curr['endTime']) );
@@ -195,7 +195,7 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
             let a = bunIds.findIndex( (arr) =>
              tsToTime(arr['endTime']) < endTime
             );
-            if( a != -1){
+            if( a !== -1){
               let curr = bunIds[a];
               setStartTime( tsToTime(curr['endTime']) );
             }
@@ -204,9 +204,9 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
             }
           }
         }
-        if(selectMarker == 'endTime'){
+        if(selectMarker === 'endTime'){
           let curTL = getCurrentTimeLine();
-          if(curTL != null){
+          if(curTL !== null){
             if(curTL+1 < bunIds.length){
               let curr = bunIds[curTL-1];
               setEndTime( tsToTime(curr['startTime']) );
@@ -219,7 +219,7 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
             let a = bunIds.findIndex( (arr) =>
              tsToTime(arr['startTime']) > startTime
             );
-            if( a != -1){
+            if( a !== -1){
               let curr = bunIds[a];
               setEndTime( tsToTime(curr['startTime']) );
             }
@@ -230,11 +230,11 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
         }
       }
       else{
-        if(startTime != null){
+        if(startTime !== null){
           let a = bunIds.findIndex( (arr) =>
            tsToTime(arr['startTime']) > startTime
           );
-          if( a != -1){
+          if( a !== -1){
             let curr = bunIds[a];
             setEndTime( tsToTime(curr['startTime']) );
           }
@@ -242,11 +242,11 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
             setEndTime( startTime + 1);
           }
         }
-        else if(endTime != null){
+        else if(endTime !== null){
           let a = bunIds.findIndex( (arr) =>
            tsToTime(arr['endTime']) < endTime
           );
-          if( a != -1){
+          if( a !== -1){
             let curr = bunIds[a];
             setStartTime( tsToTime(curr['endTime']) );
           }
@@ -258,7 +258,7 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
     }
   }
 
-  //type == 'timeline'
+  //type === 'timeline'
   const prevTimeLine = () => {
     if( bunIds === null ){
       return;
@@ -288,12 +288,12 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
   }
 
   const moveCurrentTimeLine = () => {
-    if(videoTime != null){
+    if(videoTime !== null){
       // console.log('videoTime')
-      if(bunIds != null){
+      if(bunIds !== null){
         // console.log('bunIds')
         let curTL = getCurrentTimeLine();
-        if( curTL != null){
+        if( curTL !== null){
           // console.log('curTL')
           setCurrentBunId( curTL );
         }
@@ -311,11 +311,11 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
     videoTime < tsToTime(arr['endTime'])
     );
     let b = bunIds.findIndex( (arr) =>
-     tsToTime(arr['startTime']) == videoTime
+     tsToTime(arr['startTime']) === videoTime
     );
     // console.log(cTime, bunIds, a, b);
-    if( a != -1 ){
-      if( b != -1 ){
+    if( a !== -1 ){
+      if( b !== -1 ){
         return b;
       }
       else{
@@ -339,7 +339,7 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
   useEffect( () => {
     let res = resModify;
 
-    if(res != null){
+    if(res !== null){
       fetch();
     }
   }, [resModify])
@@ -347,7 +347,7 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
   useEffect( () => {
     let res = resInsert;
 
-    if(res != null){
+    if(res !== null){
       cancelEdit();
       fetch();
     }
@@ -356,7 +356,7 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
   useEffect( () => {
     let res = resGetTimeLine;
 
-    if(res != null){
+    if(res !== null){
       let a = new Array();
 
       //console.log(res.data[0]['BID']);
@@ -381,13 +381,13 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
 
   useEffect( () => {
     //console.log(`ytId ${ytId} ytsId ${ytsId}`);
-    if(ytsId != null && ytId != null){
+    if(ytsId !== null && ytId !== null){
       setParams({ ytId : ytId, ytsId : ytsId });
     }
   }, [ytsId])
 
   useEffect( () => {
-    if(type == 'marking'){
+    if(type === 'marking'){
       moveTimeLine();
     }
     else{
@@ -396,15 +396,15 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
   }, [videoTime, bunIds])
 
   useEffect( () => {
-    if(currentBunId != null){
+    if(currentBunId !== null){
       setEditYtbId(null);
       honyakuClearEdit();
     }
   }, [currentBunId])
 
   useEffect( () => {
-    if(importData != null){
-      if(selectImportBun != null){
+    if(importData !== null){
+      if(selectImportBun !== null){
         if(selectImportBun['JATEXT'] !== value){
           // console.log('selectImportBun');
           setSelectImportBun(null);
@@ -416,12 +416,12 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
   return(
     <>
       {
-        type == "marking" &&
+        type === "marking" &&
         <div className="timeline-container marking">
           <div className="timeline_control-container">
             <div className="timeline-control">
             {
-              startTime != null ?
+              startTime !== null ?
               <input type="text" value={startTimeObj.getFrameStamp(30)}
                 onFocus={() => setSelectMarker('startTime')} onBlur={() => setSelectMarker(null)}
                 onKeyDown={handleKeyboard}/>
@@ -429,7 +429,7 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
               <input type="text" value={startTimeObj.getFrameStamp(30)} onKeyDown={handleKeyboard}/>
             }
             {
-              endTime != null ?
+              endTime !== null ?
               <input type="text" value={endTimeObj.getFrameStamp(30)}
                 onFocus={() => setSelectMarker('endTime')} onBlur={() => setSelectMarker(null)}
                 onKeyDown={handleKeyboard}/>
@@ -440,7 +440,7 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
             <div className="timeline-control">
               <YoutubeGrantWrapper restrict="ADMIN">
               {
-                editYtbId == null ?
+                editYtbId === null ?
                 <>
                   <input type="text" value={value} onChange={handleChange}/>
                   <button className="button-positive" type="button" onClick={ () => { insertBun(value) } }>새로 저장</button>
@@ -458,12 +458,12 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
             <div className="timeline-control">
               <YoutubeGrantWrapper restrict="ADMIN">
               {
-                importData != null &&
+                importData !== null &&
                 <ImportDropDown importData={importData} bunIds={bunIds}
                 setSelectImportBun={setSelectImportBun} setValue={setValue}/>
               }
               {
-                currentTimelineBun != null &&
+                currentTimelineBun !== null &&
                 <button className="button-neutral" onClick={moveTimeLine}>해당 시간 이동</button>
               }
               </YoutubeGrantWrapper>
@@ -471,7 +471,7 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
           </div>
           <div className="timeline_bun-list-container">
           {
-            bunIds != null &&
+            bunIds !== null &&
             <>
             {
               bunIds.map((arr, index) => (
@@ -497,14 +497,14 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
         </div>
       }
       {
-        type == "timeline" &&
+        type === "timeline" &&
         <div className="timeline-container timeline">
           <div className="timeline_control-container">
             {
-              bunIds != null && bunIds.length != 0 &&
+              bunIds !== null && bunIds.length !== 0 &&
               <>
                 {
-                  editYtbId == null ?
+                  editYtbId === null ?
                   <>
                     <div className="timeline-control timeline">
                       <div className="jaText" id="activeRange">
@@ -535,7 +535,7 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
             }
             <div className="timeline-control center">
               {
-                currentTimelineBun != null &&
+                currentTimelineBun !== null &&
                 <>
                   <button className="button-neutral" onClick={prevTimeLine}>이전</button>
                   <button className="button-positive" onClick={currentTimeLine}>해당 시간 이동</button>
@@ -547,14 +547,14 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
         </div>
       }
       {
-        type == 'YTHonyaku' &&
+        type === 'YTHonyaku' &&
         <div className="timeline-container honyaku">
           <div className="timeline_control-container">
             {
-              bunIds != null && bunIds.length != 0 &&
+              bunIds !== null && bunIds.length !== 0 &&
               <>
                 {
-                  honyakuEdit == false &&
+                  honyakuEdit === false &&
                   <div className="timeline-control timeline">
                     <div className="jaText" id="activeRange">
                       <Bun key={bunIds[currentBunId]['bId']} bId={bunIds[currentBunId]['bId']} bIdRef={bIdRef} styled={styled}/>
@@ -563,7 +563,7 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
                 }
                 <div className="timeline-control timeline">
                 {
-                  honyakuEdit == false ?
+                  honyakuEdit === false ?
                   <HonyakuRepresentive bId={bunIds[currentBunId]['bId']} handleSelect={honyakuHandleSelect}/>
                   :
                   <HonyakuComp bId={bunIds[currentBunId]['bId']} clearEdit={honyakuClearEdit}/>
@@ -573,7 +573,7 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
             }
             <div className="timeline-control center">
               {
-                currentTimelineBun != null &&
+                currentTimelineBun !== null &&
                 <>
                   <button className="button-neutral" onClick={prevTimeLine}>이전</button>
                   <button className="button-positive" onClick={currentTimeLine}>해당 시간 이동</button>

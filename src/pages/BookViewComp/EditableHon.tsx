@@ -91,8 +91,8 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
   const [value, setValue] = useState('');
 
   const editBIdObj : RangeBIdObj | null = useMemo( () => {
-    if(editBId != null && rangeBIdObj != null){
-      return rangeBIdObj.filter( (arr) => arr['BID'] == editBId )[0]
+    if(editBId !== null && rangeBIdObj !== null){
+      return rangeBIdObj.filter( (arr) => arr['BID'] === editBId )[0]
     }
     else{
       return null;
@@ -100,7 +100,7 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
   }, [editBId])
 
   const lastDId = useMemo<number | null>( () => {
-    if(rangeBunIds != null && rangeBunIds.length != 0){
+    if(rangeBunIds !== null && rangeBunIds.length !== 0){
       return rangeBunIds[rangeBunIds.length-1].dId;
     }
     else{
@@ -109,10 +109,10 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
   }, [rangeBunIds])
 
   const isMaxNum = useMemo( () => {
-    if(rangeBunIds != null && rangeBunIds.length != 0){
+    if(rangeBunIds !== null && rangeBunIds.length !== 0){
       let lastId = rangeBunIds[rangeBunIds.length-1];
       let lastBun = lastId.bunList[lastId.bunList.length-1];
-      return lastId.maxNum == lastBun.bNum;
+      return lastId.maxNum === lastBun.bNum;
     }
     else{
       return null;
@@ -164,17 +164,17 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
   }
 
   const isAddPoint = (dId : number, bId : number | null, prev : boolean) => {
-    if(addPoint != null){
-      if(addPoint.type == 'DAN'){
-        if(bId == null){
-          return addPoint.prev == prev && addPoint.dId == dId;
+    if(addPoint !== null){
+      if(addPoint.type === 'DAN'){
+        if(bId === null){
+          return addPoint.prev === prev && addPoint.dId === dId;
         }
         else{
           return false;
         }
       }
-      else if(addPoint.type == 'BUN'){
-        return addPoint.prev == prev && addPoint.bId == bId;
+      else if(addPoint.type === 'BUN'){
+        return addPoint.prev === prev && addPoint.bId === bId;
       }
       else{
         return false;
@@ -191,7 +191,7 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
     fetch();
     fetchBunAll();
     fetchPageCount();
-    addPoint?.bId != null && refetch(addPoint?.bId, 'all');
+    addPoint?.bId !== null && refetch(addPoint?.bId, 'all');
     refetchTangoList();
   }
 
@@ -206,16 +206,16 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
 
   const handleCustomScroll = () => {
     // console.log('handleScroll', editBId, addPoint);
-    if(editBId != null){
+    if(editBId !== null){
       handleScroll(editBId);
       // console.log('handleScroll', editBId);
     }
-    else if(addPoint != null && addPoint.type != null){
+    else if(addPoint !== null && addPoint.type !== null){
       // console.log('handleScroll', addPoint);
-      if(addPoint.type == 'DAN'){
-        handleScroll(`ap${addPoint.dId}${addPoint.prev == false ? "_last" : ""}`);
+      if(addPoint.type === 'DAN'){
+        handleScroll(`ap${addPoint.dId}${addPoint.prev === false ? "_last" : ""}`);
       }
-      else if(addPoint.type == 'BUN'){
+      else if(addPoint.type === 'BUN'){
         handleScroll(`ap${addPoint.dId}`);
       }
     }
@@ -226,7 +226,7 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
   }, [page])
 
   useEffect( () => {
-    if(editBIdObj != null){
+    if(editBIdObj !== null){
       clearAddPoint();
       setValue(editBIdObj['JATEXT']);
     }
@@ -236,7 +236,7 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
   }, [editBIdObj])
 
   useEffect( () => {
-    if(importData != null){
+    if(importData !== null){
       setParamsGetBunAll({ hId : hId });
     }
   }, [importData])
@@ -244,7 +244,7 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
   //ImportDropDown때문에 쓰는 건데 굳이 필요할지는 모르겠음.
   useEffect( () => {
     let res = resGetBunAll;
-    if(res != null){
+    if(res !== null){
       let a = res.data.map( (arr : GetBunAllResponseObj) => { return {
         bId : arr['BID'],
         dId : arr['DID'],
@@ -258,7 +258,7 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
 
   useEffect( () => {
     let res = resGetRangeBun;
-    if(res != null){
+    if(res !== null){
       // console.log('resGetRangeBun', res.data);
       let a = new Array();
       //let tmpBunList = new Array();
@@ -267,7 +267,7 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
       let aIndex = 0;
       // console.log(res.data);
       for(let key in res.data){
-        if(res.data[key]['DID'] != prevDanId){
+        if(res.data[key]['DID'] !== prevDanId){
           a.push({
             dId : res.data[key]['DID'], dNum : res.data[key]['DNUM'],
             maxNum : res.data[key]['MAX_NUM'], bunList : [{
@@ -294,13 +294,13 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
     }
   }, [resGetRangeBun])
 
-  const isEditable = editBId != null || ( addPoint != null && addPoint.type != null );
+  const isEditable = editBId !== null || ( addPoint !== null && addPoint.type !== null );
 
   return(
     <>
       <div className={`hon_editable ${isEditable ? 'editing' : ''}`}>
         {
-          rangeBunIds != null && rangeBunIds.map( (arr) => (
+          rangeBunIds !== null && rangeBunIds.map( (arr) => (
             <EditableDan key={arr.dId} dId={arr.dId} rowLength={rowLength} bIdList={arr.bunList}
               editBId={editBId} setEditBId={setEditBId} addPoint={addPoint} setAddPoint={setAddPoint}
               setAddDanPoint={setAddDanPoint} setAddBunPoint={setAddBunPoint} isAddPoint={isAddPoint}
@@ -308,9 +308,9 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
           ))
         }
         {
-          isMaxNum != null && isMaxNum == true &&
-          <button className={`edit_dan ${lastDId != null && isAddPoint(lastDId, null, false) ? 'selected' : ''}`} onClick={() => lastDId != null && setAddDanPoint(lastDId, false)}
-          ref={(el) => setScroll(el, `ap${lastDId != null && lastDId}_last`)}> </button>
+          isMaxNum !== null && isMaxNum === true &&
+          <button className={`edit_dan ${lastDId !== null && isAddPoint(lastDId, null, false) ? 'selected' : ''}`} onClick={() => lastDId !== null && setAddDanPoint(lastDId, false)}
+          ref={(el) => setScroll(el, `ap${lastDId !== null && lastDId}_last`)}> </button>
         }
       </div>
       {
@@ -318,13 +318,13 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
         <div className="hon_editable_control">
           <div className="backdrop-up"/>
           {
-            editBId != null && editBIdObj != null &&
+            editBId !== null && editBIdObj !== null &&
             <>
               <textarea className="editableBun-textarea" value={value} onChange={handleChange}
               onFocus={() => handleCustomScroll()}/>
               <div className="button-container_flexEnd">
                 {
-                  editBIdObj['JATEXT'] != value &&
+                  editBIdObj['JATEXT'] !== value &&
                   <ModalModifyBun bId={editBId} jaText={editBIdObj['JATEXT']} value={value} handleRefetch={handleBIdRefetch} cancelEdit={cancelEdit}/>
                 }
                 <ModalDeleteBunHon bId={editBId} jaText={editBIdObj['JATEXT']} handleRefetch={handleRefetch} cancelEdit={cancelEdit}/>
@@ -333,39 +333,39 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
             </>
           }
           {
-            addPoint != null && addPoint.type != null &&
+            addPoint !== null && addPoint.type !== null &&
             <>
               <textarea className="editableBun-textarea" value={value} onChange={handleChange}
               onFocus={() => handleCustomScroll()}/>
               <div className="button-container_flexEnd">
                 {
-                  importData != null &&
+                  importData !== null &&
                   <ImportDropDown importData={importData} bunIds={bunIds} setSelectImportBun={setSelectImportBun} setValue={setValue}
                   direction={false}/>
                 }
                 {
-                  value == '' &&
+                  value === '' &&
                   <>
                     {
-                      addPoint.type == 'BUN' &&
+                      addPoint.type === 'BUN' &&
                       <ModalDivideDan addPoint={addPoint} handleRefetch={handleRefetch}/>
                     }
                     {
-                      addPoint.type == 'DAN' &&
+                      addPoint.type === 'DAN' &&
                       <ModalMergeDan addPoint={addPoint} handleRefetch={handleRefetch}/>
                     }
                   </>
                 }
                 {
-                  value != '' &&
+                  value !== '' &&
                   <>
                     {
-                      addPoint.type == 'BUN' &&
+                      addPoint.type === 'BUN' &&
                       <ModalInsertBun importData={importData} selectImportBun={selectImportBun}
                       addPoint={addPoint} value={value} handleRefetch={handleRefetch}/>
                     }
                     {
-                      addPoint.type == 'DAN' &&
+                      addPoint.type === 'DAN' &&
                       <ModalInsertDan importData={importData} selectImportBun={selectImportBun}
                       addPoint={addPoint} value={value} handleRefetch={handleRefetch}/>
                     }
@@ -384,7 +384,7 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
 const EditableDan = ({ dId, rowLength, bIdList, editBId, setEditBId, addPoint, setAddPoint, setAddDanPoint, setAddBunPoint, isAddPoint, bIdRef, setScroll } : EditableDanProps ) => {
   const lastBId = bIdList[bIdList.length-1].bId;
 
-  const startNum = bIdList[0].bNum == 0;
+  const startNum = bIdList[0].bNum === 0;
 
   return(
     <>
@@ -395,11 +395,11 @@ const EditableDan = ({ dId, rowLength, bIdList, editBId, setEditBId, addPoint, s
       }
       <div>
         {
-          bIdList != null &&
+          bIdList !== null &&
           bIdList.map( (bun, index) => (
             <>
               <button className={`edit_bun ${isAddPoint(dId, bun.bId, true) ? 'selected' : ''}`} onClick={() => setAddBunPoint(dId, bun.bId, true)}> </button>
-              <span className={`${editBId == bun.bId ? "selected" : ""}`} onClick={ () => setEditBId(bun.bId)}>
+              <span className={`${editBId === bun.bId ? "selected" : ""}`} onClick={ () => setEditBId(bun.bId)}>
                 <Bun key={bun.bId} bId={bun.bId} bIdRef={bIdRef} setScroll={setScroll}/>
               </span>
             </>

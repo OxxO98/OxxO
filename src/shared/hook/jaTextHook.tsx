@@ -23,6 +23,10 @@ function useHuri(){
 
   const yomiToHuri = (hyouki : string, yomi : string) => {
 
+    if(hyouki === null || hyouki === undefined || yomi === null || yomi === undefined){
+      return;
+    }
+
     let startBool = hyouki.match(kanjiStartRegex) !== null ? true : false; //true면 한자 시작
 
     let arrKanji : RegExpMatchArray | null = hyouki.match(kanjiRegex);
@@ -63,7 +67,7 @@ function useHuri(){
       //히라가나로 끝나는 경우는 잘못 된 검색이 이루어진 것인데..
       if( arrOkuri !== null){
         let lastOkuri = arrOkuri[arrOkuri.length-1];
-        if( yomi.lastIndexOf(lastOkuri) == yomi.length - lastOkuri.length ){
+        if( yomi.lastIndexOf(lastOkuri) === yomi.length - lastOkuri.length ){
           arrHuri[arrHuri.length-1] = yomi.substring(endIndex-lastOkuri.length, yomi.length - lastOkuri.length);
         }
         else{
@@ -84,7 +88,7 @@ function useHuri(){
     //HYS는 표기를 전각 공백으로 연결 한 것
     let hurigana = "";
     // console.log(`${bunText} ${hys} ${huri}`);
-    if(huri != null && hys != null){
+    if(huri !== null && hys !== null){
       let kanjiBunArr : ObjKey | null = bunText.match(kanjiRegex);
       let hyoukiArr = hys.split('　');
       let huriArr = huri.split('　');
@@ -104,15 +108,17 @@ function useHuri(){
       let tmp = new Array();
       for(let i in huriArr){
         let sel = yomiToHuri(hyoukiArr[i], huriArr[i]);
-        for( let key in sel ){
-          tmp.push( sel[key] );
+        if(sel !== null && sel !== undefined){
+          for( let key in sel ){
+            tmp.push( sel[key] );
+          }
         }
       }
 
       //console.log(tmp);
       //console.log(hyoukiKanjiArr);
       //console.log(kanjiBunArr);
-      hurigana = kanjiBunArr != null ? kanjiBunArr.join('　') : "";
+      hurigana = kanjiBunArr !== null ? kanjiBunArr.join('　') : "";
       hyoukiKanjiArr.map( (arr, index) => {
         hurigana = hurigana.replace( arr, tmp[index]);
       })
@@ -124,7 +130,7 @@ function useHuri(){
 
   //ComplexText에서 표기, 읽기를 Text 형식으로 분해.
   const complexArr = (hyouki : string, yomi : string, offset : number) => {
-    if(yomi == null){
+    if(yomi === null){
       return [{
         data : hyouki,
         ruby : null,
@@ -136,7 +142,7 @@ function useHuri(){
     let arrOkuri : ObjKey | null = hyouki.match(hiraganaRegex);
     let arrHuri = yomiToHuri( hyouki, yomi );
 
-    if(arrOkuri == null || arrKanji == null){
+    if(arrOkuri === null || arrKanji === null){
       return [{
         data : hyouki,
         ruby : yomi,
@@ -144,29 +150,34 @@ function useHuri(){
       }]
     }
 
-    let startBool = hyouki.match(kanjiStartRegex) != null ? true : false; //true면 한자 시작
+    let startBool = hyouki.match(kanjiStartRegex) !== null ? true : false; //true면 한자 시작
 
     let kanjiIndex = 0;
     let okuriIndex = 0;
     let tmpOffset = offset;
 
     let tmp = new Array();
-
+    
     for(let i = 0; i < arrKanji.length + arrOkuri.length; i++){
-      if(startBool == false){
+      if(startBool === false){
         tmp.push({data : arrOkuri[okuriIndex], ruby: null, offset : tmpOffset});
         tmpOffset += arrOkuri[okuriIndex].length;
         okuriIndex++;
         startBool = true;
       }
       else{
-        tmp.push({data : arrKanji[kanjiIndex], ruby : arrHuri[kanjiIndex], offset : tmpOffset});
+        if(arrHuri !== null && arrHuri !== undefined){
+          tmp.push({data : arrKanji[kanjiIndex], ruby : arrHuri[kanjiIndex], offset : tmpOffset});
+        }
+        else{
+          tmp.push({data : arrKanji[kanjiIndex], ruby : null, offset : tmpOffset});
+        }
         tmpOffset += arrKanji[kanjiIndex].length;
         kanjiIndex++;
         startBool = false;
       }
     }
-
+    
     return tmp;
   }
 
@@ -430,16 +441,16 @@ function useJaText(){
       let second = hangulJunsungHiraMatch[ normalized[1] ];
 
       let third = ''
-      if(normalized.length == 3){
+      if(normalized.length === 3){
         third = hangulJonsungHiraMatch[ normalized[2] ];
       }
 
       /*
-      if( de[0] == 'ㅇ' && de[1] == 'ㅘ' ){
+      if( de[0] === 'ㅇ' && de[1] === 'ㅘ' ){
         return 'わ' + third;
       }
       */
-      if( second == 'ぁ' || second == 'ぃ'|| second == 'ぅ'|| second == 'ぇ'|| second == 'ぉ'){
+      if( second === 'ぁ' || second === 'ぃ'|| second === 'ぅ'|| second === 'ぇ'|| second === 'ぉ'){
         let b = hiraganaKou[first];
         let a = hiraganaTokubetsuDan[second];
 
@@ -449,14 +460,14 @@ function useJaText(){
       let kou = hiraganaKou[first];
       let dan = hiraganaDan[second];
 
-      if(kou == undefined || dan == undefined){
+      if(kou === undefined || dan === undefined){
         return char;
       }
 
       return hiraganaKumi[kou][dan] + third;
     }
     else{
-      if( char == '-' && index != 0){
+      if( char === '-' && index !== 0){
         return checkChouon( arr[index-1] );
       }
       return char;
@@ -482,7 +493,7 @@ function useJaText(){
   //오쿠리 : 한자 일본어 섞인 상태, kanji는 한자 only, hira는 히라가나 only
   const getRegexRevise = ( text : string ) => {
     let extractKanjiArr = extractKanji(text);
-    let kanjiArr : Array<string> = extractKanjiArr != null ? extractKanjiArr.join('').split('') : [""];
+    let kanjiArr : Array<string> = extractKanjiArr !== null ? extractKanjiArr.join('').split('') : [""];
     let kanji_pattern = kanjiArr.map( (arr) => `${arr}`).join(`[${unicodeRange.hiragana}]*`);
 
     let testRegex = new RegExp(
@@ -537,17 +548,17 @@ function useJaText(){
 
     //console.log(`type : ${hyouki_type} ${newText_type}`);
 
-    if(hyouki_type == 'kanji'){
-      if(newText_type == 'okuri'){
+    if(hyouki_type === 'kanji'){
+      if(newText_type === 'okuri'){
         //표기는 한자, 새로운 text는 오쿠리 형식
         let exKanji = extractKanji(newText);
         let exHira = extractHira(newText);
 
-        let exKanjiPattern = exKanji != null ? exKanji.map( (arr) => `(${arr}.*)` ).join('') : "";
+        let exKanjiPattern = exKanji !== null ? exKanji.map( (arr) => `(${arr}.*)` ).join('') : "";
         let exKanjiRegex = new RegExp(
           `^(.*)${exKanjiPattern}$`
         );
-        let exHiraPattern = exHira != null ? exHira.map( (arr) => `(.*${arr})` ).join('') : "";
+        let exHiraPattern = exHira !== null ? exHira.map( (arr) => `(.*${arr})` ).join('') : "";
         let exHiraRegex = new RegExp(
           `^${exHiraPattern}(.*)$`
         );
@@ -563,30 +574,30 @@ function useJaText(){
         }
       }
     }
-    else if(hyouki_type == 'okuri'){
+    else if(hyouki_type === 'okuri'){
       let exKanji = extractKanji(hyouki);
       let exHira = extractHira(hyouki);
 
-      let exKanjiPattern = exKanji != null ? exKanji.map( (arr) => `(${arr}.*)` ).join('') : null;
+      let exKanjiPattern = exKanji !== null ? exKanji.map( (arr) => `(${arr}.*)` ).join('') : null;
       let exKanjiRegex = new RegExp(
         `^(.*)${exKanjiPattern}$`
       );
-      let exHiraPattern = exHira != null ? exHira.map( (arr) => `(.*${arr})` ).join('') : null;
+      let exHiraPattern = exHira !== null ? exHira.map( (arr) => `(.*${arr})` ).join('') : null;
       let exHiraRegex = new RegExp(
         `^${exHiraPattern}(.*)$`
       );
 
-      if(newText_type == 'kanji'){
+      if(newText_type === 'kanji'){
         // 'お金', 'おかね', '金' 의 경우에는 true가 나옴, newText의 읽기를 비교할수 없는 문제.
         exKanjiRegex.lastIndex = 0;
-        if( exKanjiRegex.test(newText) == true ){
-          let maeOkuriPattern = exKanji != null ? exKanji.map( (arr) => `${arr}(?:.*)` ).join('') : "";
+        if( exKanjiRegex.test(newText) === true ){
+          let maeOkuriPattern = exKanji !== null ? exKanji.map( (arr) => `${arr}(?:.*)` ).join('') : "";
           let maeOkuriRegex = new RegExp(
             `^(?<mae>.*)${maeOkuriPattern}$`
           );
           //console.log( hyouki.match(maeOkuriRegex) );
 
-          if( hyouki.match(maeOkuriRegex)?.groups?.mae == '' ){
+          if( hyouki.match(maeOkuriRegex)?.groups?.mae === '' ){
             return true;
           }
           else{
@@ -594,7 +605,7 @@ function useJaText(){
           }
         }
       }
-      else if(newText_type == 'okuri'){
+      else if(newText_type === 'okuri'){
         let extractKanjiArr = extractKanji(newText);
         let exKanjiNew = extractKanjiArr !== null ? extractKanjiArr.join('').split('') : [""];
         //console.log(exKanjiNew);
@@ -623,7 +634,7 @@ function useJaText(){
           exHiraNewRegex.lastIndex = 0;
 
           if( exHiraNewRegex.test(yomi) ){
-            if( hyouki.match(maeOkuriRegex)?.groups?.mae == newText.match(maeOkuriRegex)?.groups?.mae){
+            if( hyouki.match(maeOkuriRegex)?.groups?.mae === newText.match(maeOkuriRegex)?.groups?.mae){
               return true;
             }
             else{
@@ -640,13 +651,13 @@ function useJaText(){
   const matchOkuri = (hyouki : string, yomi : string, bunText : string) : [string | null, number, number] => {
     let hyouki_type = checkKatachi(hyouki);
 
-    if( hyouki_type == 'kanji' || hyouki_type == 'okuri'){
+    if( hyouki_type === 'kanji' || hyouki_type === 'okuri'){
       let kanji_regex = getRegexRevise(hyouki);
 
       let match_bun = bunText.match(kanji_regex);
       let match_hyouki = hyouki.match(kanji_regex);
 
-      if( match_bun == null){
+      if( match_bun === null){
         //return [bunText, -1, -1];
         return [null, -1, -1];
       }
@@ -655,14 +666,14 @@ function useJaText(){
 
       let preStr = '';
       let sufStr = ''
-      if(match_hyouki?.groups?.pre != ''){
+      if(match_hyouki?.groups?.pre !== ''){
         let preRegex = new RegExp(
           `${match_hyouki?.groups?.pre}$`,
           'g'
         )
-        if(match_bun?.groups?.pre != ''){
+        if(match_bun?.groups?.pre !== ''){
           let preMatch = match_bun?.groups?.pre.match(preRegex);
-          if( preMatch != null){
+          if( preMatch !== null && preMatch !== undefined){
             preStr = preMatch[0];
           }
         }
@@ -670,7 +681,7 @@ function useJaText(){
       else{
 
       }
-      if(match_hyouki?.groups?.suf != '' && match_hyouki?.groups?.suf != undefined){
+      if(match_hyouki?.groups?.suf !== '' && match_hyouki?.groups?.suf !== undefined){
         let lastIndex = match_hyouki.groups.suf.length - 1;
         let lastHira = match_hyouki.groups.suf[lastIndex];
 
@@ -678,15 +689,15 @@ function useJaText(){
           `^[${unicodeRange.hiragana}]*${lastHira}`
         )
 
-        if(match_bun?.groups?.suf != ''){
+        if(match_bun?.groups?.suf !== ''){
           let sufMatch = match_bun?.groups?.suf.match(sufRegex);
-          if( sufMatch != null){
+          if( sufMatch !== null && sufMatch !== undefined ){
             //console.log(sufMatch);
             for(let key in sufMatch){
               let tmp_regex = new RegExp(
                 `${sufMatch[key]}$`
               )
-              if( yomi.match(tmp_regex) != null){
+              if( yomi.match(tmp_regex) !== null){
                 sufStr = sufMatch[key];
               }
             }
@@ -701,15 +712,15 @@ function useJaText(){
           `^[${unicodeRange.hiragana}]*${lastHira}`
         )
 
-        if(match_bun?.groups?.suf != ''){
+        if(match_bun?.groups?.suf !== ''){
           let sufMatch = match_bun?.groups?.suf.match(sufRegex);
-          if( sufMatch != null){
+          if( sufMatch !== null && sufMatch !== undefined ){
             //console.log(sufMatch);
             for(let key in sufMatch){
               let tmp_regex = new RegExp(
                 `${sufMatch[key]}$`
               )
-              if( yomi.match(tmp_regex) != null){
+              if( yomi.match(tmp_regex) !== null){
                 sufStr = sufMatch[key];
               }
             }
@@ -726,7 +737,7 @@ function useJaText(){
       // console.log(match);　
       //두개 이상일경우 다 나옴. 근데 이단계에서 값이 나오는건 그다지 쓸모 없을 듯함.
 
-      if(match == null){
+      if(match === null){
         return [null, -1, -1];
         //return [bunText, -1, -1];
       }
@@ -736,10 +747,10 @@ function useJaText(){
 
       let replaceStr = bunText.split('').fill("　", matchingIndex, endIndex).join('');
 
-      if( isOnajiOkuri(hyouki, yomi, match[0]) == true){
+      if( isOnajiOkuri(hyouki, yomi, match[0]) === true){
         return [replaceStr, matchingIndex, endIndex];
       }
-      if( hyouki == match[0] ){
+      if( hyouki === match[0] ){
         return [replaceStr, matchingIndex, endIndex];
       }
     }
@@ -753,7 +764,7 @@ function useJaText(){
 
     function matchExec(){
       let ret = matchOkuri(hyouki, yomi, text);
-      if(ret[0] != null){
+      if(ret[0] !== null){
         text = ret[0];
         return ret;
       }
@@ -773,7 +784,7 @@ function useJaText(){
     let match = matchOkuriExec(hyouki, yomi, bunText);
 
     let arr;
-    while( (arr = match.exec()) != null ){
+    while( (arr = match.exec()) !== null ){
       // console.log(arr);
     }
   }
@@ -785,15 +796,15 @@ function useJaText(){
 
     for(let i = 0; i < medArr.length; i++){
       for(let j = 0; j < medArr[i].length; j++){
-        if(i == 0){
+        if(i === 0){
           medArr[i][j] = j;
         }
         else{
-          if(j == 0){
+          if(j === 0){
             medArr[i][j] = i;
           }
           else{
-            if( bunText[i-1] == newText[j-1]){
+            if( bunText[i-1] === newText[j-1]){
               medArr[i][j] = medArr[i-1][j-1];
             }
             else{
@@ -816,15 +827,15 @@ function useJaText(){
 
     let i = medArr.length-1;
     let j = medArr[0].length-1;
-    while( !(i == 0 && j == 0) ){
+    while( !(i === 0 && j === 0) ){
       let min = Math.min( medArr[i][j-1], medArr[i-1][j], medArr[i-1][j-1] );
 
-      if(medArr[i][j] == min){
+      if(medArr[i][j] === min){
         i -= 1;
         j -= 1;
       }
       else{
-        if( min == medArr[i][j-1]){
+        if( min === medArr[i][j-1]){
           
           ret.add.push({
             text : newText[j-1], offset : j-1
@@ -832,7 +843,7 @@ function useJaText(){
            retRevise.add[j-1] = 1;
           j -= 1;
         }
-        else if( min == medArr[i-1][j]){
+        else if( min === medArr[i-1][j]){
           
           ret.del.push({
             text : bunText[i-1], offset : i-1
@@ -956,10 +967,10 @@ function useJaText(){
 
       let isDel = del.getIsDel(start, end);
 
-      if( isDel == 0 ){
+      if( isDel === 0 ){
         //아무것도 삭제되지 않은 경우.
         let tmpArr;
-        while( (tmpArr = matchArr[i].exec()) != null){
+        while( (tmpArr = matchArr[i].exec()) !== null){
           let [ str, newStart, newEnd ] = tmpArr;
           let isAdd = add.getIsAdd( newStart, newEnd );
 
@@ -971,14 +982,14 @@ function useJaText(){
             break;
           }
         }
-        if( tmpArr == null ){
+        if( tmpArr === null ){
           ret[i].find = null;
         }
       }
       else if( isDel < end - start){
         //일부 삭제된 경우.
         let tmpArr;
-        while( (tmpArr = matchArr[i].exec()) != null){
+        while( (tmpArr = matchArr[i].exec()) !== null){
           let [ str, newStart, newEnd ] = tmpArr;
           let isAdd = add.getIsAdd( newStart, newEnd );
 
@@ -990,24 +1001,24 @@ function useJaText(){
             break;
           }
         }
-        if( tmpArr == null ){
+        if( tmpArr === null ){
           ret[i].find = null;
         }
       }
       else{
         let tmpArr;
-        while( (tmpArr = matchArr[i].exec()) != null){
+        while( (tmpArr = matchArr[i].exec()) !== null){
           let [ str, newStart, newEnd ] = tmpArr;
           let isAdd = add.getIsAdd( newStart, newEnd );
 
-          if(isAdd == newEnd - newStart){
+          if(isAdd === newEnd - newStart){
             add.setAdd(newStart, newEnd);
 
             ret[i].find = { str : newText.substring(newStart, newEnd), startOffset : newStart, endOffset : newEnd };
             break;
           }
         }
-        if( tmpArr == null ){
+        if( tmpArr === null ){
           ret[i].find = null;
         }
       }
@@ -1026,25 +1037,25 @@ function useJaText(){
     let length = bunText.length;
     let index = 0;
     while(index < length){
-      if(bunText.charAt(index) == '\n'){
+      if(bunText.charAt(index) === '\n'){
         break;
       }
-      else if(bunText.charAt(index) == '。'){
+      else if(bunText.charAt(index) === '。'){
         break;
       }
-      else if(bunText.charAt(index) == '「'){
+      else if(bunText.charAt(index) === '「'){
         indexKagiDepth++;
       }
-      else if(bunText.charAt(index) == '」'){
+      else if(bunText.charAt(index) === '」'){
         indexKagiDepth--;
       }
     }
 
-    if( index != length-1 ){
+    if( index !== length-1 ){
       ret = false;
     }
     else{
-      if(indexKagiDepth == 0){
+      if(indexKagiDepth === 0){
         ret = true;
       }
       else{
@@ -1071,8 +1082,8 @@ function useJaText(){
     );
     //일단 예상치 못한 곳에도 들어가는 문제가 있음.
 
-    if(isPeriodRegex.test(bunText) == false){
-      if(isKagiRegex.test(bunText) == false){
+    if(isPeriodRegex.test(bunText) === false){
+      if(isKagiRegex.test(bunText) === false){
         bunText = bunText.concat('。');
       }
     }
@@ -1093,7 +1104,7 @@ function useKirikae(value : string, handleChange : (e : React.ChangeEvent) => vo
   const { isAllHangul, isAllHira, koNFCToHira } = useJaText();
 
   const handleKrikae = (e : React.ChangeEvent) => {
-    if( isKirikae == true ){
+    if( isKirikae === true ){
       setIsKirikae(false);
     }
     else{
@@ -1102,7 +1113,7 @@ function useKirikae(value : string, handleChange : (e : React.ChangeEvent) => vo
   }
 
   const changeHira = (value : string) => {
-    if( isAllHangul(value) == true && isAllHira(value) == false ){
+    if( isAllHangul(value) === true && isAllHira(value) === false ){
       return koNFCToHira(value);
     }
     else{
@@ -1111,14 +1122,14 @@ function useKirikae(value : string, handleChange : (e : React.ChangeEvent) => vo
   }
 
   useEffect( () => {
-    if(isKirikae == false){
+    if(isKirikae === false){
       debouncedKirikae(true);
     }
   }, [kirikae])
 
   useEffect( () => {
-    if(value != null){
-      if(isKirikae == true){
+    if(value !== null){
+      if(isKirikae === true){
         setIsKirikae(false);
       }
       else{
@@ -1144,7 +1155,7 @@ function useMultiKirikae(multiValue : Array<string>, handleMultiChange : (e : Re
   const { isAllHangul, isAllHira, koNFCToHira } = useJaText();
 
   const handleChange = (e : React.ChangeEvent, index : number) => {
-    if( isKirikae == true){
+    if( isKirikae === true){
       setIsKirikae(false);
     }
     else{
@@ -1170,7 +1181,7 @@ function useMultiKirikae(multiValue : Array<string>, handleMultiChange : (e : Re
   }
 
   const changeHira = (value : string) => {
-    if( isAllHangul(value) == true && isAllHira(value) == false ){
+    if( isAllHangul(value) === true && isAllHira(value) === false ){
       return koNFCToHira(value);
     }
     else{
@@ -1179,15 +1190,15 @@ function useMultiKirikae(multiValue : Array<string>, handleMultiChange : (e : Re
   }
 
   useEffect( () => {
-    if(isKirikae == false){
+    if(isKirikae === false){
       debouncedKirikae(true);
     }
   }, [value])
 
   useEffect( () => {
-    if(multiValue != null){
+    if(multiValue !== null){
       // console.log('reset', multiValue);
-      if(isKirikae == true){
+      if(isKirikae === true){
         setIsKirikae(false);
       }
       else{
@@ -1229,12 +1240,12 @@ function useMultiInput(dependancy : string, defaultInput : string){
     let tmp = new Array();
 
     let endIndex = 0;
-    if(arrOkuri != null){
+    if(arrOkuri !== null){
       for(let idx = 0; idx < arrOkuri.length; idx++){
         //console.log(props.ruby);
         //console.log(arrOkuri[key]);
         //console.log(props.ruby.indexOf(arrOkuri[key]));
-        if(tango.substring(endIndex, tango.indexOf(arrOkuri[idx], endIndex)) == ''){
+        if(tango.substring(endIndex, tango.indexOf(arrOkuri[idx], endIndex)) === ''){
           startBool = false;
         }
         else{
@@ -1244,7 +1255,7 @@ function useMultiInput(dependancy : string, defaultInput : string){
         //console.log(endIndex);
         //첫문자가 히라가나로 시작할 경우 빈문자열 push됨.
       }
-      if(tango.substring(endIndex) != ''){
+      if(tango.substring(endIndex) !== ''){
         //console.log(props.ruby);
         //console.log(endIndex);
         arrHuri.push(tango.substring(endIndex));
@@ -1253,9 +1264,9 @@ function useMultiInput(dependancy : string, defaultInput : string){
 
     let kanjiIndex = 0;
     let okuriIndex = 0;
-    if(arrOkuri != null && arrKanji != null){
+    if(arrOkuri !== null && arrKanji !== null){
       for(let i = 0; i < arrKanji.length + arrOkuri.length; i++){
-        if(startBool == false){
+        if(startBool === false){
           tmp.push({data : arrOkuri[okuriIndex], inputBool : false});
           okuriIndex++;
           startBool = true;
@@ -1268,10 +1279,10 @@ function useMultiInput(dependancy : string, defaultInput : string){
       }
     }
     else{
-      if(arrOkuri != null && arrKanji == null){
+      if(arrOkuri !== null && arrKanji === null){
         tmp = [{data : arrOkuri[0], inputBool :  false}];
       }
-      else if(arrOkuri == null && arrKanji != null){
+      else if(arrOkuri === null && arrKanji !== null){
         tmp = [{inputBool : true}];
       }
       else{
@@ -1285,7 +1296,7 @@ function useMultiInput(dependancy : string, defaultInput : string){
   //불안정.
   const getDefaultInput = () => {
 
-    if(defaultInput != null && defaultInput != undefined){
+    if(defaultInput !== null && defaultInput !== undefined){
       let huriArr = yomiToHuri(dependancy, defaultInput);
 
       return huriArr;
@@ -1296,7 +1307,7 @@ function useMultiInput(dependancy : string, defaultInput : string){
   }
 
   useEffect( () => {
-    if(dependancy != null){
+    if(dependancy !== null && dependancy !== undefined){
       // console.log('dependancy');
       if( dependancy.length > 10 ){
         return;
@@ -1312,11 +1323,11 @@ function useMultiInput(dependancy : string, defaultInput : string){
       let huriIndex = 0;
       let ret = new Array();
       for(let key in tmp){
-        if(tmp[key]['inputBool'] == false){
+        if(tmp[key]['inputBool'] === false){
           ret[key] = tmp[key]['data'];
         }
         else{
-          if(def != null){
+          if(def !== null && def !== undefined){
             ret[key] = def[huriIndex];
             huriIndex++;
           }
@@ -1339,7 +1350,7 @@ function useBun(){
   const isBun = (bunText : string) => {
     let bunArr = danToBun(bunText);
 
-    if( bunArr != null ){
+    if( bunArr !== null ){
       if( bunArr.length > 1 ){
         return false;
       }
@@ -1355,7 +1366,7 @@ function useBun(){
   const isDan = (danText : string) => {
     let danArr = danText.split('\n');
 
-    if(danArr.length == 1){
+    if(danArr.length === 1){
       return true;
     }
     else{
@@ -1372,7 +1383,7 @@ function useBun(){
   const danToBun = (danText : string) => {
     let isDanText = isDan(danText);
 
-    if(isDanText == false){
+    if(isDanText === false){
       return null;
     }
 
@@ -1391,8 +1402,8 @@ function useBun(){
     while( index < length ){
       let currChar = danText.charAt(index);
 
-      if(currChar == '。'){
-        if(indexKagiDepth == 0){
+      if(currChar === '。'){
+        if(indexKagiDepth === 0){
           tmpStr = danText.substring(indexEnd+1, index+1);
           indexEnd = index;
 
@@ -1400,18 +1411,18 @@ function useBun(){
           numBun++;
         }
       }
-      else if(currChar == '「' || currChar == '『'){
+      else if(currChar === '「' || currChar === '『'){
         indexKagiDepth++;
       }
-      else if(currChar == '」' || currChar == '』'){
+      else if(currChar === '」' || currChar === '』'){
         indexKagiDepth--;
       }
 
       index++;
     }
-    if(index - indexEnd > 0 && indexEnd != length-1){
+    if(index - indexEnd > 0 && indexEnd !== length-1){
       tmpStr = danText.substring(indexEnd+1, index);
-      if(tmpStr != '\n' && tmpStr != '。' && tmpStr != '「' && tmpStr != '」'){
+      if(tmpStr !== '\n' && tmpStr !== '。' && tmpStr !== '「' && tmpStr !== '」'){
         retArr.push(tmpStr);
       }
     }

@@ -148,7 +148,7 @@ const YoutubeView = ({ navRoute, changeRoute, videoId } : YoutubeViewProps ) => 
   }
 
   useEffect( () => {
-    if(videoId != null){
+    if(videoId !== null){
       decode();
     }
   }, [])
@@ -209,10 +209,10 @@ const YoutubeView = ({ navRoute, changeRoute, videoId } : YoutubeViewProps ) => 
             </div>
             <div className="youtube-composite-list-layout">
             {
-              hukumuData == null ?
+              hukumuData === null ?
               <>
                 {
-                  osusumeList == null ?
+                  osusumeList === null ?
                   <>
                     <YouTubeTangoListComp tangoData={tangoData}/>
                   </>
@@ -225,7 +225,7 @@ const YoutubeView = ({ navRoute, changeRoute, videoId } : YoutubeViewProps ) => 
               :
               <>
                 {
-                  hukumuList != null && hukumuList.length != 0 ?
+                  hukumuList !== null && hukumuList.length !== 0 ?
                   <YoutubeHukumuListComp hukumuData={hukumuData} hukumuList={hukumuList}
                   refetch={refetch} setStyled={setStyled} fetchHukumuList={fetchHukumuList}/>
                   :
@@ -236,7 +236,7 @@ const YoutubeView = ({ navRoute, changeRoute, videoId } : YoutubeViewProps ) => 
             </div>
             <div className="youtube-composite-dictionary-layout">
             {
-              hukumuData == null ?
+              hukumuData === null ?
                 <Dictionary selection={selection}/>
               :
                 <Dictionary selection={hukumuData.hyouki}/>
@@ -266,7 +266,7 @@ const YoutubeView = ({ navRoute, changeRoute, videoId } : YoutubeViewProps ) => 
           <div className="honyaku">
             <ImiComp hukumuData={hukumuData} selection={selection} selectedBun={selectedBun}  setStyled={setStyled} textOffset={textOffset} changeRoute={changeRoute}/>
             {
-              hukumuData == null ?
+              hukumuData === null ?
                 <Dictionary selection={selection}/>
               :
                 <Dictionary selection={hukumuData.hyouki}/>
@@ -330,7 +330,7 @@ const VideoControlComp = ({ type, pauseYT, prevSec, nextSec, prevFrame, nextFram
   return (
     <div className="video_control-container">
       {
-        isPc && type == 'marking' &&
+        isPc && type === 'marking' &&
         <>
           <div className="video_control">
             <button className="button-neutral" onClick={prevSec}>1초 전(z)</button>
@@ -341,15 +341,15 @@ const VideoControlComp = ({ type, pauseYT, prevSec, nextSec, prevFrame, nextFram
           </div>
           <div className="video_control">
             <button className="button-neutral" onClick={markStart}>start 마크(a)</button>
-            <button className={`button-${selectMarker == 'startTime' ? 'positive' : 'neutral'}`} onClick={ () => { props.selectStartTime !== undefined && props.selectStartTime() } }>start로(s)</button>
-            <button className={`button-${selectMarker == 'endTime' ? 'positive' : 'neutral'}`} onClick={ () => { props.selectEndTime !== undefined && props.selectEndTime() } }>End로(d)</button>
+            <button className={`button-${selectMarker === 'startTime' ? 'positive' : 'neutral'}`} onClick={ () => { props.selectStartTime !== undefined && props.selectStartTime() } }>start로(s)</button>
+            <button className={`button-${selectMarker === 'endTime' ? 'positive' : 'neutral'}`} onClick={ () => { props.selectEndTime !== undefined && props.selectEndTime() } }>End로(d)</button>
             <button className="button-neutral" onClick={markEnd}>End 마크(f)</button>
             <button className={`button-${autoStop.loop ? 'positive' : 'neutral'}`} onClick={ () => {loop() }}>Loop (r)</button>
           </div>
         </>
       }
       {
-        isPc && type == 'timeline' &&
+        isPc && type === 'timeline' &&
         <>
           <div className="video_control">
             <button className="button-neutral" onClick={prevSec}>1초 전(z)</button>

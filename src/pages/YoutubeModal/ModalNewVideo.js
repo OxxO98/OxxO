@@ -28,7 +28,7 @@ const ModalVideoContainer = ({ fetch, ...props }) => {
     };
     (0, react_1.useEffect)(() => {
         let res = resInsertVideo;
-        if (res != null) {
+        if (res !== null) {
             fetch();
             props?.handleClose !== undefined && props?.handleClose();
         }
@@ -38,8 +38,8 @@ const ModalVideoContainer = ({ fetch, ...props }) => {
     };
     (0, react_1.useEffect)(() => {
         let res = resExistVideo;
-        if (res != null) {
-            if (res.data.length == 0) {
+        if (res !== null) {
+            if (res.data.length === 0) {
                 setIsDuplicated(false);
             }
             else {
@@ -54,6 +54,6 @@ const ModalVideoContainer = ({ fetch, ...props }) => {
             [name]: value
         });
     };
-    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsxs)(components_1.StepPage, { children: [(0, jsx_runtime_1.jsxs)(components_1.StepPage.Comp, { children: [(0, jsx_runtime_1.jsxs)("form", { children: [(0, jsx_runtime_1.jsx)("label", { children: "videoId" }), (0, jsx_runtime_1.jsx)("input", { type: "text", name: "videoId", id: "videoId", onChange: handleChange })] }), (0, jsx_runtime_1.jsx)(components_1.StepPage.Next, { children: (0, jsx_runtime_1.jsx)("button", { children: "check" }) })] }), (0, jsx_runtime_1.jsxs)(components_1.StepPage.Comp, { children: [(0, jsx_runtime_1.jsxs)("form", { children: [(0, jsx_runtime_1.jsxs)("label", { children: ["videoId : ", input.videoId] }), (0, jsx_runtime_1.jsx)("input", { type: "text", name: "title", id: "title", onChange: handleChange })] }), (0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)(lazy_1.default, { url: 'https://www.youtube.com/watch?v=' + input.videoId }), input.videoId] }), (0, jsx_runtime_1.jsx)(components_1.StepPage.Prev, { children: (0, jsx_runtime_1.jsx)("button", { children: "\uC774\uC804" }) }), input.title != '' && input.title != null &&
+    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsxs)(components_1.StepPage, { children: [(0, jsx_runtime_1.jsxs)(components_1.StepPage.Comp, { children: [(0, jsx_runtime_1.jsxs)("form", { children: [(0, jsx_runtime_1.jsx)("label", { children: "videoId" }), (0, jsx_runtime_1.jsx)("input", { type: "text", name: "videoId", id: "videoId", onChange: handleChange })] }), (0, jsx_runtime_1.jsx)(components_1.StepPage.Next, { children: (0, jsx_runtime_1.jsx)("button", { children: "check" }) })] }), (0, jsx_runtime_1.jsxs)(components_1.StepPage.Comp, { children: [(0, jsx_runtime_1.jsxs)("form", { children: [(0, jsx_runtime_1.jsxs)("label", { children: ["videoId : ", input.videoId] }), (0, jsx_runtime_1.jsx)("input", { type: "text", name: "title", id: "title", onChange: handleChange })] }), (0, jsx_runtime_1.jsxs)("div", { children: [(0, jsx_runtime_1.jsx)(lazy_1.default, { url: 'https://www.youtube.com/watch?v=' + input.videoId }), input.videoId] }), (0, jsx_runtime_1.jsx)(components_1.StepPage.Prev, { children: (0, jsx_runtime_1.jsx)("button", { children: "\uC774\uC804" }) }), input.title !== '' && input.title !== null &&
                             (0, jsx_runtime_1.jsx)(components_1.StepPage.Next, { onClick: checkDuplicatedVideo, children: (0, jsx_runtime_1.jsx)("button", { children: "\uC911\uBCF5 \uCCB4\uD06C" }) })] }), (0, jsx_runtime_1.jsxs)(components_1.StepPage.Comp, { children: [(0, jsx_runtime_1.jsx)("div", { children: input.videoId }), (0, jsx_runtime_1.jsx)("div", { children: input.title }), (0, jsx_runtime_1.jsx)("button", { onClick: submitVideo, children: "Submit" })] })] }) }));
 };

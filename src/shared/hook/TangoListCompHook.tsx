@@ -26,7 +26,7 @@ function useTangoListCompHook( page : number, pageLength : number, rowLength : n
 
   useEffect( () => {
     let res = resBIds;
-    if(res != null){
+    if(res !== null){
       let bIdsList : ObjKey = new Object();
       for(let key in res.data){
         bIdsList[key] = res.data[key]['BID'];
@@ -42,7 +42,7 @@ function useTangoListCompHook( page : number, pageLength : number, rowLength : n
 
   useEffect( () => {
     let res = resTangoList;
-    if(res != null){
+    if(res !== null){
       setTangoData(res.data);
     }
     else{
@@ -65,7 +65,7 @@ function useYoutubeTangoListCompHook( ytsId : number ){
 
   useEffect( () => {
     let res = resTangoList;
-    if(res != null){
+    if(res !== null){
       setTangoData(res.data);
     }
     else{
@@ -74,7 +74,7 @@ function useYoutubeTangoListCompHook( ytsId : number ){
   }, [resTangoList])
 
   useEffect( () => {
-    if( ytsId != null ){
+    if( ytsId !== null ){
       setParamsTL({ userId : userId, ytId : ytId, ytsId : ytsId });
     }
   }, [ytsId])

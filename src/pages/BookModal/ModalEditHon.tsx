@@ -98,7 +98,7 @@ const InviteHonComp = ({ hId } : InviteHonCompProps ) => {
   }
 
   const insertInviteCode = () => {
-    if(code != null && hId != null){
+    if(code !== null && hId !== null){
       let hashCode = CryptoJS.MD5(code).toString(CryptoJS.enc.Hex);
 
       setParamsSet({ userId : userId, code : hashCode, hId : hId, grant : select });
@@ -107,7 +107,7 @@ const InviteHonComp = ({ hId } : InviteHonCompProps ) => {
 
   useEffect( () => {
     let res = response;
-    if(res != null){
+    if(res !== null){
       setCode(res.data[0]['INVITE_CODE']);
     }
   }, [response])
@@ -139,7 +139,7 @@ const InviteHonComp = ({ hId } : InviteHonCompProps ) => {
           <div>확인을 누르면 확정됩니다.</div>
           <div>
           {
-            code != null &&
+            code !== null &&
             <span>{code}</span>
           }
           </div>
@@ -152,7 +152,7 @@ const InviteHonComp = ({ hId } : InviteHonCompProps ) => {
           <div>아래 코드로 공유되었습니다.</div>
           <div>
           {
-            code != null &&
+            code !== null &&
             <span>{code}</span>
           }
           </div>
@@ -172,7 +172,7 @@ const UploadThumbnailComp = ({ hId, handleRefetch } : UploadThumbnailCompProps) 
   const fileUpload = (e : React.FormEvent) => {
     e.preventDefault();
 
-    if(imgFile != null && imgFile != undefined){
+    if(imgFile !== null && imgFile !== undefined){
 
       const formData = new FormData();
 
@@ -184,14 +184,14 @@ const UploadThumbnailComp = ({ hId, handleRefetch } : UploadThumbnailCompProps) 
   }
 
   const handleChangeImg = (e : React.ChangeEvent<HTMLInputElement>) => {
-    if(e.target !== null && e.target.files != null && e.target.files[0] !== null){
+    if(e.target !== null && e.target.files !== null && e.target.files[0] !== null){
       setImgFile(e.target.files[0]);
     }
   }
 
   useEffect( () => {
     let res = resNewImage;
-    if( res != null ){
+    if( res !== null ){
       handleRefetch();
     }
   }, [resNewImage])

@@ -24,29 +24,29 @@ const SequenceComp = ({ ytsId, setYTSId, setImportData }) => {
         setParamsInsertSeq({ userId: userId, ytId: ytId });
     };
     (0, react_1.useEffect)(() => {
-        if (resInsertSeq != null) {
+        if (resInsertSeq !== null) {
             fetchGetSeq();
         }
     }, [resInsertSeq]);
     (0, react_1.useEffect)(() => {
         let res = resGetSeq;
-        if (res != null) {
-            if (res.data.length == 0) {
+        if (res !== null) {
+            if (res.data.length === 0) {
                 setYTSId(null);
             }
             else {
-                if (ytsId == null) {
+                if (ytsId === null) {
                     setYTSId(res.data[0]['YTSID']);
                 }
             }
             setSequenceList(res.data);
         }
     }, [resGetSeq]);
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "sequence-container", children: [ytsId == null ?
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "sequence-container", children: [ytsId === null ?
                 (0, jsx_runtime_1.jsx)("div", { children: "\uC2DC\uD000\uC2A4 \uC5C6\uC74C" })
                 :
-                    (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("span", { children: "\uC120\uD0DD\uB41C \uC2DC\uD000\uC2A4 : " }), (0, jsx_runtime_1.jsxs)(components_1.DropDown, { children: [(0, jsx_runtime_1.jsx)(components_1.DropDown.Representive, { children: ytsId }), (0, jsx_runtime_1.jsx)(components_1.DropDown.Content, { children: sequenceList != null && sequenceList.length != 0 &&
-                                            (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: sequenceList.filter((arr) => arr['YTSID'] != ytsId).map((arr) => ((0, jsx_runtime_1.jsx)("div", { className: "content", onClick: () => { setYTSId(arr['YTSID']); }, children: arr['YTSID'] }))) }) })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "button-container_flexEnd", children: [(0, jsx_runtime_1.jsxs)(customComp_1.YoutubeGrantWrapper, { restrict: "ADMIN", children: [(0, jsx_runtime_1.jsx)(customComp_1.ImportHonModal, { setImportData: setImportData }), (0, jsx_runtime_1.jsx)(InsertSequenceModal, { newSequence: newSequence })] }), (0, jsx_runtime_1.jsx)(YoutubeCCModal, { ytsId: ytsId })] })] }));
+                    (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("span", { children: "\uC120\uD0DD\uB41C \uC2DC\uD000\uC2A4 : " }), (0, jsx_runtime_1.jsxs)(components_1.DropDown, { children: [(0, jsx_runtime_1.jsx)(components_1.DropDown.Representive, { children: ytsId }), (0, jsx_runtime_1.jsx)(components_1.DropDown.Content, { children: sequenceList !== null && sequenceList.length !== 0 &&
+                                            (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: sequenceList.filter((arr) => arr['YTSID'] !== ytsId).map((arr) => ((0, jsx_runtime_1.jsx)("div", { className: "content", onClick: () => { setYTSId(arr['YTSID']); }, children: arr['YTSID'] }))) }) })] })] }), (0, jsx_runtime_1.jsxs)("div", { className: "button-container_flexEnd", children: [(0, jsx_runtime_1.jsxs)(customComp_1.YoutubeGrantWrapper, { restrict: "ADMIN", children: [(0, jsx_runtime_1.jsx)(customComp_1.ImportHonModal, { setImportData: setImportData }), (0, jsx_runtime_1.jsx)(InsertSequenceModal, { newSequence: newSequence })] }), (0, jsx_runtime_1.jsx)(YoutubeCCModal, { ytsId: ytsId })] })] }));
 };
 exports.SequenceComp = SequenceComp;
 const InsertSequenceModal = ({ newSequence }) => {
@@ -170,12 +170,12 @@ const YoutubeCCModal = ({ ytsId }) => {
         });
     };
     const handleCCModal = () => {
-        if (ytsId != null && ytId != null) {
+        if (ytsId !== null && ytId !== null) {
             setParams({ ytId: ytId, ytsId: ytsId });
         }
     };
     (0, react_1.useEffect)(() => {
-        if (timelineData != null) {
+        if (timelineData !== null && timelineData !== undefined) {
             // console.log(timelineData);
             let jsString = JSON.stringify(timelineData);
             setInput({
@@ -183,7 +183,7 @@ const YoutubeCCModal = ({ ytsId }) => {
                 ret: jsString
             });
             for (let key in timelineData) {
-                if (timelineData[key].hurigana != "") {
+                if (timelineData[key].hurigana !== "") {
                     setParamsHukumu({ bId: timelineData[key].bId, userId: userId });
                 }
             }
@@ -191,7 +191,7 @@ const YoutubeCCModal = ({ ytsId }) => {
     }, [timelineData]);
     (0, react_1.useEffect)(() => {
         let res = resHukumu;
-        if (res != null) {
+        if (res !== null) {
             for (let key in res.data) {
                 let huri = yomiToHuri(res.data[key]['DATA'], res.data[key]['RUBY']);
                 // console.log(huri);
@@ -200,18 +200,18 @@ const YoutubeCCModal = ({ ytsId }) => {
     }, [resHukumu]);
     (0, react_1.useEffect)(() => {
         let res = resGetTimeLine;
-        if (res != null && res.data.length > 0) {
+        if (res !== null && res.data.length > 0) {
             // console.log(res.data);
             let a = new Array();
             for (let key in res.data) {
                 let hurigana;
-                if (res.data[key]['HURIGANA'] != null) {
+                if (res.data[key]['HURIGANA'] !== null) {
                     hurigana = hysToHuri(res.data[key]['JATEXT'], res.data[key]['HYS'], res.data[key]['HURIGANA']);
                 }
                 else {
                     hurigana = "";
                 }
-                let koText = res.data[key]['KOTEXT'] == null ? "" : res.data[key]['KOTEXT'];
+                let koText = res.data[key]['KOTEXT'] === null ? "" : res.data[key]['KOTEXT'];
                 a.push({
                     'bId': res.data[key]['BID'],
                     'startTime': tsToTime(res.data[key]['STARTTIME']),
@@ -224,11 +224,11 @@ const YoutubeCCModal = ({ ytsId }) => {
             setTimelineData(a);
         }
         else {
-            if (res != null) {
+            if (res !== null) {
                 // console.log('res length', res.data.length);
             }
             //setTimelineData(null);
-            if (ytId != null && ytsId != null) {
+            if (ytId !== null && ytsId !== null) {
                 setParamsNonProp({ ytId: ytId, ytsId: ytsId });
                 // console.log('setParamsNonProp');
             }
@@ -236,7 +236,7 @@ const YoutubeCCModal = ({ ytsId }) => {
     }, [resGetTimeLine]);
     (0, react_1.useEffect)(() => {
         let res = resGetTimeLineNonProp;
-        if (res != null) {
+        if (res !== null) {
             // console.log(res.data);
             let a = new Array();
             for (let key in res.data) {
@@ -256,18 +256,18 @@ const YoutubeCCModal = ({ ytsId }) => {
     }, [resGetTimeLineNonProp]);
     (0, react_1.useEffect)(() => {
         let res = resReviseText;
-        if (res != null) {
+        if (res !== null) {
             let a = [];
             let prev = "";
             let mergeStartTime = "";
             let mergeEndTime = "";
             let prevObj = null;
             for (let key in res.data) {
-                if (res.data[key]['koText'] == prev) {
+                if (res.data[key]['koText'] === prev) {
                     mergeEndTime = res.data[key]['timeCode'].substring(14, 26);
                 }
                 else {
-                    if (prevObj != null) {
+                    if (prevObj !== null) {
                         a.push({
                             ...prevObj,
                             timeCode: mergeStartTime + " - " + mergeEndTime

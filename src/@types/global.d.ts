@@ -1,8 +1,8 @@
 export {};
 
 declare global {
-
-  ///Context
+  
+  //context
   interface MediaQueryContextInterface {
     pc : string;
     tablet : string;
@@ -27,7 +27,6 @@ declare global {
     setUserId : (userId : numbe | null) => void;
   }
 
-  //
   interface ObjStringKey<T> extends Array<T> {
     [index : string | number] : T;
   }

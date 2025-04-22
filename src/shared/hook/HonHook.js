@@ -25,13 +25,13 @@ function useHonView(page, selectedBun, textOffset, resetList) {
     const [serverSelection, setServerSelection] = (0, react_1.useState)('');
     const { response: res, setParams, fetch } = (0, hook_1.useAxios)('/bun', true, { bId: selectedBun });
     (0, react_1.useEffect)(() => {
-        if (res != null) {
+        if (res !== null) {
             setServerSelection(res.data[0]['JATEXT'].substring(textOffset.startOffset, textOffset.endOffset));
         }
     }, [res]);
     (0, react_1.useEffect)(() => {
-        if (selectedBun != null) {
-            if (selectedBun != 0) {
+        if (selectedBun !== null && selectedBun !== undefined) {
+            if (selectedBun !== 0) {
                 setParams({ bId: selectedBun });
             }
         }

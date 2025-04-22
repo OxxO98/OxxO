@@ -64,19 +64,19 @@ const SequenceComp = ({ ytsId, setYTSId, setImportData } : SequenceCompProps ) =
   }
 
   useEffect( () => {
-    if(resInsertSeq != null){
+    if(resInsertSeq !== null){
       fetchGetSeq();
     }
   }, [resInsertSeq])
 
   useEffect( () => {
     let res = resGetSeq;
-    if(res != null){
-      if(res.data.length == 0){
+    if(res !== null){
+      if(res.data.length === 0){
         setYTSId(null);
       }
       else{
-        if(ytsId == null){
+        if(ytsId === null){
           setYTSId(res.data[0]['YTSID']);
         }
       }
@@ -87,7 +87,7 @@ const SequenceComp = ({ ytsId, setYTSId, setImportData } : SequenceCompProps ) =
   return (
     <div className="sequence-container">
       {
-        ytsId == null ?
+        ytsId === null ?
         <div>시퀀스 없음</div>
         :
         <>
@@ -98,10 +98,10 @@ const SequenceComp = ({ ytsId, setYTSId, setImportData } : SequenceCompProps ) =
             </DropDown.Representive>
             <DropDown.Content>
             {
-              sequenceList != null && sequenceList.length != 0 &&
+              sequenceList !== null && sequenceList.length !== 0 &&
               <>
                 {
-                  sequenceList.filter( (arr) => arr['YTSID'] != ytsId ).map( (arr) => (
+                  sequenceList.filter( (arr) => arr['YTSID'] !== ytsId ).map( (arr) => (
                     <div className="content" onClick={() => { setYTSId(arr['YTSID']) }}>
                       {arr['YTSID']}
                     </div>
@@ -300,13 +300,13 @@ const YoutubeCCModal = ({ ytsId } : YoutubeCCModalProps ) => {
   }
 
   const handleCCModal = () => {
-    if(ytsId != null && ytId != null){
+    if(ytsId !== null && ytId !== null){
       setParams( { ytId : ytId, ytsId : ytsId } );
     }
   }
 
   useEffect( () => {
-    if(timelineData != null){
+    if(timelineData !== null && timelineData !== undefined){
       // console.log(timelineData);
       let jsString = JSON.stringify(timelineData);
       setInput({
@@ -314,7 +314,7 @@ const YoutubeCCModal = ({ ytsId } : YoutubeCCModalProps ) => {
         ret : jsString
       })
       for(let key in timelineData){
-        if(timelineData[key].hurigana != ""){
+        if(timelineData[key].hurigana !== ""){
           setParamsHukumu({ bId : timelineData[key].bId, userId : userId });
         }
       }
@@ -324,7 +324,7 @@ const YoutubeCCModal = ({ ytsId } : YoutubeCCModalProps ) => {
   useEffect( () => {
     let res = resHukumu;
 
-    if(res != null){
+    if(res !== null){
       for(let key in res.data){
         let huri = yomiToHuri( res.data[key]['DATA'], res.data[key]['RUBY'] );
 
@@ -336,13 +336,13 @@ const YoutubeCCModal = ({ ytsId } : YoutubeCCModalProps ) => {
   useEffect( () => {
     let res = resGetTimeLine;
 
-    if(res != null && res.data.length > 0){
+    if(res !== null && res.data.length > 0){
       // console.log(res.data);
       let a = new Array();
 
       for(let key in res.data){
         let hurigana;
-        if(res.data[key]['HURIGANA'] != null){
+        if(res.data[key]['HURIGANA'] !== null){
           hurigana = hysToHuri(
             res.data[key]['JATEXT'],
             res.data[key]['HYS'],
@@ -352,7 +352,7 @@ const YoutubeCCModal = ({ ytsId } : YoutubeCCModalProps ) => {
         else{
           hurigana = "";
         }
-        let koText = res.data[key]['KOTEXT'] == null ? "" : res.data[key]['KOTEXT'];
+        let koText = res.data[key]['KOTEXT'] === null ? "" : res.data[key]['KOTEXT'];
 
         a.push({
           'bId' : res.data[key]['BID'],
@@ -366,11 +366,11 @@ const YoutubeCCModal = ({ ytsId } : YoutubeCCModalProps ) => {
       setTimelineData(a);
     }
     else{
-      if(res != null){
+      if(res !== null){
         // console.log('res length', res.data.length);
       }
       //setTimelineData(null);
-      if( ytId != null && ytsId != null){
+      if( ytId !== null && ytsId !== null){
         setParamsNonProp({ ytId : ytId, ytsId : ytsId });
         // console.log('setParamsNonProp');
       }
@@ -379,7 +379,7 @@ const YoutubeCCModal = ({ ytsId } : YoutubeCCModalProps ) => {
 
   useEffect( () => {
     let res = resGetTimeLineNonProp;
-    if( res != null ){
+    if( res !== null ){
       // console.log(res.data);
       let a = new Array();
       for(let key in res.data){
@@ -400,7 +400,7 @@ const YoutubeCCModal = ({ ytsId } : YoutubeCCModalProps ) => {
 
   useEffect( () => {
     let res = resReviseText;
-    if(res != null){
+    if(res !== null){
       let a : ObjStringKey<any> = [];
       let prev = "";
       let mergeStartTime = "";
@@ -409,11 +409,11 @@ const YoutubeCCModal = ({ ytsId } : YoutubeCCModalProps ) => {
       let prevObj = null;
 
       for(let key in res.data){
-        if(res.data[key]['koText'] == prev){
+        if(res.data[key]['koText'] === prev){
           mergeEndTime = res.data[key]['timeCode'].substring(14, 26);
         }
         else{
-          if(prevObj != null){
+          if(prevObj !== null){
             a.push({
               ...prevObj,
               timeCode : mergeStartTime+" - "+mergeEndTime

@@ -8,12 +8,12 @@ function useMobileToggle() {
     const [toggle, setToggle] = (0, react_1.useState)(false);
     const handleMobile = (e) => {
         //나중에 깔끔하게 수정해도 좋을 듯
-        if (toggle == true) {
-            if (e.currentTarget?.tagName == 'INPUT' || e.currentTarget?.tagName == 'BUTTON' || e.currentTarget?.tagName == 'TEXTAREA') {
+        if (toggle === true) {
+            if (e.currentTarget?.tagName === 'INPUT' || e.currentTarget?.tagName === 'BUTTON' || e.currentTarget?.tagName === 'TEXTAREA') {
                 return;
             }
         }
-        if (e.currentTarget?.className == 'dropDownRepresentive' || e.currentTarget?.className == 'dropDownContent' || e.currentTarget?.className == 'content') {
+        if (e.currentTarget?.className === 'dropDownRepresentive' || e.currentTarget?.className === 'dropDownContent' || e.currentTarget?.className === 'content') {
             return;
         }
         setToggle(!toggle);
@@ -26,12 +26,12 @@ function useMobileToggle() {
 function useMobileFocus() {
     const [isFocused, setIsFocused] = (0, react_1.useState)(false);
     const handleFocus = (e) => {
-        if (isFocused == false) {
+        if (isFocused === false) {
             setIsFocused(true);
         }
     };
     const handleBlur = (e) => {
-        if (isFocused == true) {
+        if (isFocused === true) {
             setIsFocused(false);
         }
     };
@@ -40,8 +40,8 @@ function useMobileFocus() {
 function useMobileScroll() {
     const scrollRef = (0, react_1.useRef)([]);
     const handleScroll = (id) => {
-        let tmpRef = scrollRef.current != null ? scrollRef.current[id] : null;
-        if (tmpRef != null && tmpRef != undefined) {
+        let tmpRef = scrollRef.current !== null ? scrollRef.current[id] : null;
+        if (tmpRef !== null && tmpRef !== undefined) {
             tmpRef.scrollIntoView({ behavior: "smooth" });
         }
     };

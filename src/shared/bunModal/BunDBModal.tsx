@@ -299,7 +299,7 @@ const ModalInsertBun = ({ importData, selectImportBun, addPoint, value, handleRe
                 <span>{value}</span>
               }
               {
-                isBun(value) === false && isDan(value) == true &&
+                isBun(value) === false && isDan(value) === true &&
                 <>
                   <div>한 문장이 아닌 것 같습니다.</div>
                   <div>

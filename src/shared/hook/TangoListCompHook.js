@@ -21,7 +21,7 @@ function useTangoListCompHook(page, pageLength, rowLength) {
     }, [page]);
     (0, react_1.useEffect)(() => {
         let res = resBIds;
-        if (res != null) {
+        if (res !== null) {
             let bIdsList = new Object();
             for (let key in res.data) {
                 bIdsList[key] = res.data[key]['BID'];
@@ -35,7 +35,7 @@ function useTangoListCompHook(page, pageLength, rowLength) {
     }, [resBIds]);
     (0, react_1.useEffect)(() => {
         let res = resTangoList;
-        if (res != null) {
+        if (res !== null) {
             setTangoData(res.data);
         }
         else {
@@ -51,7 +51,7 @@ function useYoutubeTangoListCompHook(ytsId) {
     const { response: resTangoList, setParams: setParamsTL, fetch: fetchTL } = (0, hook_1.useAxios)('/youtube/tango', true, { userId: userId, ytId: ytId, ytsId: ytsId });
     (0, react_1.useEffect)(() => {
         let res = resTangoList;
-        if (res != null) {
+        if (res !== null) {
             setTangoData(res.data);
         }
         else {
@@ -59,7 +59,7 @@ function useYoutubeTangoListCompHook(ytsId) {
         }
     }, [resTangoList]);
     (0, react_1.useEffect)(() => {
-        if (ytsId != null) {
+        if (ytsId !== null) {
             setParamsTL({ userId: userId, ytId: ytId, ytsId: ytsId });
         }
     }, [ytsId]);

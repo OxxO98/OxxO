@@ -65,7 +65,7 @@ const ModalVideoContainer = ({ fetch, ...props } : ModalVideoContainerProps ) =>
   useEffect( () => {
     let res = resInsertVideo;
 
-    if(res != null){
+    if(res !== null){
       fetch();
       props?.handleClose !== undefined && props?.handleClose();
     }
@@ -78,8 +78,8 @@ const ModalVideoContainer = ({ fetch, ...props } : ModalVideoContainerProps ) =>
   useEffect( () => {
     let res = resExistVideo;
 
-    if(res != null){
-      if(res.data.length == 0){
+    if(res !== null){
+      if(res.data.length === 0){
         setIsDuplicated(false);
       }
       else{
@@ -123,7 +123,7 @@ const ModalVideoContainer = ({ fetch, ...props } : ModalVideoContainerProps ) =>
             <button>이전</button>
           </StepPage.Prev>
           {
-            input.title != '' && input.title != null &&
+            input.title !== '' && input.title !== null &&
             <StepPage.Next onClick={checkDuplicatedVideo}>
               <button>중복 체크</button>
             </StepPage.Next>

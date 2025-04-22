@@ -150,7 +150,7 @@ const TangoComp = ({ hurigana, tango, selectedBun, textOffset, setStyled, hukumu
   const { kirikaeValue : editKirikaeValue, concatMultiInput : concatEditMultiInput, handleChange : handleEditMultiKirikae } = useMultiKirikae(editMultiValue, handleEditChange);
 
   const handleRefetch = (...props : any[]) => {
-    if( props[0] != null && props[0] == 'all'){
+    if( props[0] !== null && props[0] === 'all'){
       refetch(selectedBun, 'all');
     }
     else{
@@ -162,13 +162,13 @@ const TangoComp = ({ hurigana, tango, selectedBun, textOffset, setStyled, hukumu
   }
 
   useEffect( () => {
-    if(edit == true){
+    if(edit === true){
       setEdit(false);
     }
   }, [hukumuData])
 
   useEffect( () => {
-    if(props.toggle == false){
+    if(props.toggle === false){
       setEdit(false);
     }
   }, [props?.toggle]);
@@ -178,8 +178,8 @@ const TangoComp = ({ hurigana, tango, selectedBun, textOffset, setStyled, hukumu
 
   const mobileSetToggle = isMobile ? (e : React.MouseEvent<HTMLElement>) => { props.setToggle(e) } : undefined;
   const editToggled = () => {
-    if( isMobile == true ){
-      if(props.toggle == true ){
+    if( isMobile === true ){
+      if(props.toggle === true ){
         setEdit(true)
       }
     }
@@ -191,11 +191,11 @@ const TangoComp = ({ hurigana, tango, selectedBun, textOffset, setStyled, hukumu
   return(
     <>
       {
-        hukumuData != null
+        hukumuData !== null
         ?
         <div className={`tangoComp ${isClicked} ${isEdited}`} onClick={mobileSetToggle}>
           {
-            edit == false ?
+            edit === false ?
             <div className="huriganaContainer">
               <label className="label"></label>
               <span>{hukumuData.yomi}</span>
@@ -217,7 +217,7 @@ const TangoComp = ({ hurigana, tango, selectedBun, textOffset, setStyled, hukumu
             <div className="button-container">
               <ModalDeleteHukumu huId={hukumuData.huId} handleRefetch={handleRefetch}/>
               {
-                concatEditMultiInput() != hukumuData.yomi &&
+                concatEditMultiInput() !== hukumuData.yomi &&
                 <ModalUpdateHukumu huId={hukumuData.huId} handleRefetch={handleRefetch} tId={hukumuData.tId} hyouki={hukumuData.hyouki} yomi={hukumuData.yomi} newYomi={concatEditMultiInput()}/>
               }
               <button className="button-positive" onClick={() => setEdit(false)}>취소</button>
@@ -250,7 +250,7 @@ const DynamicInputComp = ({ selectedBun, textOffset, setStyled, handleMultiChang
     setStyled({bId : selectedBun, startOffset : textOffset.startOffset, endOffset : textOffset.endOffset, opt : 'highlight' })
   }
 
-  const isAvailabeKatachi = checkKatachi(tango) == 'kanji' || checkKatachi(tango) == 'okuri';
+  const isAvailabeKatachi = checkKatachi(tango) === 'kanji' || checkKatachi(tango) === 'okuri';
 
   return (
     <>
@@ -260,7 +260,7 @@ const DynamicInputComp = ({ selectedBun, textOffset, setStyled, handleMultiChang
         <label className="inputNasi"></label>
         <GrantWrapper restrict="WRITER">
         {
-          tango != '' && tango && isAvailabeKatachi &&
+          tango !== '' && tango && isAvailabeKatachi &&
           <>
             <ModalTangoDB tango={tango} value={concatMultiInput()}
             selectedBun={selectedBun} textOffset={textOffset} handleRefetch={handleRefetch}/>
@@ -289,7 +289,7 @@ const AutoMultiInput = ({ multiInputData, multiValue, handleMultiChange, ...prop
     <>
       {
         multiInputData.map( (arr, index) => {
-          if(arr['inputBool'] == true){
+          if(arr['inputBool'] === true){
             return(
               <AutoLengthInput>
                 <input className="input dynamic" type="text" key={'id'+index} value={multiValue[index]} onChange={(e) => handleMultiChange(e, index)} onFocus={props?.handleHighlight} autoComplete='off'/>
@@ -310,7 +310,7 @@ const AutoMultiInput = ({ multiInputData, multiValue, handleMultiChange, ...prop
 }
 
 const AutoLengthInput = ({ children } : AutoLengthInputProps) => {
-  const length = children?.props.value == null ? 0 : children?.props.value.length;
+  const length = children?.props.value === null ? 0 : children?.props.value.length;
   const inputWithProps = React.cloneElement( children, {
     className : `input dynamic-${length}`
   })
@@ -362,10 +362,10 @@ const ModalTangoDB = ({ tango, value, selectedBun, textOffset, handleRefetch } :
   }
 
   useEffect( () => {
-    if(searchText != null){
+    if(searchText !== null){
       let a = searchText.hyouki.match( okuriRegex );
       //a.groups.any+a.groups.kanji
-      if(a?.groups != null){
+      if(a?.groups !== undefined){
         //오쿠리가나가 있을 때.
         setParams({
           userId : userId, hId : hId, ytId : ytId,
@@ -387,7 +387,7 @@ const ModalTangoDB = ({ tango, value, selectedBun, textOffset, handleRefetch } :
   }, [searchText]);
 
   useEffect( () => {
-    if(response != null && searchText != null){
+    if(response !== null && searchText !== null){
       // console.log(response.data);
       let kanzenSame = new Array(); //표기 읽기 완전 일치
       let orSame = new Array(); //표기 or 읽기 완전 일치
@@ -397,7 +397,7 @@ const ModalTangoDB = ({ tango, value, selectedBun, textOffset, handleRefetch } :
       let theOther = new Array(); //그 외
 
       let a = searchText.hyouki.match( okuriRegex );
-      let text = a?.groups != null ? a.groups.any+a.groups.kanji : tango; //검색어
+      let text = a?.groups !== undefined ? a.groups.any+a.groups.kanji : tango; //검색어
 
       // console.log(`tango : ${tango} a: ${a} - ${text} value ${value}`);
       for(let key in response.data){
@@ -406,11 +406,11 @@ const ModalTangoDB = ({ tango, value, selectedBun, textOffset, handleRefetch } :
         // %text, text% 결국 둘중 하나인 상태. INSTR이 1이아니면 그 이상, 또는 0(불일치)인데,
         // 만약 검색어에 오쿠리가나가 있어서 후방 일치라 해도 tango와는 %text%형식으로 일치된 상태일 수도 있음.
         // tango는 본래 단어, 검색어text는 따로 알아내야 하는 상태.
-        if( a == null){
+        if( a === null){
           //검색 텍스트가 okuri가 없을 때,
-          if( tango == cpr['DATA'] ){
+          if( tango === cpr['DATA'] ){
             //표기 완전 일치
-            if( value == cpr['RUBY'] ){
+            if( value === cpr['RUBY'] ){
               //읽기 완전 일치
               kanzenSame.push(cpr);
             }
@@ -422,12 +422,12 @@ const ModalTangoDB = ({ tango, value, selectedBun, textOffset, handleRefetch } :
             if( cpr['HYOFFSET'] > 1){
               prefix.push(cpr);
             }
-            else if(cpr['HYOFFSET'] == 1){
+            else if(cpr['HYOFFSET'] === 1){
               suffix.push(cpr);
             }
             else{
               //표기 불일치, 읽기는 일부 일치
-              if( value == cpr['RUBY'] ){
+              if( value === cpr['RUBY'] ){
                 if( isOnajiOkuri( tango, value, cpr['DATA'] ) ){
                   okuriHyouki.push(cpr);
                 }
@@ -443,9 +443,9 @@ const ModalTangoDB = ({ tango, value, selectedBun, textOffset, handleRefetch } :
         }
         else{
           //검색 텍스트가 okuri가 있을 떄,
-          if( tango == cpr['DATA'] ){
+          if( tango === cpr['DATA'] ){
             //표기 완전 일치
-            if( value == cpr['RUBY'] ){
+            if( value === cpr['RUBY'] ){
               //읽기 완전 일치
               kanzenSame.push(cpr);
             }
@@ -454,12 +454,12 @@ const ModalTangoDB = ({ tango, value, selectedBun, textOffset, handleRefetch } :
             }
           }
           else{
-            // text == cpr['DATA'] 비교할 필요가 있는가.
+            // text === cpr['DATA'] 비교할 필요가 있는가.
             if( cpr['HYOFFSET'] > 1){
               //%text%의 결과 일 수도.
-              if( cpr['DATA'].substring(cpr['HYOFFSET'] + text.length) != '' ){
+              if( cpr['DATA'].substring(cpr['HYOFFSET'] + text.length) !== '' ){
                 //뒤에 %에 문자가 있을 떄
-                if( cpr['DATA'].substring(cpr['HYOFFSET'] + text.length).match( hiraganaRegex ) == null ){
+                if( cpr['DATA'].substring(cpr['HYOFFSET'] + text.length).match( hiraganaRegex ) === null ){
                   //%에 한자가 들어간 경우
                   theOther.push(cpr);
                 }
@@ -474,7 +474,7 @@ const ModalTangoDB = ({ tango, value, selectedBun, textOffset, handleRefetch } :
                 }
               }
               else{
-                if( cpr['DATA'].substring(0, cpr['HYOFFSET']).match( hiraganaRegex ) == null ){
+                if( cpr['DATA'].substring(0, cpr['HYOFFSET']).match( hiraganaRegex ) === null ){
                   //%에 한자가 들어간 경우
                   theOther.push(cpr);
                 }
@@ -483,9 +483,9 @@ const ModalTangoDB = ({ tango, value, selectedBun, textOffset, handleRefetch } :
                 }
               }
             }
-            else if(cpr['HYOFFSET'] == 1){
+            else if(cpr['HYOFFSET'] === 1){
               //text%의 결과.
-              if( cpr['DATA'].substring(text.length).match( hiraganaRegex ) == null ){
+              if( cpr['DATA'].substring(text.length).match( hiraganaRegex ) === null ){
                 //%에 한자가 들어간 경우
                 theOther.push(cpr);
               }
@@ -495,7 +495,7 @@ const ModalTangoDB = ({ tango, value, selectedBun, textOffset, handleRefetch } :
             }
             else{
               //표기 불일치, 읽기는 일부 일치
-              if( value == cpr['RUBY'] ){
+              if( value === cpr['RUBY'] ){
                 if( isOnajiOkuri( tango, value, cpr['DATA'] ) ){
                   okuriHyouki.push(cpr);
                 }
@@ -528,7 +528,7 @@ const ModalTangoDB = ({ tango, value, selectedBun, textOffset, handleRefetch } :
 
   useEffect( () => {
     let res = resNewTango;
-    if(res != null){
+    if(res !== null){
       handleRefetch();
     }
   }, [resNewTango])
@@ -557,7 +557,7 @@ const ModalTangoDB = ({ tango, value, selectedBun, textOffset, handleRefetch } :
               </button>
             </Modal.CloseButton>
             {
-              ( searchedList == null || searchedList?.kanzen?.length == 0 ) &&
+              ( searchedList === null || searchedList?.kanzen?.length === 0 ) &&
               <Modal.CloseButton onClick={ () => handleSubmit(null) }>
                 <button className="button-positive">
                   새로운 단어로 등록
@@ -574,7 +574,7 @@ const ModalTangoDB = ({ tango, value, selectedBun, textOffset, handleRefetch } :
 const AccordianTangoDB = ({ searchedList, handleSubmit } : AccordianTangoDBProps ) => {
 
   const getSearchedArr = (obj : TangoDBSearchedListObj) => {
-    if(obj != null){
+    if(obj !== null){
       let retArr = new Array();
 
       retArr.push({
@@ -606,9 +606,9 @@ const AccordianTangoDB = ({ searchedList, handleSubmit } : AccordianTangoDBProps
   }
 
   return(
-    <Accordian defaultIndex={ searchedList?.kanzen?.length != 0 ? 0 : -1}>
+    <Accordian defaultIndex={ searchedList?.kanzen?.length !== 0 ? 0 : -1}>
     {
-      searchedList != null &&
+      searchedList !== null &&
       getSearchedArr(searchedList).map( (arr) =>
         <Accordian.Wrap>
           <Accordian.Header>
@@ -636,7 +636,7 @@ const TangoDB = ({ data, handleSubmit } : TangoDBProps ) => {
 
   useEffect( () => {
     let res = response;
-    if(res != null){
+    if(res !== null){
       setTangoData(res.data);
     }
   }, [response])
@@ -648,17 +648,17 @@ const TangoDB = ({ data, handleSubmit } : TangoDBProps ) => {
       </div>
       <div>
         {
-          tangoData != null &&
+          tangoData !== null &&
           <>
           {
-            tangoData.data != null &&
+            tangoData.data !== null &&
             tangoData.data.map( (arr) =>
             <>
               <ComplexText data={arr.hyouki} ruby={arr.yomi}/><label>　</label>
             </> )
           }
           {
-            tangoData.imi != null &&
+            tangoData.imi !== null &&
             tangoData.imi.map( (arr) => <>
               <span>{arr}</span><label>　</label>
             </> )
@@ -699,14 +699,14 @@ const ModalDeleteHukumu = ({ huId, handleRefetch } : ModalDeleteHukumuProps ) =>
 
   useEffect( () => {
     let res = response;
-    if(res != null){
+    if(res !== null){
       handleRefetch();
     }
   }, [response])
 
   useEffect( () => {
     let res = resCheck;
-    if(res != null){
+    if(res !== null){
       setDeleteData(res.data);
     }
   }, [resCheck])
@@ -727,25 +727,25 @@ const ModalDeleteHukumu = ({ huId, handleRefetch } : ModalDeleteHukumuProps ) =>
               문장과 연결이 없는 단어는 자동으로 삭제됩니다.
             </div>
             {
-              deletedData?.yId != null &&
+              deletedData?.yId !== undefined &&
               <div className="messegeRed">
                 {deletedData.yomi}는 자동으로 삭제 됩니다.
               </div>
             }
             {
-              deletedData?.hyId != null &&
+              deletedData?.hyId !== undefined &&
               <div className="messegeRed">
                 {deletedData.hyouki}는 자동으로 삭제 됩니다.
               </div>
             }
             {
-              deletedData?.tId != null &&
+              deletedData?.tId !== undefined &&
               <div className="messegeRed">
                 tId : {deletedData.tId}는 자동으로 삭제 됩니다.
               </div>
             }
             {
-              deletedData?.kIds != null &&
+              deletedData?.kIds !== undefined &&
               <div className="messegeRed">
                 {
                   deletedData.kIds.map(
@@ -807,7 +807,7 @@ const ModalUpdateHukumu = ({ huId, handleRefetch, tId, hyouki, yomi, newYomi } :
 
   useEffect( () => {
     let res = resCheck;
-    if(res != null){
+    if(res !== null){
       setExistYId(res.data.yId);
       setExistCount(res.data.count);
     }
@@ -818,14 +818,14 @@ const ModalUpdateHukumu = ({ huId, handleRefetch, tId, hyouki, yomi, newYomi } :
   }, [resCheck])
 
   useEffect( () => {
-    if(res != null){
+    if(res !== null){
       handleRefetch();
     }
   }, [res])
 
   useEffect( () => {
     let res = resAll;
-    if(res != null){
+    if(res !== null){
       handleRefetch('all');
     }
   }, [resAll])
@@ -852,13 +852,13 @@ const ModalUpdateHukumu = ({ huId, handleRefetch, tId, hyouki, yomi, newYomi } :
               변경 후 읽기 : {newYomi}
             </div>
             {
-              existYId != null &&
+              existYId !== null &&
               <div className="warningText">
                 변경되는 읽기 <ComplexText data={hyouki} ruby={newYomi}/>가 검색되었습니다.
               </div>
             }
             {
-              existCount != 0 &&
+              existCount !== 0 &&
                 <div className="warningText">
                   기존 <ComplexText data={hyouki} ruby={yomi}/>는 변경되지 않습니다.
                 </div>
@@ -866,19 +866,19 @@ const ModalUpdateHukumu = ({ huId, handleRefetch, tId, hyouki, yomi, newYomi } :
           </Modal.Body>
           <Modal.Footer>
             {
-              existCount == 0 &&
+              existCount === 0 &&
               <Modal.CloseButton onClick={handleUpdate}>
                 <button className="button-positive">수정</button>
               </Modal.CloseButton>
             }
             {
-              existCount != 0 &&
+              existCount !== 0 &&
               <Modal.CloseButton onClick={handleUpdate}>
                 <button className="button-positive">개별 수정</button>
               </Modal.CloseButton>
             }
             {
-              existCount != 0 &&
+              existCount !== 0 &&
               <Modal.CloseButton onClick={handleUpdateAll}>
                 <button className="button-neutral">전체 수정</button>
               </Modal.CloseButton>

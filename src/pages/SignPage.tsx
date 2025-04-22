@@ -64,9 +64,9 @@ const LogInComp = ({ setRoute, changeRoute, setUserName } : LogInCompProps ) => 
   }
 
   const logIn = () => {
-    if(input?.id != null && input?.password != null){
+    if(input?.id !== null && input?.id !== undefined && input?.password !== null){
       let regex = /^[a-zA-Z0-9]+$/;
-      if(regex.test(input.id) == false){
+      if(regex.test(input.id) === false){
         return;
       }
 
@@ -77,8 +77,8 @@ const LogInComp = ({ setRoute, changeRoute, setUserName } : LogInCompProps ) => 
   useEffect( () => {
     let res = resLogIn;
 
-    if(res != null && input?.id != undefined){
-      if( res.data.uId != null){
+    if(res !== null && input?.id !== undefined){
+      if( res.data.uId !== null){
         setUserId(res.data.uId);
         changeRoute("Book");
         setUserName(input.id);
@@ -132,10 +132,10 @@ const SignUpComp = ({ setRoute } : SignUpCompProps ) => {
   }
 
   const signUp = () => {
-    if( isIdValidate == true && isMailValidate == true){
-      if(input?.id != null && input?.password != null){
+    if( isIdValidate === true && isMailValidate === true){
+      if(input?.id !== undefined && input?.password !== undefined){
         let regex = /^[a-zA-Z0-9]+$/;
-        if(regex.test(input.id) == false){
+        if(regex.test(input.id) === false){
           return;
         }
 
@@ -145,9 +145,9 @@ const SignUpComp = ({ setRoute } : SignUpCompProps ) => {
   }
 
   const validateId = () => {
-    if(input?.id != null && input?.id != ''){
+    if(input?.id !== '' && input?.id !== undefined){
       let regex = /^[a-zA-Z0-9]+$/;
-      if(regex.test(input.id) == false){
+      if(regex.test(input.id) === false){
         return;
       }
 
@@ -156,9 +156,9 @@ const SignUpComp = ({ setRoute } : SignUpCompProps ) => {
   }
 
   const sendMailCode = () => {
-    if( input?.email != null && input?.email != '' && input?.id != null && input?.id != '' ){
+    if( input?.email !== undefined && input?.email !== '' && input?.id !== undefined && input?.id !== '' ){
       let regex = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-      if(regex.test(input.email) == false){
+      if(regex.test(input.email) === false){
         return;
       }
 
@@ -167,7 +167,7 @@ const SignUpComp = ({ setRoute } : SignUpCompProps ) => {
   }
 
   const validateMailCode = () => {
-    if( input?.id != null && input?.id != '' && input?.emailCode != null && input?.emailCode != '' ){
+    if( input?.id !== undefined && input?.id !== '' && input?.emailCode !== undefined && input?.emailCode !== '' ){
 
       setPramsMailValidate({ userName : input.id, code : input.emailCode });
     }
@@ -175,8 +175,8 @@ const SignUpComp = ({ setRoute } : SignUpCompProps ) => {
 
   useEffect( () => {
     let res = resIdValidate;
-    if(res != null){
-      if(res.data.success == true){
+    if(res !== null){
+      if(res.data.success === true){
         setIsIdValidate(true);
       }
       else{
@@ -187,8 +187,8 @@ const SignUpComp = ({ setRoute } : SignUpCompProps ) => {
 
   useEffect( () => {
     let res = resMailCode;
-    if(res != null){
-      if(res.data.success == true){
+    if(res !== null){
+      if(res.data.success === true){
         setIsMailValidata(false);
       }
     }
@@ -196,8 +196,8 @@ const SignUpComp = ({ setRoute } : SignUpCompProps ) => {
 
   useEffect( () => {
     let res = resMailValidate;
-    if(res != null){
-      if(res.data.success == true){
+    if(res !== null){
+      if(res.data.success === true){
         setIsMailValidata(true);
       }
     }
@@ -207,8 +207,8 @@ const SignUpComp = ({ setRoute } : SignUpCompProps ) => {
   useEffect( () => {
     let res = resSignUp;
 
-    if(res != null){
-      if(res.data.success == true){
+    if(res !== null){
+      if(res.data.success === true){
         setRoute('logIn');
       }
       else{
@@ -225,13 +225,13 @@ const SignUpComp = ({ setRoute } : SignUpCompProps ) => {
           <button className="button-positive" onClick={validateId}>중복 확인</button>
         </div>
         {
-          isIdValidate != null && isIdValidate == false &&
+          isIdValidate !== null && isIdValidate === false &&
           <div>
             이미 있는 아이디입니다.
           </div>
         }
         {
-          isIdValidate != null && isIdValidate == true &&
+          isIdValidate !== null && isIdValidate === true &&
           <>
             <div className="button-container_flexEnd">
               <input className="input_flex" type="password" name="password" placeholder="password" onChange={handleChange}/>
@@ -239,20 +239,20 @@ const SignUpComp = ({ setRoute } : SignUpCompProps ) => {
             <div className="button-container_flexEnd">
               <input className="input_flex" name="email" onChange={handleChange} placeholder="example@mmail.com"/>
               {
-                isMailValidate == null &&
+                isMailValidate === null &&
                 <button className="button-positive" onClick={sendMailCode}>인증 코드 전송</button>
               }
             </div>
             <div>
             {
-              isMailValidate != null && isMailValidate == false &&
+              isMailValidate !== null && isMailValidate === false &&
               <>
                 <input name="emailCode" onChange={handleChange}/>
                 <button className="button-positive" onClick={validateMailCode}>인증코드 확인</button>
               </>
             }
             {
-              isMailValidate != null && isMailValidate == true &&
+              isMailValidate !== null && isMailValidate === true &&
               <div className="button-container_flexEnd">
                 <button className="button_flex-grow button-positive" onClick={signUp}>회원가입</button>
               </div>

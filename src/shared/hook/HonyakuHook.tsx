@@ -12,13 +12,13 @@ function useHonyakuView( page : number, rowLength : number, pageLength : number 
   const { response : res, setParams, fetch } = useAxios('/hon/bun/range', true, { hId : hId, page : page, rowLength : rowLength, pageLength : pageLength} );
 
   useEffect( () => {
-    if(res != null){
+    if(res !== null){
       setBunList(res.data);
     }
   }, [res])
 
   useEffect( () => {
-    if(page != null){
+    if(page !== null){
       setParams( { hId : hId, page : page, rowLength : rowLength, pageLength : pageLength} );
     }
   }, [page]);

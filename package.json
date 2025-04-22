@@ -36,6 +36,7 @@
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
     "styled-components": "^6.0.7",
+    "uuid": "^11.1.0",
     "youtube-audio-stream": "^0.3.61"
   },
   "scripts": {
