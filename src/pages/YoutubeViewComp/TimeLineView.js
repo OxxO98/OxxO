@@ -34,7 +34,7 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
         return sliceTs;
     };
     const insertBun = (value) => {
-        if (selectImportBun != null) {
+        if (selectImportBun !== null) {
             setParamsInsert({
                 userId: userId, ytId: ytId,
                 ytsId: ytsId, start: timeToTS(startTime), end: timeToTS(endTime), jaText: value, bId: selectImportBun['BID']
@@ -48,7 +48,7 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
         }
     };
     const updateYTBunTime = () => {
-        if (editYtbId != null) {
+        if (editYtbId !== null) {
             setParamsModify({
                 userId: userId, ytId: ytId,
                 ytbId: editYtbId, start: timeToTS(startTime), end: timeToTS(endTime)
@@ -67,13 +67,13 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
     const handleRefetch = () => {
         fetch();
     };
-    //type == 'marking'
+    //type === 'marking'
     const moveTimeLine = () => {
-        if (videoTime != null) {
-            if (bunIds != null) {
+        if (videoTime !== null) {
+            if (bunIds !== null) {
                 let a = bunIds.findIndex((arr) => tsToTime(arr['startTime']) < videoTime &&
                     videoTime < tsToTime(arr['endTime']));
-                if (a != -1 && currentTimelineBun.current[a] != null) {
+                if (a !== -1 && currentTimelineBun.current[a] !== null) {
                     //console.log(currentTimelineBun.current[a]);
                     currentTimelineBun.current[a].scrollIntoView();
                 }
@@ -97,11 +97,11 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
         if (bunIds === null) {
             return;
         }
-        if (startTime != null || endTime != null) {
-            if (selectMarker != null && startTime != null && endTime != null) {
-                if (selectMarker == 'startTime') {
+        if (startTime !== null || endTime !== null) {
+            if (selectMarker !== null && startTime !== null && endTime !== null) {
+                if (selectMarker === 'startTime') {
                     let curTL = getCurrentTimeLine();
-                    if (curTL != null) {
+                    if (curTL !== null) {
                         if (curTL > 0) {
                             let curr = bunIds[curTL - 1];
                             setStartTime(tsToTime(curr['endTime']));
@@ -112,7 +112,7 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
                     }
                     else {
                         let a = bunIds.findIndex((arr) => tsToTime(arr['endTime']) < endTime);
-                        if (a != -1) {
+                        if (a !== -1) {
                             let curr = bunIds[a];
                             setStartTime(tsToTime(curr['endTime']));
                         }
@@ -121,9 +121,9 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
                         }
                     }
                 }
-                if (selectMarker == 'endTime') {
+                if (selectMarker === 'endTime') {
                     let curTL = getCurrentTimeLine();
-                    if (curTL != null) {
+                    if (curTL !== null) {
                         if (curTL + 1 < bunIds.length) {
                             let curr = bunIds[curTL - 1];
                             setEndTime(tsToTime(curr['startTime']));
@@ -134,7 +134,7 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
                     }
                     else {
                         let a = bunIds.findIndex((arr) => tsToTime(arr['startTime']) > startTime);
-                        if (a != -1) {
+                        if (a !== -1) {
                             let curr = bunIds[a];
                             setEndTime(tsToTime(curr['startTime']));
                         }
@@ -145,9 +145,9 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
                 }
             }
             else {
-                if (startTime != null) {
+                if (startTime !== null) {
                     let a = bunIds.findIndex((arr) => tsToTime(arr['startTime']) > startTime);
-                    if (a != -1) {
+                    if (a !== -1) {
                         let curr = bunIds[a];
                         setEndTime(tsToTime(curr['startTime']));
                     }
@@ -155,9 +155,9 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
                         setEndTime(startTime + 1);
                     }
                 }
-                else if (endTime != null) {
+                else if (endTime !== null) {
                     let a = bunIds.findIndex((arr) => tsToTime(arr['endTime']) < endTime);
-                    if (a != -1) {
+                    if (a !== -1) {
                         let curr = bunIds[a];
                         setStartTime(tsToTime(curr['endTime']));
                     }
@@ -168,7 +168,7 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
             }
         }
     };
-    //type == 'timeline'
+    //type === 'timeline'
     const prevTimeLine = () => {
         if (bunIds === null) {
             return;
@@ -194,12 +194,12 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
         }
     };
     const moveCurrentTimeLine = () => {
-        if (videoTime != null) {
+        if (videoTime !== null) {
             // console.log('videoTime')
-            if (bunIds != null) {
+            if (bunIds !== null) {
                 // console.log('bunIds')
                 let curTL = getCurrentTimeLine();
-                if (curTL != null) {
+                if (curTL !== null) {
                     // console.log('curTL')
                     setCurrentBunId(curTL);
                 }
@@ -212,10 +212,10 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
         }
         let a = bunIds.findIndex((arr) => tsToTime(arr['startTime']) <= videoTime &&
             videoTime < tsToTime(arr['endTime']));
-        let b = bunIds.findIndex((arr) => tsToTime(arr['startTime']) == videoTime);
+        let b = bunIds.findIndex((arr) => tsToTime(arr['startTime']) === videoTime);
         // console.log(cTime, bunIds, a, b);
-        if (a != -1) {
-            if (b != -1) {
+        if (a !== -1) {
+            if (b !== -1) {
                 return b;
             }
             else {
@@ -235,20 +235,20 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
     };
     (0, react_1.useEffect)(() => {
         let res = resModify;
-        if (res != null) {
+        if (res !== null) {
             fetch();
         }
     }, [resModify]);
     (0, react_1.useEffect)(() => {
         let res = resInsert;
-        if (res != null) {
+        if (res !== null) {
             cancelEdit();
             fetch();
         }
     }, [resInsert]);
     (0, react_1.useEffect)(() => {
         let res = resGetTimeLine;
-        if (res != null) {
+        if (res !== null) {
             let a = new Array();
             //console.log(res.data[0]['BID']);
             for (let key in res.data) {
@@ -271,12 +271,12 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
     }, [resGetTimeLine]);
     (0, react_1.useEffect)(() => {
         //console.log(`ytId ${ytId} ytsId ${ytsId}`);
-        if (ytsId != null && ytId != null) {
+        if (ytsId !== null && ytId !== null) {
             setParams({ ytId: ytId, ytsId: ytsId });
         }
     }, [ytsId]);
     (0, react_1.useEffect)(() => {
-        if (type == 'marking') {
+        if (type === 'marking') {
             moveTimeLine();
         }
         else {
@@ -284,14 +284,14 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
         }
     }, [videoTime, bunIds]);
     (0, react_1.useEffect)(() => {
-        if (currentBunId != null) {
+        if (currentBunId !== null) {
             setEditYtbId(null);
             honyakuClearEdit();
         }
     }, [currentBunId]);
     (0, react_1.useEffect)(() => {
-        if (importData != null) {
-            if (selectImportBun != null) {
+        if (importData !== null) {
+            if (selectImportBun !== null) {
                 if (selectImportBun['JATEXT'] !== value) {
                     // console.log('selectImportBun');
                     setSelectImportBun(null);
@@ -299,37 +299,37 @@ const TimeLineComp = ({ type, ytsId, setYTSId, startTime, endTime, setStartTime,
             }
         }
     }, [value]);
-    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [type == "marking" &&
-                (0, jsx_runtime_1.jsxs)("div", { className: "timeline-container marking", children: [(0, jsx_runtime_1.jsxs)("div", { className: "timeline_control-container", children: [(0, jsx_runtime_1.jsxs)("div", { className: "timeline-control", children: [startTime != null ?
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [type === "marking" &&
+                (0, jsx_runtime_1.jsxs)("div", { className: "timeline-container marking", children: [(0, jsx_runtime_1.jsxs)("div", { className: "timeline_control-container", children: [(0, jsx_runtime_1.jsxs)("div", { className: "timeline-control", children: [startTime !== null ?
                                             (0, jsx_runtime_1.jsx)("input", { type: "text", value: startTimeObj.getFrameStamp(30), onFocus: () => setSelectMarker('startTime'), onBlur: () => setSelectMarker(null), onKeyDown: handleKeyboard })
                                             :
-                                                (0, jsx_runtime_1.jsx)("input", { type: "text", value: startTimeObj.getFrameStamp(30), onKeyDown: handleKeyboard }), endTime != null ?
+                                                (0, jsx_runtime_1.jsx)("input", { type: "text", value: startTimeObj.getFrameStamp(30), onKeyDown: handleKeyboard }), endTime !== null ?
                                             (0, jsx_runtime_1.jsx)("input", { type: "text", value: endTimeObj.getFrameStamp(30), onFocus: () => setSelectMarker('endTime'), onBlur: () => setSelectMarker(null), onKeyDown: handleKeyboard })
                                             :
-                                                (0, jsx_runtime_1.jsx)("input", { type: "text", value: endTimeObj.getFrameStamp(30), onKeyDown: handleKeyboard })] }), (0, jsx_runtime_1.jsx)("div", { className: "timeline-control", children: (0, jsx_runtime_1.jsx)(customComp_1.YoutubeGrantWrapper, { restrict: "ADMIN", children: editYtbId == null ?
+                                                (0, jsx_runtime_1.jsx)("input", { type: "text", value: endTimeObj.getFrameStamp(30), onKeyDown: handleKeyboard })] }), (0, jsx_runtime_1.jsx)("div", { className: "timeline-control", children: (0, jsx_runtime_1.jsx)(customComp_1.YoutubeGrantWrapper, { restrict: "ADMIN", children: editYtbId === null ?
                                             (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("input", { type: "text", value: value, onChange: handleChange }), (0, jsx_runtime_1.jsx)("button", { className: "button-positive", type: "button", onClick: () => { insertBun(value); }, children: "\uC0C8\uB85C \uC800\uC7A5" })] })
                                             :
-                                                (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(bunModal_1.ModalDeleteBunYoutube, { bId: editBId, jaText: value, handleRefetch: handleRefetch, cancelEdit: cancelEdit }), (0, jsx_runtime_1.jsx)("input", { type: "text", value: value }), (0, jsx_runtime_1.jsx)("button", { className: "button-positive", type: "button", onClick: updateYTBunTime, children: "\uC2DC\uAC04 \uC218\uC815" }), (0, jsx_runtime_1.jsx)("button", { className: "button-neutral", type: "button", onClick: cancelEdit, children: "\uCDE8\uC18C" })] }) }) }), (0, jsx_runtime_1.jsx)("div", { className: "timeline-control", children: (0, jsx_runtime_1.jsxs)(customComp_1.YoutubeGrantWrapper, { restrict: "ADMIN", children: [importData != null &&
-                                                (0, jsx_runtime_1.jsx)(bunModal_1.ImportDropDown, { importData: importData, bunIds: bunIds, setSelectImportBun: setSelectImportBun, setValue: setValue }), currentTimelineBun != null &&
-                                                (0, jsx_runtime_1.jsx)("button", { className: "button-neutral", onClick: moveTimeLine, children: "\uD574\uB2F9 \uC2DC\uAC04 \uC774\uB3D9" })] }) })] }), (0, jsx_runtime_1.jsx)("div", { className: "timeline_bun-list-container", children: bunIds != null &&
+                                                (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(bunModal_1.ModalDeleteBunYoutube, { bId: editBId, jaText: value, handleRefetch: handleRefetch, cancelEdit: cancelEdit }), (0, jsx_runtime_1.jsx)("input", { type: "text", value: value }), (0, jsx_runtime_1.jsx)("button", { className: "button-positive", type: "button", onClick: updateYTBunTime, children: "\uC2DC\uAC04 \uC218\uC815" }), (0, jsx_runtime_1.jsx)("button", { className: "button-neutral", type: "button", onClick: cancelEdit, children: "\uCDE8\uC18C" })] }) }) }), (0, jsx_runtime_1.jsx)("div", { className: "timeline-control", children: (0, jsx_runtime_1.jsxs)(customComp_1.YoutubeGrantWrapper, { restrict: "ADMIN", children: [importData !== null &&
+                                                (0, jsx_runtime_1.jsx)(bunModal_1.ImportDropDown, { importData: importData, bunIds: bunIds, setSelectImportBun: setSelectImportBun, setValue: setValue }), currentTimelineBun !== null &&
+                                                (0, jsx_runtime_1.jsx)("button", { className: "button-neutral", onClick: moveTimeLine, children: "\uD574\uB2F9 \uC2DC\uAC04 \uC774\uB3D9" })] }) })] }), (0, jsx_runtime_1.jsx)("div", { className: "timeline_bun-list-container", children: bunIds !== null &&
                                 (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: bunIds.map((arr, index) => ((0, jsx_runtime_1.jsx)("div", { ref: (el) => {
                                             currentTimelineBun.current[index] = el;
-                                        }, children: (0, jsx_runtime_1.jsx)(TimeLineBun, { bId: arr['bId'], ytbId: arr['ytbId'], jaText: arr['jaText'], startTimestamp: timestampEdit(arr['startTime'].toString()), endTimestamp: timestampEdit(arr['endTime'].toString()), startTime: tsToTime(arr['startTime']), endTime: tsToTime(arr['endTime']), setStartTime: setStartTime, setEndTime: setEndTime, setValue: setValue, setEditYtbId: setEditYtbId, setEditBId: setEditBId, setScratch: setScratch, bIdRef: bIdRef, styled: styled, getActive: getActive, setActive: setActive }, arr['bId']) }))) }) })] }), type == "timeline" &&
-                (0, jsx_runtime_1.jsx)("div", { className: "timeline-container timeline", children: (0, jsx_runtime_1.jsxs)("div", { className: "timeline_control-container", children: [bunIds != null && bunIds.length != 0 &&
-                                (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: editYtbId == null ?
+                                        }, children: (0, jsx_runtime_1.jsx)(TimeLineBun, { bId: arr['bId'], ytbId: arr['ytbId'], jaText: arr['jaText'], startTimestamp: timestampEdit(arr['startTime'].toString()), endTimestamp: timestampEdit(arr['endTime'].toString()), startTime: tsToTime(arr['startTime']), endTime: tsToTime(arr['endTime']), setStartTime: setStartTime, setEndTime: setEndTime, setValue: setValue, setEditYtbId: setEditYtbId, setEditBId: setEditBId, setScratch: setScratch, bIdRef: bIdRef, styled: styled, getActive: getActive, setActive: setActive }, arr['bId']) }))) }) })] }), type === "timeline" &&
+                (0, jsx_runtime_1.jsx)("div", { className: "timeline-container timeline", children: (0, jsx_runtime_1.jsxs)("div", { className: "timeline_control-container", children: [bunIds !== null && bunIds.length !== 0 &&
+                                (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: editYtbId === null ?
                                         (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsxs)("div", { className: "timeline-control timeline", children: [(0, jsx_runtime_1.jsx)("div", { className: "jaText", id: "activeRange", children: (0, jsx_runtime_1.jsx)(customComp_1.Bun, { bId: bunIds[currentBunId]['bId'], bIdRef: bIdRef, styled: styled }, bunIds[currentBunId]['bId']) }), (0, jsx_runtime_1.jsx)("button", { className: "button-positive", onClick: () => {
                                                                 setEditYtbId(bunIds[currentBunId]['bId']);
                                                                 setValue(bunIds[currentBunId]['jaText']);
                                                             }, children: "\uC218\uC815" })] }), (0, jsx_runtime_1.jsx)("div", { className: "timeline-control timeline" })] })
                                         :
-                                            (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsxs)("div", { className: "timeline-control timeline", children: [(0, jsx_runtime_1.jsx)("input", { type: "text", value: value, onChange: handleChange }), (0, jsx_runtime_1.jsx)("button", { className: "button-neutral", onClick: cancelEdit, children: "\uCDE8\uC18C" })] }), (0, jsx_runtime_1.jsx)("div", { className: "timeline-control timeline", children: (0, jsx_runtime_1.jsx)(bunModal_1.ModalModifyBun, { bId: bunIds[currentBunId]['bId'], jaText: bunIds[currentBunId]['jaText'], value: value, refetch: fetch, cancelEdit: () => setEditYtbId(null) }) })] }) }), (0, jsx_runtime_1.jsx)("div", { className: "timeline-control center", children: currentTimelineBun != null &&
-                                    (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("button", { className: "button-neutral", onClick: prevTimeLine, children: "\uC774\uC804" }), (0, jsx_runtime_1.jsx)("button", { className: "button-positive", onClick: currentTimeLine, children: "\uD574\uB2F9 \uC2DC\uAC04 \uC774\uB3D9" }), (0, jsx_runtime_1.jsx)("button", { className: "button-neutral", onClick: nextTimeLine, children: "\uC774\uD6C4" })] }) })] }) }), type == 'YTHonyaku' &&
-                (0, jsx_runtime_1.jsx)("div", { className: "timeline-container honyaku", children: (0, jsx_runtime_1.jsxs)("div", { className: "timeline_control-container", children: [bunIds != null && bunIds.length != 0 &&
-                                (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [honyakuEdit == false &&
-                                            (0, jsx_runtime_1.jsx)("div", { className: "timeline-control timeline", children: (0, jsx_runtime_1.jsx)("div", { className: "jaText", id: "activeRange", children: (0, jsx_runtime_1.jsx)(customComp_1.Bun, { bId: bunIds[currentBunId]['bId'], bIdRef: bIdRef, styled: styled }, bunIds[currentBunId]['bId']) }) }), (0, jsx_runtime_1.jsx)("div", { className: "timeline-control timeline", children: honyakuEdit == false ?
+                                            (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsxs)("div", { className: "timeline-control timeline", children: [(0, jsx_runtime_1.jsx)("input", { type: "text", value: value, onChange: handleChange }), (0, jsx_runtime_1.jsx)("button", { className: "button-neutral", onClick: cancelEdit, children: "\uCDE8\uC18C" })] }), (0, jsx_runtime_1.jsx)("div", { className: "timeline-control timeline", children: (0, jsx_runtime_1.jsx)(bunModal_1.ModalModifyBun, { bId: bunIds[currentBunId]['bId'], jaText: bunIds[currentBunId]['jaText'], value: value, refetch: fetch, cancelEdit: () => setEditYtbId(null) }) })] }) }), (0, jsx_runtime_1.jsx)("div", { className: "timeline-control center", children: currentTimelineBun !== null &&
+                                    (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("button", { className: "button-neutral", onClick: prevTimeLine, children: "\uC774\uC804" }), (0, jsx_runtime_1.jsx)("button", { className: "button-positive", onClick: currentTimeLine, children: "\uD574\uB2F9 \uC2DC\uAC04 \uC774\uB3D9" }), (0, jsx_runtime_1.jsx)("button", { className: "button-neutral", onClick: nextTimeLine, children: "\uC774\uD6C4" })] }) })] }) }), type === 'YTHonyaku' &&
+                (0, jsx_runtime_1.jsx)("div", { className: "timeline-container honyaku", children: (0, jsx_runtime_1.jsxs)("div", { className: "timeline_control-container", children: [bunIds !== null && bunIds.length !== 0 &&
+                                (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [honyakuEdit === false &&
+                                            (0, jsx_runtime_1.jsx)("div", { className: "timeline-control timeline", children: (0, jsx_runtime_1.jsx)("div", { className: "jaText", id: "activeRange", children: (0, jsx_runtime_1.jsx)(customComp_1.Bun, { bId: bunIds[currentBunId]['bId'], bIdRef: bIdRef, styled: styled }, bunIds[currentBunId]['bId']) }) }), (0, jsx_runtime_1.jsx)("div", { className: "timeline-control timeline", children: honyakuEdit === false ?
                                                 (0, jsx_runtime_1.jsx)(customComp_1.HonyakuRepresentive, { bId: bunIds[currentBunId]['bId'], handleSelect: honyakuHandleSelect })
                                                 :
-                                                    (0, jsx_runtime_1.jsx)(pages_1.HonyakuComp, { bId: bunIds[currentBunId]['bId'], clearEdit: honyakuClearEdit }) })] }), (0, jsx_runtime_1.jsx)("div", { className: "timeline-control center", children: currentTimelineBun != null &&
+                                                    (0, jsx_runtime_1.jsx)(pages_1.HonyakuComp, { bId: bunIds[currentBunId]['bId'], clearEdit: honyakuClearEdit }) })] }), (0, jsx_runtime_1.jsx)("div", { className: "timeline-control center", children: currentTimelineBun !== null &&
                                     (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("button", { className: "button-neutral", onClick: prevTimeLine, children: "\uC774\uC804" }), (0, jsx_runtime_1.jsx)("button", { className: "button-positive", onClick: currentTimeLine, children: "\uD574\uB2F9 \uC2DC\uAC04 \uC774\uB3D9" }), (0, jsx_runtime_1.jsx)("button", { className: "button-neutral", onClick: nextTimeLine, children: "\uC774\uD6C4" })] }) })] }) })] }));
 };
 exports.TimeLineComp = TimeLineComp;

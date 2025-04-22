@@ -15,24 +15,24 @@ function useAxios(url : UrlString, ...props : any[] ) {
   const [loading, setLoading] = useState<boolean>(true);
 
   const [parameter, setParameter] = useState(
-    props?.[1] != null ? props[1] : null
+    props?.[1] !== null ? props[1] : null
   );
 
   const [pending, setPending] = useState(
-    props?.[0] != null ? props[0] : null
+    props?.[0] !== null ? props[0] : null
   );
 
   const baseUrl = useContext<UrlString>(ServerContext);
 
   const fetchData = async () => {
-    if(parameter != null){
+    if(parameter !== null){
       // console.log(`fetch Parameter ${JSON.stringify(parameter)} url ${baseUrl.concat(url)}`)
       await axios.get(
         baseUrl.concat(url),
         { params : parameter }
       ).then(
         response => {
-           if(response.data.length != 0){
+           if(response.data.length !== 0){
              setResponse(response);
            }
            else{
@@ -52,7 +52,7 @@ function useAxios(url : UrlString, ...props : any[] ) {
         baseUrl.concat(url)
       ).then(
         response => {
-           if(response.data.length != 0){
+           if(response.data.length !== 0){
              setResponse(response);
            }
            else{
@@ -94,23 +94,23 @@ function useAxiosPost(url : UrlString, ...props : any[] ) {
   const [loading, setLoading] = useState<boolean>(true);
 
   const [parameter, setParameter] = useState(
-    props?.[1] != null ? props[1] : null
+    props?.[1] !== null ? props[1] : null
   );
 
   const [pending, setPending] = useState(
-    props?.[0] != null ? props[0] : null
+    props?.[0] !== null ? props[0] : null
   );
 
   const baseUrl = useContext<UrlString>(ServerContext);
 
   const fetchData = async () => {
-    if(parameter != null){
+    if(parameter !== null){
       // console.log(`fetch Parameter ${JSON.stringify(parameter)} url ${baseUrl.concat(url)}`)
       await axios.post(
         baseUrl.concat(url), parameter
       ).then(
         response => {
-           if(response.data.length != 0){
+           if(response.data.length !== 0){
              setResponse(response);
            }
            else{
@@ -130,7 +130,7 @@ function useAxiosPost(url : UrlString, ...props : any[] ) {
         baseUrl.concat(url)
       ).then(
         response => {
-           if(response.data.length != 0){
+           if(response.data.length !== 0){
              setResponse(response);
            }
            else{
@@ -174,22 +174,22 @@ function useAxiosDelete(url : UrlString, ...props : any[] ) {
   const [loading, setLoading] = useState<boolean>(true);
 
   const [parameter, setParameter] = useState(
-    props?.[1] != null ? props[1] : null
+    props?.[1] !== null ? props[1] : null
   );
 
   const [pending, setPending] = useState(
-    props?.[0] != null ? props[0] : null
+    props?.[0] !== null ? props[0] : null
   );
 
   const baseUrl = useContext<UrlString>(ServerContext);
 
   const fetchData = async () => {
-    if(parameter != null){
+    if(parameter !== null){
       await axios.delete(
         baseUrl.concat(url), {params : parameter}
       ).then(
         response => {
-           if(response.data.length != 0){
+           if(response.data.length !== 0){
              setResponse(response);
            }
            else{
@@ -209,7 +209,7 @@ function useAxiosDelete(url : UrlString, ...props : any[] ) {
         baseUrl.concat(url)
       ).then(
         response => {
-           if(response.data.length != 0){
+           if(response.data.length !== 0){
              setResponse(response);
            }
            else{
@@ -253,23 +253,23 @@ function useAxiosPut(url : UrlString, ...props : any[] ) {
   const [loading, setLoading] = useState(true);
 
   const [parameter, setParameter] = useState(
-    props?.[1] != null ? props[1] : null
+    props?.[1] !== null ? props[1] : null
   );
 
   const [pending, setPending] = useState(
-    props?.[0] != null ? props[0] : null
+    props?.[0] !== null ? props[0] : null
   );
 
   const baseUrl = useContext<UrlString>(ServerContext);
 
   const fetchData = async () => {
-    if(parameter != null){
+    if(parameter !== null){
       // console.log(`fetch Parameter ${JSON.stringify(parameter)} url ${baseUrl.concat(url)}`)
       await axios.put(
         baseUrl.concat(url), parameter
       ).then(
         response => {
-           if(response.data.length != 0){
+           if(response.data.length !== 0){
              setResponse(response);
            }
            else{
@@ -289,7 +289,7 @@ function useAxiosPut(url : UrlString, ...props : any[] ) {
         baseUrl.concat(url)
       ).then(
         response => {
-           if(response.data.length != 0){
+           if(response.data.length !== 0){
              setResponse(response);
            }
            else{

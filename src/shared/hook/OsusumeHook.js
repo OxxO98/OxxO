@@ -13,7 +13,7 @@ function useOsusumeList(selection, hukumuData) {
     const { checkKatachi } = (0, hook_1.useJaText)();
     (0, react_1.useEffect)(() => {
         let res = resHukumuList;
-        if (res != null) {
+        if (res !== null) {
             // console.log(res.data);
             setHukumuList(res.data);
         }
@@ -22,10 +22,10 @@ function useOsusumeList(selection, hukumuData) {
         }
     }, [resHukumuList]);
     (0, react_1.useEffect)(() => {
-        if (selection != null && selection != '' && hukumuData == null) {
+        if (selection !== null && selection !== '' && hukumuData === null) {
             //useJatext를 통해 일본어만 검색.
             let katachi = checkKatachi(selection);
-            if (katachi != null) {
+            if (katachi !== null) {
                 setParamsHL({
                     userId: userId,
                     hId: hId,

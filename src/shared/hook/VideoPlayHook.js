@@ -21,7 +21,7 @@ function useVideoPlayHook(target, filteredData, frame, markStart, markEnd, start
     const markerTime = (0, react_1.useRef)(null); //마커 play목적
     const currentTime = (0, react_1.useRef)(0); //재생보조목적
     const gotoTime = (time, playBool) => {
-        if (played * duration != time) {
+        if (played * duration !== time) {
             currentTime.current = time;
             target.current.seekTo(time, 'seconds');
         }
@@ -29,16 +29,16 @@ function useVideoPlayHook(target, filteredData, frame, markStart, markEnd, start
             setPlaying(playBool);
         }
         else {
-            if (playing == true) {
+            if (playing = true) {
                 setPlaying(false);
             }
         }
     };
     const loop = () => {
-        if (startTime == null || endTime == null) {
+        if (startTime === null || endTime === null) {
             return;
         }
-        if (autoStop.loop == false) {
+        if (autoStop.loop === false) {
             target.current.seekTo(startTime, 'seconds');
             setScratch(true, startTime, endTime, true);
             //setPlaying(true);
@@ -50,7 +50,7 @@ function useVideoPlayHook(target, filteredData, frame, markStart, markEnd, start
     };
     const pauseYT = () => {
         currentTime.current = played * duration;
-        if (playing == true) {
+        if (playing === true) {
             //일단 markerTime 처럼 재생
             //markerTime.current = played*duration;
             setPlaying(false);
@@ -65,19 +65,19 @@ function useVideoPlayHook(target, filteredData, frame, markStart, markEnd, start
         if (played - 1 / frame / duration < 0) {
             return;
         }
-        if (markerTime.current != null && playing == true) {
+        if (markerTime.current !== null && playing === true) {
             markerTime.current -= 1 / frame;
             gotoTime(markerTime.current, true);
             setPlaying(true);
         }
-        else if (selectMarker != null) {
-            if (selectMarker == 'startTime') {
+        else if (selectMarker !== null) {
+            if (selectMarker === 'startTime') {
                 let _startTime = timeObj(startTime - (1 / frame));
                 setStartTime(_startTime.getFloorFrame(frame));
                 gotoTime(_startTime.getFloorFrame(frame), true);
                 setScratch(true, _startTime.getFloorFrame(frame), endTime, false);
             }
-            else if (selectMarker == 'endTime') {
+            else if (selectMarker === 'endTime') {
                 let _endTime = timeObj(endTime - (1 / frame));
                 let _scratchStartTime = startTime;
                 if (Math.abs(endTime - startTime) > 1) {
@@ -105,19 +105,19 @@ function useVideoPlayHook(target, filteredData, frame, markStart, markEnd, start
         if (played + 1 / frame / duration > 1) {
             return;
         }
-        if (markerTime.current != null && playing == true) {
+        if (markerTime.current !== null && playing === true) {
             markerTime.current += 1 / frame;
             gotoTime(markerTime.current, true);
             setPlaying(true);
         }
-        else if (selectMarker != null) {
-            if (selectMarker == 'startTime') {
+        else if (selectMarker !== null) {
+            if (selectMarker === 'startTime') {
                 let _startTime = timeObj(startTime + (1 / frame));
                 setStartTime(_startTime.getFloorFrame(frame));
                 gotoTime(_startTime.getFloorFrame(frame), true);
                 setScratch(true, _startTime.getFloorFrame(frame), endTime, false);
             }
-            else if (selectMarker == 'endTime') {
+            else if (selectMarker === 'endTime') {
                 let _endTime = timeObj(endTime + (1 / frame));
                 let _scratchStartTime = startTime;
                 if (Math.abs(endTime - startTime) > 1) {
@@ -146,14 +146,14 @@ function useVideoPlayHook(target, filteredData, frame, markStart, markEnd, start
             gotoTime(0, true);
             return;
         }
-        if (selectMarker != null) {
-            if (selectMarker == 'startTime') {
+        if (selectMarker !== null) {
+            if (selectMarker === 'startTime') {
                 let autoMarkerPoint = getPrevAutoMarkerPoint(startTime, 1, 0.5);
                 setStartTime(autoMarkerPoint);
                 gotoTime(autoMarkerPoint, true);
                 setScratch(true, autoMarkerPoint, endTime, false);
             }
-            else if (selectMarker == 'endTime') {
+            else if (selectMarker === 'endTime') {
                 let autoMarkerPoint = getPrevAutoMarkerPoint(endTime, 1, 0.5);
                 setEndTime(autoMarkerPoint);
                 gotoTime(startTime, true);
@@ -161,7 +161,7 @@ function useVideoPlayHook(target, filteredData, frame, markStart, markEnd, start
             }
         }
         else {
-            if (autoStop.set == false) {
+            if (autoStop.set === false) {
                 setScratch(true, sec - 1, sec - 1 + (4 / frame), false);
             }
             else {
@@ -174,14 +174,14 @@ function useVideoPlayHook(target, filteredData, frame, markStart, markEnd, start
         if (played + 1 / duration > 1) {
             return;
         }
-        if (selectMarker != null) {
-            if (selectMarker == 'endTime') {
+        if (selectMarker !== null) {
+            if (selectMarker === 'endTime') {
                 let autoMarkerPoint = getNextAutoMarkerPoint(endTime, 1, 0.5);
                 setEndTime(autoMarkerPoint);
                 gotoTime(startTime, true);
                 setScratch(true, startTime, autoMarkerPoint, false);
             }
-            else if (selectMarker == 'startTime') {
+            else if (selectMarker === 'startTime') {
                 let autoMarkerPoint = getNextAutoMarkerPoint(startTime, 1, 0.5);
                 setStartTime(autoMarkerPoint);
                 gotoTime(autoMarkerPoint, true);
@@ -189,7 +189,7 @@ function useVideoPlayHook(target, filteredData, frame, markStart, markEnd, start
             }
         }
         else {
-            if (autoStop.set == false) {
+            if (autoStop.set === false) {
                 setScratch(true, sec + 1, sec + 1 + (4 / frame), false);
             }
             else {
@@ -199,7 +199,7 @@ function useVideoPlayHook(target, filteredData, frame, markStart, markEnd, start
     };
     const setScratch = (set, startOffset, endOffset, loop) => {
         //autoStop은 played*duration의 형식, seconds
-        if (set == true) {
+        if (set === true) {
             target.current.seekTo(startOffset, 'seconds');
         }
         setAutoStop({
@@ -208,19 +208,19 @@ function useVideoPlayHook(target, filteredData, frame, markStart, markEnd, start
             endOffset: endOffset,
             loop: loop
         });
-        if (set == true) {
-            if (playing == false) {
+        if (set === true) {
+            if (playing === false) {
                 setPlaying(true);
             }
         }
         else {
-            if (playing == true) {
+            if (playing === true) {
                 setPlaying(false);
             }
         }
     };
     const selectStartTime = () => {
-        if (selectMarker != 'startTime' && startTime != null) {
+        if (selectMarker !== 'startTime' && startTime !== null) {
             gotoTime(startTime, null);
             setSelectMarker('startTime');
         }
@@ -229,7 +229,7 @@ function useVideoPlayHook(target, filteredData, frame, markStart, markEnd, start
         }
     };
     const selectEndTime = () => {
-        if (selectMarker != 'endTime' && endTime != null) {
+        if (selectMarker !== 'endTime' && endTime !== null) {
             gotoTime(endTime, null);
             setSelectMarker('endTime');
         }
@@ -240,21 +240,21 @@ function useVideoPlayHook(target, filteredData, frame, markStart, markEnd, start
     const markerPlay = () => {
         setSelectMarker(null);
         //멈췄을 경우는 새로 marker를 찍고 play 재생중일 경우는 marker로 가서 재생
-        if (playing == false) {
+        if (playing === false) {
             //pause
             markerTime.current = played * duration;
             setPlaying(true);
         }
         else {
-            if (markerTime.current != null) {
+            if (markerTime.current !== null) {
                 gotoTime(markerTime.current, true);
             }
             setPlaying(true);
         }
     };
     const nextMarkerPlay = () => {
-        if (playing == false) {
-            if (endTime != null) {
+        if (playing === false) {
+            if (endTime !== null) {
                 setStartTime(endTime);
                 setEndTime(null);
                 setPlaying(true);
@@ -281,7 +281,7 @@ function useVideoPlayHook(target, filteredData, frame, markStart, markEnd, start
         let rangePointIndex = timeObj(time).getFloorFrame(frame) * frame;
         let rangePrevIndex = rangePointIndex - range * frame;
         let minThreshold = 0.01;
-        if (filteredData != null) {
+        if (filteredData !== null) {
             let rangeFilteredData = filteredData.right.filter((arr, index) => (rangePrevIndex < index && index <= rangePointIndex));
             let currTimeWaveRate = rangeFilteredData[rangeFilteredData.length - 1];
             if (threshold > currTimeWaveRate) {
@@ -306,7 +306,7 @@ function useVideoPlayHook(target, filteredData, frame, markStart, markEnd, start
             for (let i = rangeFilteredData.length - 2; i >= 0; i--) {
                 let currFrameTime = rangeFilteredData.length - 1 - i;
                 if (maxWaveRate - rangeFilteredData[i] > threshold) {
-                    if (lastThreshold != null) {
+                    if (lastThreshold !== null) {
                         if (rangeFilteredData[lastThreshold] > rangeFilteredData[i]) {
                             lastThreshold = i;
                         }
@@ -341,7 +341,7 @@ function useVideoPlayHook(target, filteredData, frame, markStart, markEnd, start
         let rangePointIndex = timeObj(time).getFloorFrame(frame) * frame;
         let rangeNextIndex = rangePointIndex + range * frame;
         let minThreshold = 0.01;
-        if (filteredData != null) {
+        if (filteredData !== null) {
             let rangeFilteredData = filteredData.right.filter((arr, index) => (rangePointIndex <= index && index < rangeNextIndex));
             let currTimeWaveRate = rangeFilteredData[0];
             if (threshold > currTimeWaveRate) {
@@ -365,7 +365,7 @@ function useVideoPlayHook(target, filteredData, frame, markStart, markEnd, start
             for (let i = 1; i <= rangeFilteredData.length - 1; i++) {
                 let currFrameTime = i;
                 if (maxWaveRate - rangeFilteredData[i] > threshold) {
-                    if (lastThreshold != null) {
+                    if (lastThreshold !== null) {
                         if (rangeFilteredData[lastThreshold] > rangeFilteredData[i]) {
                             lastThreshold = i;
                         }
@@ -429,7 +429,7 @@ function useVideoPlayHook(target, filteredData, frame, markStart, markEnd, start
                 markerPlay();
                 break;
             case "g":
-                if (markerTime.current != null) {
+                if (markerTime.current !== null) {
                     gotoTime(markerTime.current, false);
                 }
                 setPlaying(false);
@@ -444,10 +444,10 @@ function useVideoPlayHook(target, filteredData, frame, markStart, markEnd, start
     };
     (0, react_1.useEffect)(() => {
         //아마 played useEffect전에 키입력이 발생할 경우 씹히는 듯함
-        if (autoStop.set == true) {
+        if (autoStop.set === true) {
             // console.log(`autoStop ${autoStop.startOffset} : ${autoStop.endOffset}`);
             if (played * duration > autoStop.endOffset) {
-                if (autoStop.loop == false) {
+                if (autoStop.loop === false) {
                     target.current.seekTo(autoStop.startOffset, 'seconds');
                     setScratch(false, 0, 0, false);
                     setPlaying(false);
@@ -464,7 +464,7 @@ function useVideoPlayHook(target, filteredData, frame, markStart, markEnd, start
         //console.log(`playing ${playing} autoStop.set ${autoStop.set} : ${autoStop.startOffset} : ${autoStop.endOffset} sec ${played*duration}`);
     }, [played]);
     (0, react_1.useEffect)(() => {
-        if (playing == false) {
+        if (playing === false) {
             markerTime.current = null;
             setScratch(false, 0, 0, false);
             // let t = timeObj(currentTime.current);
@@ -476,13 +476,13 @@ function useVideoPlayHook(target, filteredData, frame, markStart, markEnd, start
         }
     }, [playing]);
     (0, react_1.useEffect)(() => {
-        if (startTime == null && endTime == null) {
+        if (startTime === null && endTime === null) {
             setSelectMarker(null);
         }
     }, [startTime, endTime]);
     (0, react_1.useEffect)(() => {
-        if (endTime != null) {
-            if (startTime != null) {
+        if (endTime !== null) {
+            if (startTime !== null) {
                 if (startTime > endTime) {
                     setEndTime(startTime);
                     setStartTime(endTime);
@@ -583,7 +583,7 @@ function useTimeStamp() {
         return sec + frame * (1 / frameRate);
     };
     const timeObj = function (time) {
-        let value = time != null ? time : 0;
+        let value = time !== null ? time : 0;
         //value는 1.xxxxx의 형식
         function setTime(time) {
             value = time;

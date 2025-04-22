@@ -29,19 +29,19 @@ const InviteHonComp = ({ hId }) => {
         fetch();
     };
     const insertInviteCode = () => {
-        if (code != null && hId != null) {
+        if (code !== null && hId !== null) {
             let hashCode = crypto_js_1.default.MD5(code).toString(crypto_js_1.default.enc.Hex);
             setParamsSet({ userId: userId, code: hashCode, hId: hId, grant: select });
         }
     };
     (0, react_1.useEffect)(() => {
         let res = response;
-        if (res != null) {
+        if (res !== null) {
             setCode(res.data[0]['INVITE_CODE']);
         }
     }, [response]);
-    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsxs)(components_1.StepPage, { children: [(0, jsx_runtime_1.jsxs)(components_1.StepPage.Comp, { children: [(0, jsx_runtime_1.jsx)("div", { children: "\uD604\uC7AC \uCC45\uC73C\uB85C \uCD08\uB300\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?" }), (0, jsx_runtime_1.jsxs)(components_1.DropDown, { children: [(0, jsx_runtime_1.jsx)(components_1.DropDown.Representive, { children: (0, jsx_runtime_1.jsx)("div", { children: grantArr[select] }) }), (0, jsx_runtime_1.jsx)(components_1.DropDown.Content, { children: (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: grantArr.map((arr, index) => (0, jsx_runtime_1.jsx)("div", { onClick: () => setSelect(index), children: arr })) }) })] }), (0, jsx_runtime_1.jsx)(components_1.StepPage.Next, { onClick: getInviteCode, children: (0, jsx_runtime_1.jsx)("button", { className: "button-positive", children: "\uCD08\uB300\uD558\uAE30" }) })] }), (0, jsx_runtime_1.jsxs)(components_1.StepPage.Comp, { children: [(0, jsx_runtime_1.jsx)("div", { children: "\uC544\uB798 \uCF54\uB4DC\uB97C \uACF5\uC720\uD558\uACE0 \uADF8\uB8F9\uC5D0 \uCD08\uB300\uD558\uC138\uC694." }), (0, jsx_runtime_1.jsx)("div", { children: "\uD655\uC778\uC744 \uB204\uB974\uBA74 \uD655\uC815\uB429\uB2C8\uB2E4." }), (0, jsx_runtime_1.jsx)("div", { children: code != null &&
-                                (0, jsx_runtime_1.jsx)("span", { children: code }) }), (0, jsx_runtime_1.jsx)(components_1.StepPage.Next, { onClick: insertInviteCode, children: (0, jsx_runtime_1.jsx)("button", { className: "button-positive", children: "\uD655\uC778" }) })] }), (0, jsx_runtime_1.jsxs)(components_1.StepPage.Comp, { children: [(0, jsx_runtime_1.jsx)("div", { children: "\uC544\uB798 \uCF54\uB4DC\uB85C \uACF5\uC720\uB418\uC5C8\uC2B5\uB2C8\uB2E4." }), (0, jsx_runtime_1.jsx)("div", { children: code != null &&
+    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsxs)(components_1.StepPage, { children: [(0, jsx_runtime_1.jsxs)(components_1.StepPage.Comp, { children: [(0, jsx_runtime_1.jsx)("div", { children: "\uD604\uC7AC \uCC45\uC73C\uB85C \uCD08\uB300\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?" }), (0, jsx_runtime_1.jsxs)(components_1.DropDown, { children: [(0, jsx_runtime_1.jsx)(components_1.DropDown.Representive, { children: (0, jsx_runtime_1.jsx)("div", { children: grantArr[select] }) }), (0, jsx_runtime_1.jsx)(components_1.DropDown.Content, { children: (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: grantArr.map((arr, index) => (0, jsx_runtime_1.jsx)("div", { onClick: () => setSelect(index), children: arr })) }) })] }), (0, jsx_runtime_1.jsx)(components_1.StepPage.Next, { onClick: getInviteCode, children: (0, jsx_runtime_1.jsx)("button", { className: "button-positive", children: "\uCD08\uB300\uD558\uAE30" }) })] }), (0, jsx_runtime_1.jsxs)(components_1.StepPage.Comp, { children: [(0, jsx_runtime_1.jsx)("div", { children: "\uC544\uB798 \uCF54\uB4DC\uB97C \uACF5\uC720\uD558\uACE0 \uADF8\uB8F9\uC5D0 \uCD08\uB300\uD558\uC138\uC694." }), (0, jsx_runtime_1.jsx)("div", { children: "\uD655\uC778\uC744 \uB204\uB974\uBA74 \uD655\uC815\uB429\uB2C8\uB2E4." }), (0, jsx_runtime_1.jsx)("div", { children: code !== null &&
+                                (0, jsx_runtime_1.jsx)("span", { children: code }) }), (0, jsx_runtime_1.jsx)(components_1.StepPage.Next, { onClick: insertInviteCode, children: (0, jsx_runtime_1.jsx)("button", { className: "button-positive", children: "\uD655\uC778" }) })] }), (0, jsx_runtime_1.jsxs)(components_1.StepPage.Comp, { children: [(0, jsx_runtime_1.jsx)("div", { children: "\uC544\uB798 \uCF54\uB4DC\uB85C \uACF5\uC720\uB418\uC5C8\uC2B5\uB2C8\uB2E4." }), (0, jsx_runtime_1.jsx)("div", { children: code !== null &&
                                 (0, jsx_runtime_1.jsx)("span", { children: code }) })] })] }) }));
 };
 const UploadThumbnailComp = ({ hId, handleRefetch }) => {
@@ -49,7 +49,7 @@ const UploadThumbnailComp = ({ hId, handleRefetch }) => {
     const { response: resNewImage, setParams: setParamsNewImage } = (0, hook_1.useAxiosPost)('/api/image/hon', true, null);
     const fileUpload = (e) => {
         e.preventDefault();
-        if (imgFile != null && imgFile != undefined) {
+        if (imgFile !== null && imgFile !== undefined) {
             const formData = new FormData();
             formData.append("honImg", imgFile);
             formData.append("hId", hId.toString());
@@ -57,13 +57,13 @@ const UploadThumbnailComp = ({ hId, handleRefetch }) => {
         }
     };
     const handleChangeImg = (e) => {
-        if (e.target !== null && e.target.files != null && e.target.files[0] !== null) {
+        if (e.target !== null && e.target.files !== null && e.target.files[0] !== null) {
             setImgFile(e.target.files[0]);
         }
     };
     (0, react_1.useEffect)(() => {
         let res = resNewImage;
-        if (res != null) {
+        if (res !== null) {
             handleRefetch();
         }
     }, [resNewImage]);

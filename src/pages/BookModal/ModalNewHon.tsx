@@ -87,7 +87,7 @@ const AcceptInviteHonComp = ({ fetch } : AcceptInviteHonCompProps ) => {
   const { response, setParams } = useAxiosPost('/user/invite/accept', true, null);
 
   const acceptInviteCode = () => {
-    if(input != '' && userId != null){
+    if(input !== '' && userId !== null){
       let hashCode =  CryptoJS.MD5(input).toString(CryptoJS.enc.Hex);
 
       setParams({ userId : userId, code : hashCode });
@@ -100,7 +100,7 @@ const AcceptInviteHonComp = ({ fetch } : AcceptInviteHonCompProps ) => {
 
   useEffect( () => {
     let res = response;
-    if(res != null){
+    if(res !== null){
       fetch();
     }
   }, [response])
@@ -133,7 +133,7 @@ const ModalBookContainer = ({ fetch, ...props } : ModalBookContainerProps ) => {
   });
 
   const newHonNonTest = () => {
-    if(input.title == null || input.title == ''){
+    if(input.title === null || input.title === ''){
       // console.log("타이틀 없음");
       return;
     }
@@ -151,13 +151,13 @@ const ModalBookContainer = ({ fetch, ...props } : ModalBookContainerProps ) => {
 
   useEffect( () => {
     let res = resNewHonNonTest;
-    if(res != null){
+    if(res !== null){
       fetch();
       props?.handleClose !== undefined && props?.handleClose();
     }
   }, [resNewHonNonTest])
 
-  const isValidateTitle = input.title != null && input.title != '';
+  const isValidateTitle = input.title !== null && input.title !== '';
 
   return(
     <>

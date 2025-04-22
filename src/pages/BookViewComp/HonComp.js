@@ -15,12 +15,12 @@ const Hon = ({ page, rowLength, pageLength, bIdRef, styled, setScroll }) => {
     }, [page]);
     (0, react_1.useEffect)(() => {
         let res = resGetRangeBun;
-        if (res != null) {
+        if (res !== null) {
             let a = new Array();
             let prevDanId;
             let aIndex = 0;
             for (let key in res.data) {
-                if (res.data[key]['DID'] != prevDanId) {
+                if (res.data[key]['DID'] !== prevDanId) {
                     a.push({ dId: parseInt(res.data[key]['DID']), bunList: [parseInt(res.data[key]['BID'])] });
                     aIndex++;
                     prevDanId = res.data[key]['DID'];
@@ -33,11 +33,11 @@ const Hon = ({ page, rowLength, pageLength, bIdRef, styled, setScroll }) => {
         }
     }, [resGetRangeBun]);
     return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [loading &&
-                (0, jsx_runtime_1.jsx)("div", { className: "loading", children: "\u3000" }), rangeBunIds != null && rangeBunIds.map((arr) => ((0, jsx_runtime_1.jsx)(Dan, { dId: arr.dId, styled: styled, bIdRef: bIdRef, bIdList: arr.bunList, setScroll: setScroll }, arr.dId)))] }));
+                (0, jsx_runtime_1.jsx)("div", { className: "loading", children: "\u3000" }), rangeBunIds !== null && rangeBunIds.map((arr) => ((0, jsx_runtime_1.jsx)(Dan, { dId: arr.dId, styled: styled, bIdRef: bIdRef, bIdList: arr.bunList, setScroll: setScroll }, arr.dId)))] }));
 };
 exports.Hon = Hon;
 const Dan = ({ dId, bIdList, bIdRef, styled, setScroll }) => {
-    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: bIdList != null &&
+    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: bIdList !== null &&
             (0, jsx_runtime_1.jsx)("p", { className: "dan", children: bIdList.map((arr) => ((0, jsx_runtime_1.jsx)(customComp_1.Bun, { bId: arr, styled: styled, bIdRef: bIdRef, setScroll: setScroll }, arr))) }) }));
 };
 exports.Dan = Dan;

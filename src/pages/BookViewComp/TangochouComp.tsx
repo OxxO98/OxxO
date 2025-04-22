@@ -112,7 +112,7 @@ const TangochouListComp = ({ startListNum, setView, setInfo, selectedTId, ...pro
   const {response : res, setParams, fetch} = useAxios('/hon/tangochou', false, { userId : userId, hId : hId, start : startListNum*10+1, end : (startListNum+1)*10} );
 
   useEffect( () => {
-    if(res != null){
+    if(res !== null){
       //console.log(res);
       setList(res.data);
     }
@@ -167,8 +167,8 @@ const TangoInfo = ({ tId, setView, setInfo, ...props } : TangoInfoProps ) => {
   const {response : resK, setParams : setParamsK } = useAxios('/tango/kanji', false, { tId : tId } );
 
   const getKId = (kanji : string) => {
-    if(kanjiList != null){
-      let ret = kanjiList.filter( (arr) => arr.kanji == kanji)[0]?.kId;
+    if(kanjiList !== undefined){
+      let ret = kanjiList.filter( (arr) => arr.kanji === kanji)[0]?.kId;
 
       setView('kanji');
       setInfo({kId : ret, jaText : kanji})
@@ -176,7 +176,7 @@ const TangoInfo = ({ tId, setView, setInfo, ...props } : TangoInfoProps ) => {
   }
 
   useEffect( () => {
-    if(res != null){
+    if(res !== null){
       //console.log(res);
       setDefaultData({tId : res.data[0]['TID'], hyouki : res.data[0]['HYOUKI'], yomi : res.data[0]['YOMI']});
 
@@ -196,7 +196,7 @@ const TangoInfo = ({ tId, setView, setInfo, ...props } : TangoInfoProps ) => {
   }, [res]);
 
   useEffect( () => {
-    if(resK != null){
+    if(resK !== null){
       let a = new Array();
 
       for(let key in resK.data){
@@ -212,16 +212,16 @@ const TangoInfo = ({ tId, setView, setInfo, ...props } : TangoInfoProps ) => {
   }, [resK])
 
   useEffect( () => {
-    if(tId != null){
+    if(tId !== null){
       setParams({ userId : userId, hId : hId, tId : tId});
       setParamsK({ tId : tId });
-      if(props?.handleScroll != null){
+      if(props?.handleScroll !== undefined){
         props.handleScroll(tId.toString());
       }
     }
   }, [tId]);
 
-  if(tangoBunList == null || defaultList == null || defaultData == null){
+  if(tangoBunList === null || defaultList === null || defaultData === null){
     return( <></>);
   }
 
@@ -248,7 +248,7 @@ const TangoBunList = ({ tId, hyId, yId, hyouki, yomi } : TangoBunListProps )=> {
   const {response : res, setParams} = useAxios('/hon/tangochou/bun', false, { userId : userId, hId : hId, hyId : hyId, yId: yId} );
 
   useEffect( () => {
-    if(res != null){
+    if(res !== null){
       setList(
         res.data.map(
           (arr : RES_TANGOCHOU_BUN, index : number) =>
@@ -268,7 +268,7 @@ const TangoBunList = ({ tId, hyId, yId, hyouki, yomi } : TangoBunListProps )=> {
   }, [res]);
 
   useEffect( () => {
-    if(hyId != null){
+    if(hyId !== null){
       setParams({ userId : userId, hId : hId, hyId : hyId, yId: yId})
     }
   }, [hyId])
@@ -293,7 +293,7 @@ const TangoBun = ({ bId } : TangoBunProps) => {
   const { response : res, setParams } = useAxios('/translate/represent', false, { userId : userId, hId : hId, bId : bId } );
 
   useEffect( () => {
-    if(res != null){
+    if(res !== null){
       setR_tl(res.data['KOTEXT']);
     }
   }, [res])
@@ -301,7 +301,7 @@ const TangoBun = ({ bId } : TangoBunProps) => {
   return(
     <p>
       {
-        r_tl != null &&
+        r_tl !== null &&
         <>{r_tl}</>
       }
     </p>
@@ -318,7 +318,7 @@ const KanjiInfo = ({ kanji, kId, setView, setInfo } : KanjiInfoProps ) => {
   const { response : res, setParams } = useAxios('/hon/tangochou/kanji/tango', false, { userId : userId, hId : hId, kId : kId });
 
   useEffect( () => {
-    if(res != null){
+    if(res !== null){
       //  부분 볼드처리는 불가능한것으로 판명 useHandleSelection에서 오류. 할거면 따로 만들기 바람
       setList(
         res.data.map(

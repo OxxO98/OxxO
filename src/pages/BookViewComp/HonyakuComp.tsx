@@ -81,7 +81,7 @@ const HonyakuComp = ({ bId, clearEdit, refetch, ...props } : HonyakuCompProps ) 
 
   useEffect(()=>{
     let res = response;
-    if(res != null){
+    if(res !== null){
       setRepTL(res.data.r_tl);
       setTLs(res.data.translateList);
     }
@@ -93,14 +93,14 @@ const HonyakuComp = ({ bId, clearEdit, refetch, ...props } : HonyakuCompProps ) 
   }, [bId])
 
   useEffect( () => {
-    if(props.ws != null){
+    if(props?.ws !== undefined){
       let ws = props.ws;
 
-      if(ws.current != null){
+      if(ws.current !== null){
         ws.current.removeAllListeners('refetch translate');
 
         ws.current.on('refetch translate', (wsBId : number) => {
-          if(bId == wsBId){
+          if(bId === wsBId){
             // console.log('ws tl Refetch', wsBId, bId);
             setParams({ userId : userId, bId : bId, hId : hId, ytId : ytId });
           }
@@ -115,18 +115,18 @@ const HonyakuComp = ({ bId, clearEdit, refetch, ...props } : HonyakuCompProps ) 
   return(
     <div className={`honyakuComp`}>
       {
-        loading == false &&
+        loading === false &&
         <>
           <div className="honyaku-bun">
             <Bun key={bId} bId={bId}/>
           </div>
           {
-            (tls != null && tls.length != 0) ?
+            (tls !== null && tls.length !== 0) ?
             <HonyakuTLDropDown bId={bId} repTL={repTL} tls={tls} fetch={fetch} refetch={refetch}/>
             :
             <>
             {
-              repTL != null &&
+              repTL !== null &&
               <span onClick={() => setValue(repTL['KOTEXT'])}>{repTL['KOTEXT']}</span>
             }
             </>
@@ -171,7 +171,7 @@ const HonyakuTLDropDown = ({ bId, repTL, tls, fetch, refetch } : HonyakuTLDropDo
 
   useEffect( () => {
     let res = resSetR_TL;
-    if(res != null){
+    if(res !== null){
       fetch();
       refetch(bId);
     }
@@ -182,7 +182,7 @@ const HonyakuTLDropDown = ({ bId, repTL, tls, fetch, refetch } : HonyakuTLDropDo
       <DropDown>
         <DropDown.Representive>
         {
-          repTL != null ?
+          repTL !== null ?
           <>
             {repTL['KOTEXT']}
           </>
@@ -194,7 +194,7 @@ const HonyakuTLDropDown = ({ bId, repTL, tls, fetch, refetch } : HonyakuTLDropDo
         </DropDown.Representive>
         <DropDown.Content className={isMobile ? "down" : "up"}>
         {
-          tls != null &&
+          tls !== null &&
             <>
               {
                 tls.map( (arr) =>
@@ -255,7 +255,7 @@ const HonyakuController = ({ bId, repTL, value, clearEdit, fetch, refetch } : Ho
   }
 
   const deleteHonyaku = () => {
-    if(repTL != null){
+    if(repTL !== null){
       let tlId = repTL['TLID'];
 
       setParamsDelete({ userId : userId, tlId : tlId, bId : bId, hId : hId, ytId : ytId });
@@ -263,7 +263,7 @@ const HonyakuController = ({ bId, repTL, value, clearEdit, fetch, refetch } : Ho
   }
 
   const modifyHonyaku = () => {
-    if(repTL != null){
+    if(repTL !== null){
       let tlId = repTL['TLID'];
       // let regValue = value.replace(/[\']/g, '\'');
       // regValue = regValue.replace(/[\"]/g, '\"');
@@ -275,7 +275,7 @@ const HonyakuController = ({ bId, repTL, value, clearEdit, fetch, refetch } : Ho
 
   useEffect( () => {
     let res = resInsert;
-    if(res != null){
+    if(res !== null){
       fetch();
       refetch(bId);
       clearEdit();
@@ -284,7 +284,7 @@ const HonyakuController = ({ bId, repTL, value, clearEdit, fetch, refetch } : Ho
 
   useEffect( () => {
     let res = resDelete;
-    if(res != null){
+    if(res !== null){
       fetch();
       refetch(bId);
       clearEdit();
@@ -293,7 +293,7 @@ const HonyakuController = ({ bId, repTL, value, clearEdit, fetch, refetch } : Ho
 
   useEffect( () => {
     let res = resUpdate;
-    if(res != null){
+    if(res !== null){
       fetch();
       refetch(bId);
       clearEdit();
@@ -303,12 +303,12 @@ const HonyakuController = ({ bId, repTL, value, clearEdit, fetch, refetch } : Ho
   return(
     <>
       {
-        repTL != null &&
+        repTL !== null &&
         <button className="button-negative" onClick={deleteHonyaku}>삭제</button>
       }
       <button className="button-positive" onClick={()=>{postHonyaku()}}>새로 저장</button>
       {
-        repTL != null && repTL['KOTEXT'] != value &&
+        repTL !== null && repTL['KOTEXT'] !== value &&
         <button className="button-neutral" onClick={modifyHonyaku}>수정</button>
       }
       <button className="button-neutral" onClick={clearEdit}>취소</button>

@@ -18,7 +18,7 @@ function useActive(){
   }
 
   const getActive = (id : number) => {
-    if(activeId == id){
+    if(activeId === id){
       return true;
     }
     else{
@@ -96,25 +96,25 @@ function useBunRefetch(){
       let fetchHUKUMU = bIdRef.current[key]?.fetchHukumu;
       let fetchTL = bIdRef.current[key]?.fetchTL;
 
-      if(fetchBUN != null && fetchBUN != undefined){
+      if(fetchBUN !== null && fetchBUN !== undefined){
         fetchBUN();
       }
-      if(fetchHUKUMU != null && fetchHUKUMU != undefined){
+      if(fetchHUKUMU !== null && fetchHUKUMU !== undefined){
         fetchHUKUMU();
       }
-      if(fetchTL != null && fetchTL != undefined){
+      if(fetchTL !== null && fetchTL !== undefined){
         fetchTL();
       }
     }
   }
 
   const refetch = (bId : number, ...props : any[]) => {
-    if(props[0] != null && props[0] == 'all'){
+    if(props[0] !== null && props[0] === 'all'){
       refetchAll();
       return;
     }
 
-    if(bIdRef.current == null){
+    if(bIdRef.current === null){
       return;
     }
 
@@ -122,13 +122,13 @@ function useBunRefetch(){
     let fetchHUKUMU = bIdRef.current['bId'+bId]?.fetchHukumu;
     let fetchTL = bIdRef.current['bId'+bId]?.fetchTL;
 
-    if(fetchBUN != null && fetchBUN != undefined){
+    if(fetchBUN !== null && fetchBUN !== undefined){
       fetchBUN();
     }
-    if(fetchHUKUMU != null && fetchHUKUMU != undefined){
+    if(fetchHUKUMU !== null && fetchHUKUMU !== undefined){
       fetchHUKUMU();
     }
-    if(fetchTL != null && fetchTL != undefined){
+    if(fetchTL !== null && fetchTL !== undefined){
       fetchTL();
     }
   }
@@ -158,8 +158,8 @@ function useHukumu( selectedBun : number, textOffset : OffsetObj, setStyled : (o
   const debouncedSetParamsInHR = debounce( (value : any) => setParams(value), 500);
 
   const fetchInHR = () => {
-    if(selectedBun != null){
-      if(selectedBun != 0){
+    if(selectedBun !== null && selectedBun !== undefined){
+      if(selectedBun !== 0){
         setParams({
           startOffset : textOffset.startOffset, endOffset : textOffset.endOffset, bId : selectedBun,
           userId : userId, hId : hId, ytId : ytId
@@ -171,7 +171,7 @@ function useHukumu( selectedBun : number, textOffset : OffsetObj, setStyled : (o
   useEffect( () => {
     let res = resInHR;
 
-    if(res != null){
+    if(res !== null){
       
       if(res.data.length !== 0){
         setHukumuData({
@@ -201,8 +201,8 @@ function useHukumu( selectedBun : number, textOffset : OffsetObj, setStyled : (o
   }, [resInHR])
 
   useEffect( () => {
-    if(selectedBun != null){
-      if(selectedBun != 0){
+    if(selectedBun !== null && selectedBun !== undefined){
+      if(selectedBun !== 0){
         setParams({
           startOffset : textOffset.startOffset, endOffset : textOffset.endOffset, bId : selectedBun,
           userId : userId, hId : hId, ytId : ytId

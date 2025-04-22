@@ -84,7 +84,7 @@ const MainComp = () => {
   //Mobile ViewPort 환경.
   const mobileHonView = useRef<HTMLDivElement>(null);
   const mobileSize = useMemo( () => {
-    if(isMobile == true && mobileHonView.current != null){
+    if(isMobile === true && mobileHonView.current !== null){
       let {width, height} = mobileHonView.current.getBoundingClientRect();
       // console.log(width, height);
       return {
@@ -98,8 +98,8 @@ const MainComp = () => {
   }, [isMobile, mobileHonView]);
 
   useEffect( () => {
-    if(isMobile == true){
-      if( route.idRoute == null && route.parentRoute == "Youtube"){
+    if(isMobile === true){
+      if( route.idRoute === null && route.parentRoute === "Youtube"){
         changeRoute("Book");
       }
     }
@@ -108,16 +108,16 @@ const MainComp = () => {
   return(
     <>
       {
-        route.parentRoute != "Login" &&
+        route.parentRoute !== "Login" &&
         <Nav route={route} changeRoute={changeRoute} userName={userName}/>
       }
       <UserContext.Provider value={{userId, setUserId}}>
       {
-        route.idRoute == null ?
+        route.idRoute === null ?
           <>
             <div className="MainComp">
             {
-              route.parentRoute == "Login" ?
+              route.parentRoute === "Login" ?
                 <SignPage changeRoute={changeRoute} setUserName={setUserName}/>
               :
                 <div className="WrapCardPane">
@@ -126,19 +126,19 @@ const MainComp = () => {
                   </div>
                   <div className="CardPane">
                     {
-                      route.parentRoute == "Book" &&
+                      route.parentRoute === "Book" &&
                       <>
                         <BookCardComp changeRoute={changeRoute}/>
                       </>
                     }
                     {
-                      route.parentRoute == "Youtube" &&
+                      route.parentRoute === "Youtube" &&
                       <>
                         <YoutubeCardComp changeRoute={changeRoute} setVideoId={setVideoId}/>
                       </>
                     }
                     {
-                      route.parentRoute == "Comic" &&
+                      route.parentRoute === "Comic" &&
                       <>
                         <div>아직 준비중입니다.</div>
                         {
@@ -168,8 +168,8 @@ const MainComp = () => {
               {
                 isMobile &&
                 <BookView hId={route.id} navRoute={route.idRoute} changeRoute={changeRoute}
-                rowLength={mobileSize != null ? Math.floor(mobileSize.width/16) : 27}
-                pageLength={mobileSize != null ? Math.floor(mobileSize.height/24) : 27}/>
+                rowLength={mobileSize !== null ? Math.floor(mobileSize.width/16) : 27}
+                pageLength={mobileSize !== null ? Math.floor(mobileSize.height/24) : 27}/>
               }
               {
                 isTablet &&
@@ -227,7 +227,7 @@ const YoutubeCardComp = ({ changeRoute, setVideoId } : YoutubeCardCompProps ) =>
   // hq720 hqdefault maxresdefault
 
   useEffect( () => {
-    if(response != null){
+    if(response !== null){
       let a = new Array();
 
       for(let key in response.data){
@@ -245,7 +245,7 @@ const YoutubeCardComp = ({ changeRoute, setVideoId } : YoutubeCardCompProps ) =>
   return (
     <>
       {
-        ytIds != null &&
+        ytIds !== null &&
         ytIds.map( (arr) => (
           <div className="card_youtube">
             <div className="card_youtube-body" onClick={()=>{
@@ -290,7 +290,7 @@ const BookCardComp = ({ changeRoute } : BookCardCompProps ) => {
 
   useEffect( () => {
     let res = response
-    if(res != null){
+    if(res !== null){
       let a = new Array();
 
       for(let key in res.data){
@@ -308,7 +308,7 @@ const BookCardComp = ({ changeRoute } : BookCardCompProps ) => {
   return (
     <>
       {
-        hIds != null &&
+        hIds !== null &&
         hIds.map( (arr) =>
           <BookCard arr={arr} clickBook={clickBook}/>
         )
@@ -334,8 +334,8 @@ const BookCard = ({ arr, clickBook } : BookCardProps) => {
 
   useEffect(() => {
     let res = response;
-    if(res != null){
-      if(res.data != null && res.data != undefined ){
+    if(res !== null){
+      if(res.data !== null && res.data !== undefined ){
         setImgSrc(res.data);
       }
       else{
@@ -350,7 +350,7 @@ const BookCard = ({ arr, clickBook } : BookCardProps) => {
         <div>{(arr['title'])}</div>
         <div className={`${loading ? "loading" : ""}`}>
         {
-          imgSrc != null &&
+          imgSrc !== null &&
           <>
             <img src={`${process.env.REACT_APP_API_URL}/${imgSrc}`}/>
           </>

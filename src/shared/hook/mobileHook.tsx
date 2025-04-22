@@ -9,12 +9,12 @@ function useMobileToggle(){
 
   const handleMobile = (e : React.MouseEvent<HTMLElement>) => {
     //나중에 깔끔하게 수정해도 좋을 듯
-    if(toggle == true){
-      if(e.currentTarget?.tagName == 'INPUT' || e.currentTarget?.tagName =='BUTTON' || e.currentTarget?.tagName == 'TEXTAREA'){
+    if(toggle === true){
+      if(e.currentTarget?.tagName === 'INPUT' || e.currentTarget?.tagName ==='BUTTON' || e.currentTarget?.tagName === 'TEXTAREA'){
         return;
       }
     }
-    if(e.currentTarget?.className == 'dropDownRepresentive' || e.currentTarget?.className == 'dropDownContent' || e.currentTarget?.className == 'content'){
+    if(e.currentTarget?.className === 'dropDownRepresentive' || e.currentTarget?.className === 'dropDownContent' || e.currentTarget?.className === 'content'){
       return;
     }
     setToggle(!toggle);
@@ -31,14 +31,14 @@ function useMobileFocus(){
   const [isFocused, setIsFocused] = useState(false);
 
   const handleFocus = (e : React.FocusEvent) => {
-    if(isFocused == false){
+    if(isFocused === false){
       setIsFocused(true);
     }
   }
 
 
   const handleBlur = (e : React.FocusEvent) => {
-    if(isFocused == true){
+    if(isFocused === true){
       setIsFocused(false);
     }
   }
@@ -50,8 +50,8 @@ function useMobileScroll(){
   const scrollRef = useRef<ObjStringKey<HTMLElement | any>>([]);
 
   const handleScroll = ( id : string ) => {
-    let tmpRef = scrollRef.current != null ? scrollRef.current[id] : null;
-    if(tmpRef != null && tmpRef != undefined){
+    let tmpRef = scrollRef.current !== null ? scrollRef.current[id] : null;
+    if(tmpRef !== null && tmpRef !== undefined){
       tmpRef.scrollIntoView({ behavior : "smooth" });
     }
   }

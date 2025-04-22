@@ -3,6 +3,8 @@ import React, {useEffect, useState, useRef, useContext } from 'react';
 import { useAxios } from 'shared/hook';
 import { useHuri } from 'shared/hook';
 
+import { v4 as uuidv4 } from 'uuid';
+
 import { UserContext, HonContext, YoutubeContext } from 'client';
 
 interface TextDataObj {
@@ -98,25 +100,26 @@ const Bun = ({ bId, styled, ...props} : BunProps ) => {
   return(
     <>
       {
-        resBunLoad &&
-        <div className="loading">　</div>
+        resBunLoad === true ?
+        <span className="loading">　</span>
+        :
+        <span className={`bun ${ (resBunLoad || resHukumuLoad) ? "loading" : ""}`} ref={ props?.setScroll !== null ? (el : HTMLSpanElement) => props?.setScroll?.(el, bId) : undefined }>
+        {
+          resHukumuLoad === true &&
+          <span>{"".padEnd(bunData.length, "　")}</span>
+        }
+        {
+          resHukumuLoad === false && hukumuData !== null && hukumuData.length > 0 &&
+          hukumuData.map( (arr) =>
+            <ComplexText bId={bId} offset={arr['offset']} key={bId+arr['offset']} data={arr['data']} ruby={arr['ruby']} styledOffset={styled}/>
+          )
+        }
+        {
+          resHukumuLoad === false && hukumuData !== null && hukumuData.length === 0 &&
+          <ComplexText bId={bId} offset={0} key={bId+'0'} data={bunData} styledOffset={styled}/>
+        }
+        </span>
       }
-      <span className={`bun ${ (resBunLoad || resHukumuLoad) ? "loading" : ""}`} ref={ props?.setScroll !== null ? (el : HTMLSpanElement) => props?.setScroll?.(el, bId) : undefined }>
-      {
-        resHukumuLoad &&
-        <span>{"".padEnd(bunData.length, "　")}</span>
-      }
-      {
-        resHukumuLoad === false && hukumuData !== null && hukumuData.length > 0 &&
-        hukumuData.map( (arr) =>
-          <ComplexText bId={bId} offset={arr['offset']} key={bId+arr['offset']} data={arr['data']} ruby={arr['ruby']} styledOffset={styled}/>
-        )
-      }
-      {
-        resHukumuLoad === false && hukumuData !== null && hukumuData.length === 0 &&
-        <ComplexText bId={bId} offset={0} key={bId+'0'} data={bunData} styledOffset={styled}/>
-      }
-      </span>
     </>
   )
 }
@@ -130,11 +133,13 @@ const ComplexText = ({ bId, data, ruby, offset, styledOffset } : ComplexTextProp
 
   const { complexArr } = useHuri();
 
+  const _key = ( v : TextDataObj ) => bId !== undefined && bId !== null ? `${bId}-${v['offset']}` : uuidv4();
+
   return(
     <>
       {
-        complexArr(data, ruby, offset).map( (arr : TextDataObj) =>
-          <Text offset={arr['offset']} bId={bId} data={arr['data']} ruby={arr['ruby']} styledOffset={styledOffset} key={arr['offset']}/>
+        complexArr(data, ruby, offset ?? 0).map( (arr : TextDataObj) =>
+          <Text key={_key(arr)} offset={arr['offset']} bId={bId} data={arr['data']} ruby={arr['ruby']} styledOffset={styledOffset}/>
         )
       }
     </>
@@ -200,20 +205,22 @@ const Text = ({ bId, data, ruby, offset, styledOffset } : TextProps ) => {
     return tmpArr;
   }
 
+  let _offset = (v : number) => offset !== null && offset !== undefined ? v : '0';
+
   return(
     <>
     {
       convertStyled().map( (arr) => {
         if(arr?.ruby === null){
           return(
-            <span className={`${arr.style !== null ? arr.style : ''} rubyNasi`} data-bId={bId} data-offset={arr.offset} key={bId+'-'+arr.offset}>
+            <span className={`${arr.style !== null ? arr.style : ''} rubyNasi`} data-bid={bId} data-offset={_offset(arr.offset)} key={bId+'-'+arr.offset}>
               {arr.data}
             </span>
           )
         }
         else{
           return(
-            <ruby className={`${arr.style !== null ? arr.style : ''} rubyAri`} data-bId={bId} data-offset={arr.offset} key={bId+'-'+arr.offset}>
+            <ruby className={`${arr.style !== null ? arr.style : ''} rubyAri`} data-bid={bId} data-offset={_offset(arr.offset)} key={bId+'-'+arr.offset}>
               {arr.data}
               <rt>
                 {arr.ruby}

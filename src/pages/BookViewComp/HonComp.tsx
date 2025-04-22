@@ -42,7 +42,7 @@ const Hon = ({ page, rowLength, pageLength, bIdRef, styled, setScroll } : HonPro
 
   useEffect( () => {
     let res = resGetRangeBun;
-    if(res != null){
+    if(res !== null){
       let a = new Array();
       
       let prevDanId;
@@ -50,7 +50,7 @@ const Hon = ({ page, rowLength, pageLength, bIdRef, styled, setScroll } : HonPro
       let aIndex = 0;
       
       for(let key in res.data){
-        if(res.data[key]['DID'] != prevDanId){
+        if(res.data[key]['DID'] !== prevDanId){
           a.push({ dId : parseInt(res.data[key]['DID']), bunList : [ parseInt(res.data[key]['BID']) ] });
           aIndex++;
           prevDanId = res.data[key]['DID'];
@@ -71,7 +71,7 @@ const Hon = ({ page, rowLength, pageLength, bIdRef, styled, setScroll } : HonPro
         <div className="loading">　</div>
       }
       {
-        rangeBunIds != null && rangeBunIds.map((arr) => (
+        rangeBunIds !== null && rangeBunIds.map((arr) => (
           <Dan key={arr.dId} dId={arr.dId}
             styled={styled}
             bIdRef={bIdRef} bIdList={arr.bunList}
@@ -87,7 +87,7 @@ const Dan = ({ dId, bIdList, bIdRef, styled, setScroll } : DanProps ) => {
   return(
     <>
       {
-        bIdList != null &&
+        bIdList !== null &&
         <p className="dan">
         {
           bIdList.map( (arr) => (

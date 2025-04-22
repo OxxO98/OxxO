@@ -26,7 +26,7 @@ const HonyakuComp = ({ bId, clearEdit, refetch, ...props }) => {
     };
     (0, react_1.useEffect)(() => {
         let res = response;
-        if (res != null) {
+        if (res !== null) {
             setRepTL(res.data.r_tl);
             setTLs(res.data.translateList);
         }
@@ -36,12 +36,12 @@ const HonyakuComp = ({ bId, clearEdit, refetch, ...props }) => {
         props.handleScroll !== undefined && props.handleScroll !== null && props.handleScroll(bId.toString());
     }, [bId]);
     (0, react_1.useEffect)(() => {
-        if (props.ws != null) {
+        if (props?.ws !== undefined) {
             let ws = props.ws;
-            if (ws.current != null) {
+            if (ws.current !== null) {
                 ws.current.removeAllListeners('refetch translate');
                 ws.current.on('refetch translate', (wsBId) => {
-                    if (bId == wsBId) {
+                    if (bId === wsBId) {
                         // console.log('ws tl Refetch', wsBId, bId);
                         setParams({ userId: userId, bId: bId, hId: hId, ytId: ytId });
                     }
@@ -51,11 +51,11 @@ const HonyakuComp = ({ bId, clearEdit, refetch, ...props }) => {
     }, [props.ws, bId]);
     const mobileFocus = isMobile ? props.handleFocus : undefined;
     const mobileBlur = isMobile ? props.handleBlur : undefined;
-    return ((0, jsx_runtime_1.jsx)("div", { className: `honyakuComp`, children: loading == false &&
-            (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("div", { className: "honyaku-bun", children: (0, jsx_runtime_1.jsx)(customComp_1.Bun, { bId: bId }, bId) }), (tls != null && tls.length != 0) ?
+    return ((0, jsx_runtime_1.jsx)("div", { className: `honyakuComp`, children: loading === false &&
+            (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("div", { className: "honyaku-bun", children: (0, jsx_runtime_1.jsx)(customComp_1.Bun, { bId: bId }, bId) }), (tls !== null && tls.length !== 0) ?
                         (0, jsx_runtime_1.jsx)(HonyakuTLDropDown, { bId: bId, repTL: repTL, tls: tls, fetch: fetch, refetch: refetch })
                         :
-                            (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: repTL != null &&
+                            (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: repTL !== null &&
                                     (0, jsx_runtime_1.jsx)("span", { onClick: () => setValue(repTL['KOTEXT']), children: repTL['KOTEXT'] }) }), (0, jsx_runtime_1.jsx)(HonaykuInput, { value: value, handleChange: handleChange, handleFocus: mobileFocus, handleBlur: mobileBlur }), (0, jsx_runtime_1.jsx)("div", { className: "button-container", children: (0, jsx_runtime_1.jsx)(HonyakuController, { bId: bId, repTL: repTL, value: value, clearEdit: clearEdit, fetch: fetch, refetch: refetch }) })] }) }));
 };
 exports.HonyakuComp = HonyakuComp;
@@ -75,15 +75,15 @@ const HonyakuTLDropDown = ({ bId, repTL, tls, fetch, refetch }) => {
     };
     (0, react_1.useEffect)(() => {
         let res = resSetR_TL;
-        if (res != null) {
+        if (res !== null) {
             fetch();
             refetch(bId);
         }
     }, [resSetR_TL]);
-    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsxs)(components_1.DropDown, { children: [(0, jsx_runtime_1.jsx)(components_1.DropDown.Representive, { children: repTL != null ?
+    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsxs)(components_1.DropDown, { children: [(0, jsx_runtime_1.jsx)(components_1.DropDown.Representive, { children: repTL !== null ?
                         (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: repTL['KOTEXT'] })
                         :
-                            (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: "\uC120\uD0DD" }) }), (0, jsx_runtime_1.jsx)(components_1.DropDown.Content, { className: isMobile ? "down" : "up", children: tls != null &&
+                            (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: "\uC120\uD0DD" }) }), (0, jsx_runtime_1.jsx)(components_1.DropDown.Content, { className: isMobile ? "down" : "up", children: tls !== null &&
                         (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: tls.map((arr) => (0, jsx_runtime_1.jsx)("div", { className: "content", onClick: () => setR_TL(arr['TLID']), children: arr['KOTEXT'] }, arr['TLID'])) }) })] }) }));
     /*
     translateList.map의 onClick
@@ -115,13 +115,13 @@ const HonyakuController = ({ bId, repTL, value, clearEdit, fetch, refetch }) => 
         setParamsInsert({ userId: userId, bId: bId, text: regValue, hId: hId, ytId: ytId });
     };
     const deleteHonyaku = () => {
-        if (repTL != null) {
+        if (repTL !== null) {
             let tlId = repTL['TLID'];
             setParamsDelete({ userId: userId, tlId: tlId, bId: bId, hId: hId, ytId: ytId });
         }
     };
     const modifyHonyaku = () => {
-        if (repTL != null) {
+        if (repTL !== null) {
             let tlId = repTL['TLID'];
             // let regValue = value.replace(/[\']/g, '\'');
             // regValue = regValue.replace(/[\"]/g, '\"');
@@ -131,7 +131,7 @@ const HonyakuController = ({ bId, repTL, value, clearEdit, fetch, refetch }) => 
     };
     (0, react_1.useEffect)(() => {
         let res = resInsert;
-        if (res != null) {
+        if (res !== null) {
             fetch();
             refetch(bId);
             clearEdit();
@@ -139,7 +139,7 @@ const HonyakuController = ({ bId, repTL, value, clearEdit, fetch, refetch }) => 
     }, [resInsert]);
     (0, react_1.useEffect)(() => {
         let res = resDelete;
-        if (res != null) {
+        if (res !== null) {
             fetch();
             refetch(bId);
             clearEdit();
@@ -147,13 +147,13 @@ const HonyakuController = ({ bId, repTL, value, clearEdit, fetch, refetch }) => 
     }, [resDelete]);
     (0, react_1.useEffect)(() => {
         let res = resUpdate;
-        if (res != null) {
+        if (res !== null) {
             fetch();
             refetch(bId);
             clearEdit();
         }
     }, [resUpdate]);
-    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [repTL != null &&
-                (0, jsx_runtime_1.jsx)("button", { className: "button-negative", onClick: deleteHonyaku, children: "\uC0AD\uC81C" }), (0, jsx_runtime_1.jsx)("button", { className: "button-positive", onClick: () => { postHonyaku(); }, children: "\uC0C8\uB85C \uC800\uC7A5" }), repTL != null && repTL['KOTEXT'] != value &&
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [repTL !== null &&
+                (0, jsx_runtime_1.jsx)("button", { className: "button-negative", onClick: deleteHonyaku, children: "\uC0AD\uC81C" }), (0, jsx_runtime_1.jsx)("button", { className: "button-positive", onClick: () => { postHonyaku(); }, children: "\uC0C8\uB85C \uC800\uC7A5" }), repTL !== null && repTL['KOTEXT'] !== value &&
                 (0, jsx_runtime_1.jsx)("button", { className: "button-neutral", onClick: modifyHonyaku, children: "\uC218\uC815" }), (0, jsx_runtime_1.jsx)("button", { className: "button-neutral", onClick: clearEdit, children: "\uCDE8\uC18C" })] }));
 };

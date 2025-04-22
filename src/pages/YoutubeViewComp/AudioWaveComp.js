@@ -49,7 +49,7 @@ const AudioWaveComp = ({ audioData, audioError, videoId, videoTime, duration, fr
         }
     };
     const zoomIn = () => {
-        if (filteredData != null) {
+        if (filteredData !== null) {
             if (zoom > 1) {
                 if (zoom < 10) {
                     setZoom(zoom - 1);
@@ -67,7 +67,7 @@ const AudioWaveComp = ({ audioData, audioError, videoId, videoTime, duration, fr
         }
     };
     const zoomOut = () => {
-        if (filteredData != null) {
+        if (filteredData !== null) {
             if (filteredData.length / frameRate > zoom * 2) {
                 if (zoom < 10) {
                     setZoom(zoom + 1);
@@ -92,17 +92,17 @@ const AudioWaveComp = ({ audioData, audioError, videoId, videoTime, duration, fr
         let seekTimeFrame = timeObj(range + zoom * x / rect.width).getFloorFrame(frameRate);
         let seekRange = seekTimeFrame - range;
         // console.log(e.shiftKey);
-        if (e.shiftKey == false) {
+        if (e.shiftKey === false) {
             if (e.deltaY > 0) {
                 let afterZoom = zoomOut();
-                if (afterZoom != null) {
+                if (afterZoom !== undefined && afterZoom !== null) {
                     // console.log(seekTimeFrame, afterZoom, x/rect.width);
                     setRangeCrit(seekTimeFrame - afterZoom * x / rect.width + afterZoom / 2, afterZoom);
                 }
             }
             else {
                 let afterZoom = zoomIn();
-                if (afterZoom != null) {
+                if (afterZoom !== undefined && afterZoom !== null) {
                     // console.log(seekTimeFrame, afterZoom, x/rect.width);
                     setRangeCrit(seekTimeFrame - afterZoom * x / rect.width + afterZoom / 2, afterZoom);
                 }
@@ -127,7 +127,7 @@ const AudioWaveComp = ({ audioData, audioError, videoId, videoTime, duration, fr
         }
         let rect = canvas.current.getBoundingClientRect();
         let x = e.clientX - rect.left;
-        if (filteredData != null) {
+        if (filteredData !== null) {
             mouseDownStartTime.current = floorFrame(Number(range) + Number(zoom * x / rect.width), frameRate);
         }
     };
@@ -161,7 +161,7 @@ const AudioWaveComp = ({ audioData, audioError, videoId, videoTime, duration, fr
         }
         let rect = canvas.current.getBoundingClientRect();
         let x = e.clientX - rect.left;
-        if (filteredData != null) {
+        if (filteredData !== null) {
             //console.log('zoom', zoom, 'range', range, range + zoom*x/rect.width);
             let seekTimeObj = timeObj(range + zoom * x / rect.width);
             // console.group('asdf');
@@ -215,7 +215,7 @@ const AudioWaveComp = ({ audioData, audioError, videoId, videoTime, duration, fr
         //const sampleWidth = waveAreaWidth / (rangeFilteredData.length - 1);
         const sampleWidth = waveAreaWidth / (zoom * frameRate);
         //console.log(sampleWidth);
-        if (startTime != null && endTime != null) {
+        if (startTime !== null && endTime !== null) {
             //startTime - endTime의 흰배경.
             ctx.moveTo((startTime - range) * frameRate * sampleWidth, frameArea);
             ctx.fillStyle = '#FFFFFF';
@@ -223,12 +223,12 @@ const AudioWaveComp = ({ audioData, audioError, videoId, videoTime, duration, fr
         }
         else {
             //start - endTIme중 하나마 설정되었을 경우, startMarker와는 다름.
-            if (startTime != null) {
+            if (startTime !== null) {
                 ctx.moveTo((startTime - range) * frameRate * sampleWidth, frameArea);
                 ctx.fillStyle = '#FFFFFF';
                 ctx.fillRect((startTime - range) * frameRate * sampleWidth, frameArea, sampleWidth, canvasHeight);
             }
-            else if (endTime != null) {
+            else if (endTime !== null) {
                 ctx.moveTo((endTime - range) * frameRate * sampleWidth, frameArea);
                 ctx.fillStyle = '#FFFFFF';
                 ctx.fillRect((endTime - range) * frameRate * sampleWidth, frameArea, sampleWidth, canvasHeight);
@@ -284,8 +284,8 @@ const AudioWaveComp = ({ audioData, audioError, videoId, videoTime, duration, fr
             // console.log(rangeFrame, xOffset);
             if (xOffset > 0) {
                 let currFrame = rangeFrame;
-                ctx.fillStyle = currFrame % 2 == 0 ? '#FFFFFF' : '#AAAAAA';
-                if (currFrame % 10 == 0) {
+                ctx.fillStyle = currFrame % 2 === 0 ? '#FFFFFF' : '#AAAAAA';
+                if (currFrame % 10 === 0) {
                     ctx.fillStyle = '#666666';
                 }
                 ctx.fillRect(0, 0, sampleWidth * xOffset, 10);
@@ -294,8 +294,8 @@ const AudioWaveComp = ({ audioData, audioError, videoId, videoTime, duration, fr
             for (let i = 1; i < zoomLength; i++) {
                 let x = lastFrameX;
                 let currFrame = frameObj(rangeFrame + i, frameRate).getFrame();
-                ctx.fillStyle = currFrame % 2 == 0 ? '#FFFFFF' : '#AAAAAA';
-                if (currFrame % 10 == 0) {
+                ctx.fillStyle = currFrame % 2 === 0 ? '#FFFFFF' : '#AAAAAA';
+                if (currFrame % 10 === 0) {
                     ctx.fillStyle = '#666666';
                 }
                 ctx.fillRect(x, 0, x + sampleWidth, 10);
@@ -303,8 +303,8 @@ const AudioWaveComp = ({ audioData, audioError, videoId, videoTime, duration, fr
             }
             if (lastFrameX < waveAreaWidth) {
                 let currFrame = frameObj(rangeFrame + zoomLength, frameRate).getFrame();
-                ctx.fillStyle = currFrame % 2 == 0 ? '#FFFFFF' : '#AAAAAA';
-                if (currFrame % 10 == 0) {
+                ctx.fillStyle = currFrame % 2 === 0 ? '#FFFFFF' : '#AAAAAA';
+                if (currFrame % 10 === 0) {
                     ctx.fillStyle = '#666666';
                 }
                 ctx.fillRect(lastFrameX, 0, waveAreaWidth, 10);
@@ -324,8 +324,8 @@ const AudioWaveComp = ({ audioData, audioError, videoId, videoTime, duration, fr
         ctx.stroke();
         ctx.closePath();
         //start, end 마커 그리기.
-        if (startTime != null && endTime != null && endTime > startTime) {
-            if (selectMarker == 'startTime') {
+        if (startTime !== null && endTime !== null && endTime > startTime) {
+            if (selectMarker === 'startTime') {
                 ctx.beginPath();
                 ctx.moveTo((startTime - range) * frameRate * sampleWidth, 0);
                 ctx.strokeStyle = 'yellow'; // 라인 컬러 설정
@@ -333,7 +333,7 @@ const AudioWaveComp = ({ audioData, audioError, videoId, videoTime, duration, fr
                 ctx.stroke();
                 ctx.closePath();
             }
-            if (selectMarker == 'endTime') {
+            if (selectMarker === 'endTime') {
                 ctx.beginPath();
                 ctx.moveTo((endTime - range) * frameRate * sampleWidth, 0);
                 ctx.strokeStyle = 'yellow'; // 라인 컬러 설정
@@ -351,22 +351,22 @@ const AudioWaveComp = ({ audioData, audioError, videoId, videoTime, duration, fr
         cancelAnimationFrame(refId.current);
     };
     (0, react_1.useEffect)(() => {
-        if (filteredData != null) {
+        if (filteredData !== null) {
             //console.log(`zoom ${zoom} range ${range} videoTime${videoTime}`)
             startDraw();
         }
     }, [zoom, range, videoTime, startTime, endTime, selectMarker]);
     (0, react_1.useEffect)(() => {
         // videoTime 이 zoom 된 범위 안에 있으면 range변경 없음, 범위 밖이면 range를 videoTime으로 변경
-        if (filteredData != null) {
-            if (playing == true) {
+        if (filteredData !== null) {
+            if (playing === true) {
                 setRangeCrit(videoTime, zoom);
             }
         }
     }, [zoom]);
     (0, react_1.useEffect)(() => {
-        if (filteredData != null) {
-            if (videoTime != 0) {
+        if (filteredData !== null) {
+            if (videoTime !== 0) {
                 if (videoTime > range + zoom) {
                     if (range + zoom > filteredData.length / frameRate - zoom) {
                         setRange(filteredData.length / frameRate - zoom);
@@ -388,7 +388,7 @@ const AudioWaveComp = ({ audioData, audioError, videoId, videoTime, duration, fr
     }, [videoTime]);
     (0, react_1.useEffect)(() => {
         // console.log(audioData);
-        if (audioData != null) {
+        if (audioData !== null) {
             const samplesPerSec = frameRate;
             const { duration, sampleRate, } = audioData;
             const rawData = {
@@ -436,12 +436,12 @@ const AudioWaveComp = ({ audioData, audioError, videoId, videoTime, duration, fr
         }
     }, [audioData]);
     (0, react_1.useEffect)(() => {
-        if (filteredData != null) {
+        if (filteredData !== null) {
             startDraw();
         }
     }, [filteredData]);
     (0, react_1.useEffect)(() => {
-        if (audioError == true) {
+        if (audioError === true) {
             let dummyLength = Math.floor(duration * frameRate);
             const dummyData = Array.from({ length: dummyLength }, (v, i) => Math.random() > 0.5 ? Math.random() * 0.7 + 0.3 : Math.random() * 0.2 + 0.4);
             console.log('audiodata error');
@@ -452,13 +452,13 @@ const AudioWaveComp = ({ audioData, audioError, videoId, videoTime, duration, fr
             });
         }
     }, [audioError]);
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "audio-wave-component", children: [filteredData == null &&
-                (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: audioError == false ?
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "audio-wave-component", children: [filteredData === null &&
+                (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: audioError === false ?
                         (0, jsx_runtime_1.jsx)("div", { className: "loading" })
                         :
-                            (0, jsx_runtime_1.jsx)("div", { className: "error" }) }), filteredData != null &&
+                            (0, jsx_runtime_1.jsx)("div", { className: "error" }) }), filteredData !== null &&
                 (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("canvas", { ref: canvas, id: "my-house", width: "720", height: "100", onClick: (e) => seekByAudioWave(e), onWheel: (e) => onWheelFunction(e), onMouseDown: (e) => onMouseDownFunction(e), onMouseUp: (e) => onMouseUpFunction(e), onDoubleClick: (e) => onDoubleClickFunction(e) }), (0, jsx_runtime_1.jsx)("div", { className: "input_range", children: zoom < filteredData.length / frameRate &&
-                                (0, jsx_runtime_1.jsx)("input", { type: "range", id: "range", name: "seek", value: range, min: "0", max: Math.floor(filteredData.length / frameRate - zoom), onChange: changeRange, list: "markers" }) })] }), isPc == true && filteredData != null &&
+                                (0, jsx_runtime_1.jsx)("input", { type: "range", id: "range", name: "seek", value: range, min: "0", max: Math.floor(filteredData.length / frameRate - zoom), onChange: changeRange, list: "markers" }) })] }), isPc === true && filteredData !== null &&
                 (0, jsx_runtime_1.jsxs)("div", { className: "audio-wave-control", children: [(0, jsx_runtime_1.jsx)(HelpModal, {}), (0, jsx_runtime_1.jsx)("button", { className: `button-${playing ? 'save' : 'default'}`, children: "      " }), (0, jsx_runtime_1.jsx)("button", { className: `button-${autoStop.set ? 'save' : 'default'}`, children: "      " }), (0, jsx_runtime_1.jsx)("input", { value: videoTimeObj.getFrameStamp(frameRate) }), (0, jsx_runtime_1.jsx)("button", { className: "button-neutral", onClick: zoomIn, children: "zoom in" }), (0, jsx_runtime_1.jsx)("button", { className: "button-neutral", onClick: zoomOut, children: "zoom out" })] })] }));
 };
 exports.AudioWaveComp = AudioWaveComp;

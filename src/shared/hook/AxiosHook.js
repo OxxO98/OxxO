@@ -10,23 +10,23 @@ function useAxios(url, ...props ) {
   const [loading, setLoading] = useState(true);
 
   const [parameter, setParameter] = useState(
-    props?.[1] != null ? props[1] : null
+    ( props?.[1] !== null && props?.[1] !== undefined ) ? props[1] : null
   );
 
   const [pending, setPending] = useState(
-    props?.[0] != null ? props[0] : null
+    props?.[0] !== null ? props[0] : null
   );
 
   const baseUrl = useContext(ServerContext);
 
   const fetchData = async () => {
-    if(parameter != null){
+    if(parameter !== null && parameter !== undefined){
       // console.log(`fetch Parameter ${JSON.stringify(parameter)} url ${baseUrl.concat(url)}`)
       await axios.get(
         baseUrl.concat(url), { params : parameter }
       ).then(
         response => {
-           if(response.data.length != 0){
+           if(response.data.length !== 0){
               setResponse(response);
            }
            else{
@@ -46,7 +46,7 @@ function useAxios(url, ...props ) {
         baseUrl.concat(url)
       ).then(
         response => {
-           if(response.data.length != 0){
+           if(response.data.length !== 0){
              setResponse(response);
            }
            else{
@@ -74,7 +74,7 @@ function useAxios(url, ...props ) {
   }
 
   useEffect( () => {
-    if(pending == false){
+    if(pending === false){
       fetch();
     }
   }, [parameter]);
@@ -88,23 +88,23 @@ function useAxiosPost(url, ...props) {
   const [loading, setLoading] = useState(true);
 
   const [parameter, setParameter] = useState(
-    props?.[1] != null ? props[1] : null
+    ( props?.[1] !== null && props?.[1] !== undefined ) ? props[1] : null
   );
 
   const [pending, setPending] = useState(
-    props?.[0] != null ? props[0] : null
+    props?.[0] !== null ? props[0] : null
   );
 
   const baseUrl = useContext(ServerContext);
 
   const fetchData = async () => {
-    if(parameter != null){
+    if(parameter !== null && parameter !== undefined){
       // console.log(`fetch Parameter ${JSON.stringify(parameter)} url ${baseUrl.concat(url)}`)
       await axios.post(
         baseUrl.concat(url), parameter
       ).then(
         response => {
-           if(response.data.length != 0){
+           if(response.data.length !== 0){
              setResponse(response);
            }
            else{
@@ -124,7 +124,7 @@ function useAxiosPost(url, ...props) {
         baseUrl.concat(url)
       ).then(
         response => {
-           if(response.data.length != 0){
+           if(response.data.length !== 0){
              setResponse(response);
            }
            else{
@@ -154,7 +154,7 @@ function useAxiosPost(url, ...props) {
   }
 
   useEffect( () => {
-    if(pending == false){
+    if(pending === false){
       fetch();
     }
   }, [parameter]);
@@ -168,7 +168,7 @@ function useAxiosDelete(url, ...props) {
   const [loading, setLoading] = useState(true);
 
   const [parameter, setParameter] = useState(
-    props?.[1] != null ? props[1] : null
+    ( props?.[1] !== null && props?.[1] !== undefined ) ? props[1] : null
   );
 
   const [pending, setPending] = useState(
@@ -178,12 +178,12 @@ function useAxiosDelete(url, ...props) {
   const baseUrl = useContext(ServerContext);
 
   const fetchData = async () => {
-    if(parameter != null){
+    if(parameter !== null && parameter !== undefined){
       await axios.delete(
         baseUrl.concat(url), {params : parameter}
       ).then(
         response => {
-           if(response.data.length != 0){
+           if(response.data.length !== 0){
              setResponse(response);
            }
            else{
@@ -203,7 +203,7 @@ function useAxiosDelete(url, ...props) {
         baseUrl.concat(url)
       ).then(
         response => {
-           if(response.data.length != 0){
+           if(response.data.length !== 0){
              setResponse(response);
            }
            else{
@@ -233,7 +233,7 @@ function useAxiosDelete(url, ...props) {
   }
 
   useEffect( () => {
-    if(pending == false){
+    if(pending === false){
       fetch();
     }
   }, [parameter]);
@@ -247,23 +247,23 @@ function useAxiosPut(url, ...props) {
   const [loading, setLoading] = useState(true);
 
   const [parameter, setParameter] = useState(
-    props?.[1] != null ? props[1] : null
+    ( props?.[1] !== null && props?.[1] !== undefined ) ? props[1] : null
   );
 
   const [pending, setPending] = useState(
-    props?.[0] != null ? props[0] : null
+    props?.[0] !== null ? props[0] : null
   );
 
   const baseUrl = useContext(ServerContext);
 
   const fetchData = async () => {
-    if(parameter != null){
+    if(parameter !== null && parameter !== undefined){
       // console.log(`fetch Parameter ${JSON.stringify(parameter)} url ${baseUrl.concat(url)}`)
       await axios.put(
         baseUrl.concat(url), parameter
       ).then(
         response => {
-           if(response.data.length != 0){
+           if(response.data.length !== 0){
              setResponse(response);
            }
            else{
@@ -283,7 +283,7 @@ function useAxiosPut(url, ...props) {
         baseUrl.concat(url)
       ).then(
         response => {
-           if(response.data.length != 0){
+           if(response.data.length !== 0){
              setResponse(response);
            }
            else{
@@ -313,7 +313,7 @@ function useAxiosPut(url, ...props) {
   }
 
   useEffect( () => {
-    if(pending == false){
+    if(pending === false){
       fetch();
     }
   }, [parameter]);

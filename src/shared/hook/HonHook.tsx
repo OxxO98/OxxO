@@ -28,14 +28,14 @@ function useHonView( page : number, selectedBun : number, textOffset : OffsetObj
   const { response : res, setParams, fetch } = useAxios('/bun', true, { bId : selectedBun });
 
   useEffect( () => {
-    if(res != null){
+    if(res !== null){
       setServerSelection(res.data[0]['JATEXT'].substring(textOffset.startOffset, textOffset.endOffset));
     }
   }, [res])
 
   useEffect(()=>{
-    if(selectedBun != null){
-      if(selectedBun != 0){
+    if(selectedBun !== null && selectedBun !== undefined){
+      if(selectedBun !== 0){
         setParams({bId : selectedBun});
       }
     }

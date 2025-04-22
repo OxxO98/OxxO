@@ -32,7 +32,7 @@ function useHandleSelection( document : Document, restrictId : string ) {
     const handleSelection = () => {
         const tmpSelection = document.getSelection();
 
-        if(tmpSelection === null){
+        if(tmpSelection === null || tmpSelection === undefined){
             return;
         }
 
@@ -48,24 +48,24 @@ function useHandleSelection( document : Document, restrictId : string ) {
 
         let restrictNode = document.getElementById(restrict);
 
-        if(restrictNode === null){
+        if(restrictNode === null || restrictNode === undefined){
             return;
         }
 
         if(tmpSelection?.containsNode(restrictNode, true)){
-            if(restrictNode.contains(tmpSelection?.anchorNode) == false || restrictNode.contains(tmpSelection?.focusNode) == false ){
+            if(restrictNode.contains(tmpSelection?.anchorNode) === false || restrictNode.contains(tmpSelection?.focusNode) === false ){
                 //restrict 범위를 벗어나는 경우
                 return;
             }
 
-            if(text == ''){
+            if(text === ''){
                 return;
             }
 
             //console.log(tmpSelection);
 
             let el;
-            if(tmpSelection?.anchorNode != null && tmpSelection?.focusNode != null){
+            if(tmpSelection?.anchorNode !== null && tmpSelection?.anchorNode !== undefined && tmpSelection?.focusNode !== null && tmpSelection?.focusNode !== undefined){
                 let position = tmpSelection?.anchorNode.compareDocumentPosition(tmpSelection?.focusNode);
                 if (position & Node.DOCUMENT_POSITION_FOLLOWING){
                     el = tmpSelection.anchorNode; //확인바람.
@@ -152,7 +152,7 @@ function useHandleSelection( document : Document, restrictId : string ) {
                 //console.log(text);
                 setSelection(text);
             }
-            if(tmpSelection?.isCollapsed == false){
+            if(tmpSelection?.isCollapsed === false){
                 if(tmpSelection?.anchorNode?.parentNode?.nodeName === 'RUBY'){
                     if(tmpSelection?.anchorNode?.nextSibling){
                         if(tmpSelection?.anchorNode?.nextSibling?.nodeName === 'RT'){
@@ -171,9 +171,9 @@ function useHandleSelection( document : Document, restrictId : string ) {
             if(tmpSelection?.anchorNode?.parentNode && tmpSelection?.focusNode?.parentNode){
                 let anchorTextNode = tmpSelection?.anchorNode?.parentNode as HTMLElement;
                 let focusTextNode = tmpSelection?.focusNode?.parentNode as HTMLElement;
-                if(anchorTextNode?.getAttribute('data-bId') == focusTextNode?.getAttribute('data-bId')){
+                if(anchorTextNode?.getAttribute('data-bid') === focusTextNode?.getAttribute('data-bid')){
                     //console.log('일치');
-                    setSelectedBun( parseInt(anchorTextNode.getAttribute('data-bId') ?? '0') );
+                    setSelectedBun( parseInt(anchorTextNode.getAttribute('data-bid') ?? '0') );
                     setSelectedMultiBun({startBun : 0, startOffset : 0, endBun : 0, endOffset : 0});
                     let startOffset = Number(anchorTextNode.getAttribute('data-offset')) + tmpSelection.anchorOffset;
                     let endOffset = Number(focusTextNode.getAttribute('data-offset')) + tmpSelection.focusOffset;
@@ -183,10 +183,10 @@ function useHandleSelection( document : Document, restrictId : string ) {
                     // console.warn(anchorTextNode);
                     let tmpFocusNode = tmpSelection.focusNode as HTMLElement;
                     let tmpAnchorNode = tmpSelection.focusNode as HTMLElement;
-                    if(focusTextNode?.getAttribute('data-offset') == null && tmpFocusNode.getAttribute != null){
+                    if(focusTextNode?.getAttribute('data-offset') === null && tmpFocusNode?.getAttribute !== undefined){
                         endOffset = Number(tmpFocusNode.getAttribute('data-offset')) + tmpSelection.focusOffset;
                     }
-                    if(anchorTextNode?.getAttribute('data-offset') == null && tmpAnchorNode.getAttribute != null){
+                    if(anchorTextNode?.getAttribute('data-offset') === null && tmpAnchorNode?.getAttribute !== undefined){
                         startOffset = Number(tmpAnchorNode.getAttribute('data-offset')) + tmpSelection.anchorOffset;
                     }
 

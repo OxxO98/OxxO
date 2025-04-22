@@ -18,7 +18,7 @@ function useTangochouView() {
     const { response: resPageCount, setParams: setParamsPC, fetch: fetchPC } = (0, hook_1.useAxios)('/hon/tangochou/count', false, { userId: userId, hId: hId });
     (0, react_1.useEffect)(() => {
         let res = resPageCount;
-        if (res != null) {
+        if (res !== null) {
             let pageCount = parseInt(res.data[0]['PAGECOUNT']);
             setListPageCount(Math.ceil(pageCount / 10));
         }
@@ -36,7 +36,7 @@ function useTangochouSearch() {
         setValue(e.target.value);
     };
     const handleKeyDown = (e) => {
-        if (e.key == 'Enter') {
+        if (e.key === 'Enter') {
             submitSearch();
         }
     };
@@ -51,7 +51,7 @@ function useTangochouSearch() {
     };
     (0, react_1.useEffect)(() => {
         let res = resSearch;
-        if (res != null) {
+        if (res !== null) {
             let a = new Array();
             for (let key in res.data) {
                 let obj = res.data[key];
@@ -86,13 +86,13 @@ function useTangochouPagination(listPageCount, view) {
         return (isMobile && listPage / 2) || (isTablet && listPage / 3) || (isPc && listPage / 4);
     }, [isMobile, isTablet, isPc, listPage]);
     const pageCount = (0, react_1.useMemo)(() => {
-        if (isMobile == true) {
+        if (isMobile === true) {
             return Math.ceil(listPageCount / 2);
         }
-        else if (isTablet == true) {
+        else if (isTablet === true) {
             return Math.ceil(listPageCount / 3);
         }
-        else if (isPc == true) {
+        else if (isPc === true) {
             return Math.ceil(listPageCount / 4);
         }
         else {
@@ -101,16 +101,16 @@ function useTangochouPagination(listPageCount, view) {
     }, [isMobile, isTablet, isPc, listPageCount]);
     (0, react_1.useEffect)(() => {
         //간극을 어떻게 메워야하지
-        if (view == null) {
-            if (isPc && listPage % 4 != 0) {
+        if (view === null) {
+            if (isPc && listPage % 4 !== 0) {
                 setListPage(listPage - listPage % 4);
             }
-            if (isTablet && listPage % 3 != 0) {
+            if (isTablet && listPage % 3 !== 0) {
                 setListPage(listPage - listPage % 3);
             }
         }
         else {
-            if (listPage % 2 != 0) {
+            if (listPage % 2 !== 0) {
                 setListPage(listPage - listPage % 2);
             }
         }
@@ -119,7 +119,7 @@ function useTangochouPagination(listPageCount, view) {
         if (isMobile && listPage + 2 < listPageCount) {
             setListPage(listPage + 2);
         }
-        if (view == null) {
+        if (view === null) {
             if (isTablet && listPage + 3 < listPageCount) {
                 setListPage(listPage + 3);
             }
@@ -137,7 +137,7 @@ function useTangochouPagination(listPageCount, view) {
         if (isMobile && listPage - 2 >= 0) {
             setListPage(listPage - 2);
         }
-        if (view == null) {
+        if (view === null) {
             if (isTablet && listPage - 3 >= 0) {
                 setListPage(listPage - 3);
             }
@@ -153,7 +153,7 @@ function useTangochouPagination(listPageCount, view) {
     };
     const clickPage = (page) => {
         isMobile && setListPage(page * 2);
-        if (view == null) {
+        if (view === null) {
             isTablet && setListPage(page * 3);
             isPc && setListPage(page * 4);
         }

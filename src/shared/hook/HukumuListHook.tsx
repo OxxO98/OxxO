@@ -31,7 +31,7 @@ function useHukumuList( hukumuData : HukumuDataObj ){
     const {response : resYoutube, setParams : setParamsYoutube, fetch : fetchYoutube} = useAxios('/youtube/hukumu', true, null);
   
     useEffect( () => {
-      if(hukumuData != null){
+      if(hukumuData !== null){
         if( hId !== null && hId !== undefined ){
           setParamsHon({ userId : userId, hId : hId, text : hukumuData.hyouki });
         }
@@ -44,7 +44,7 @@ function useHukumuList( hukumuData : HukumuDataObj ){
     useEffect( () => {
       let res = resHon;
   
-      if(res != null){
+      if(res !== null){
         dbToHukumuList(res.data);
       }
     }, [resHon])
@@ -52,7 +52,7 @@ function useHukumuList( hukumuData : HukumuDataObj ){
     useEffect( () => {
       let res = resYoutube;
   
-      if(res != null){
+      if(res !== null){
         dbToHukumuList(res.data);
       }
     }, [resYoutube])

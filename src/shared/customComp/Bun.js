@@ -5,6 +5,7 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const hook_1 = require("shared/hook");
 const hook_2 = require("shared/hook");
+const uuid_1 = require("uuid");
 const client_1 = require("client");
 //HUKUMU까지 확인함
 const Bun = ({ bId, styled, ...props }) => {
@@ -53,11 +54,13 @@ const Bun = ({ bId, styled, ...props }) => {
             };
         }
     }, [resHukumu]);
-    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [resBunLoad &&
-                (0, jsx_runtime_1.jsx)("div", { className: "loading", children: "\u3000" }), (0, jsx_runtime_1.jsxs)("span", { className: `bun ${(resBunLoad || resHukumuLoad) ? "loading" : ""}`, ref: props?.setScroll !== null ? (el) => props?.setScroll?.(el, bId) : undefined, children: [resHukumuLoad &&
-                        (0, jsx_runtime_1.jsx)("span", { children: "".padEnd(bunData.length, "　") }), resHukumuLoad === false && hukumuData !== null && hukumuData.length > 0 &&
-                        hukumuData.map((arr) => (0, jsx_runtime_1.jsx)(ComplexText, { bId: bId, offset: arr['offset'], data: arr['data'], ruby: arr['ruby'], styledOffset: styled }, bId + arr['offset'])), resHukumuLoad === false && hukumuData !== null && hukumuData.length === 0 &&
-                        (0, jsx_runtime_1.jsx)(ComplexText, { bId: bId, offset: 0, data: bunData, styledOffset: styled }, bId + '0')] })] }));
+    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: resBunLoad === true ?
+            (0, jsx_runtime_1.jsx)("span", { className: "loading", children: "\u3000" })
+            :
+                (0, jsx_runtime_1.jsxs)("span", { className: `bun ${(resBunLoad || resHukumuLoad) ? "loading" : ""}`, ref: props?.setScroll !== null ? (el) => props?.setScroll?.(el, bId) : undefined, children: [resHukumuLoad === true &&
+                            (0, jsx_runtime_1.jsx)("span", { children: "".padEnd(bunData.length, "　") }), resHukumuLoad === false && hukumuData !== null && hukumuData.length > 0 &&
+                            hukumuData.map((arr) => (0, jsx_runtime_1.jsx)(ComplexText, { bId: bId, offset: arr['offset'], data: arr['data'], ruby: arr['ruby'], styledOffset: styled }, bId + arr['offset'])), resHukumuLoad === false && hukumuData !== null && hukumuData.length === 0 &&
+                            (0, jsx_runtime_1.jsx)(ComplexText, { bId: bId, offset: 0, data: bunData, styledOffset: styled }, bId + '0')] }) }));
 };
 const ComplexText = ({ bId, data, ruby, offset, styledOffset }) => {
     /*
@@ -66,7 +69,8 @@ const ComplexText = ({ bId, data, ruby, offset, styledOffset }) => {
       ComplexText는 data, ruby를 통해 바꾸어 주고 있다.
     */
     const { complexArr } = (0, hook_2.useHuri)();
-    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: complexArr(data, ruby, offset).map((arr) => (0, jsx_runtime_1.jsx)(Text, { offset: arr['offset'], bId: bId, data: arr['data'], ruby: arr['ruby'], styledOffset: styledOffset }, arr['offset'])) }));
+    const _key = (v) => bId !== undefined && bId !== null ? `${bId}-${v['offset']}` : (0, uuid_1.v4)();
+    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: complexArr(data, ruby, offset ?? 0).map((arr) => (0, jsx_runtime_1.jsx)(Text, { offset: arr['offset'], bId: bId, data: arr['data'], ruby: arr['ruby'], styledOffset: styledOffset }, _key(arr))) }));
 };
 exports.ComplexText = ComplexText;
 const Text = ({ bId, data, ruby, offset, styledOffset }) => {
@@ -121,12 +125,13 @@ const Text = ({ bId, data, ruby, offset, styledOffset }) => {
         }
         return tmpArr;
     };
+    let _offset = (v) => offset !== null && offset !== undefined ? v : '0';
     return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: convertStyled().map((arr) => {
             if (arr?.ruby === null) {
-                return ((0, jsx_runtime_1.jsx)("span", { className: `${arr.style !== null ? arr.style : ''} rubyNasi`, "data-bId": bId, "data-offset": arr.offset, children: arr.data }, bId + '-' + arr.offset));
+                return ((0, jsx_runtime_1.jsx)("span", { className: `${arr.style !== null ? arr.style : ''} rubyNasi`, "data-bid": bId, "data-offset": _offset(arr.offset), children: arr.data }, bId + '-' + arr.offset));
             }
             else {
-                return ((0, jsx_runtime_1.jsxs)("ruby", { className: `${arr.style !== null ? arr.style : ''} rubyAri`, "data-bId": bId, "data-offset": arr.offset, children: [arr.data, (0, jsx_runtime_1.jsx)("rt", { children: arr.ruby })] }, bId + '-' + arr.offset));
+                return ((0, jsx_runtime_1.jsxs)("ruby", { className: `${arr.style !== null ? arr.style : ''} rubyAri`, "data-bid": bId, "data-offset": _offset(arr.offset), children: [arr.data, (0, jsx_runtime_1.jsx)("rt", { children: arr.ruby })] }, bId + '-' + arr.offset));
             }
         }) }));
 };

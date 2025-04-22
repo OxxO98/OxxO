@@ -143,7 +143,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
   const setWsEdit = (editValue : boolean) => {
     // console.log('setEdit', sync.edit);
 
-    if(editValue == true){
+    if(editValue === true){
       ws.current.emit('join edit', { userId : userId, hId : hId });
     }
     else{
@@ -153,7 +153,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
 
   useEffect( () => {
     let res = resCount;
-    if(res != null){
+    if(res !== null){
       setPageCount(parseInt(res.data[0]['PAGECOUNT'])+1);
     }
   }, [resCount])
@@ -163,7 +163,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
   }, [toggleHon])
 
   useEffect( () => {
-    if(ws.current != null){
+    if(ws.current !== null){
 
       ws.current.on('connected', () => {
         ws.current.emit('join', { userId : userId, hId : hId });
@@ -186,7 +186,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
     }
   }, [])
 
-  const isHonaykuEdit = honyakuEdit == true ? "edit" : "";
+  const isHonaykuEdit = honyakuEdit === true ? "edit" : "";
 
   const isClicked = isMobile && toggleHon ? "clicked" : "";
 
@@ -207,10 +207,10 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
           }
           <div className="tangochou-layout-pagination">
             {
-              view == null ?
+              view === null ?
               <>
                 {
-                  searchList == null ?
+                  searchList === null ?
                     <Pagination page={tangochouPage} pageCount={tangochouPageCount} nextPage={ nextTangochouPage } previousPage={ previousTangochouPage } clickPage={ clickTangochouPage }/>
                   :
                     <Pagination page={tcSearchPage} pageCount={tcSearchPageCount} nextPage={ nextTangochouSearchPage } previousPage={ previousTangochouSearchPage } clickPage={ clickTangochouSearchPage }/>
@@ -219,7 +219,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
               :
               <>
                 {
-                  searchList == null ?
+                  searchList === null ?
                     <Pagination page={ listPage/2 } pageCount={
                       Math.ceil(listPageCount/2)
                     } nextPage={ nextTangochouPage } previousPage={ previousTangochouPage } clickPage={ clickTangochouPage }/>
@@ -239,7 +239,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
             isMobile &&
             <>
               {
-                view == 'kanji' &&
+                view === 'kanji' &&
                 <>
                   <div className={`tangochou-info-layout ${isFocusedInfo}`} onWheel={handleTangochouScroll}>
                     <KanjiInfo kanji={info.jaText} kId={info.kId} setView={setView} setInfo={setInfo}/>
@@ -247,7 +247,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
                 </>
               }
               {
-                view == 'tango' &&
+                view === 'tango' &&
                 <>
                   <div className={`tangochou-info-layout ${isFocusedInfo}`} onWheel={handleTangochouScroll}>
                     <TangoInfo tId={info.tId} setView={setView} setInfo={setInfo}
@@ -256,7 +256,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
                 </>
               }
               {
-                view != null &&
+                view !== null &&
                 <div className="backdrop-down"/>
               }
             </>
@@ -266,7 +266,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
             isMobile &&
             <>
               {
-                searchList == null &&
+                searchList === null &&
                 <>
                   <div className={`tangochou-layout-list`} key={`listPage${listPage}`} onWheel={handleTangochouScroll}>
                     <TangochouListComp startListNum={listPage} setView={setView} setInfo={setInfo} selectedTId={info?.tId}
@@ -279,7 +279,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
                 </>
               }
               {
-                searchList != null &&
+                searchList !== null &&
                 <>
                   <div className={`tangochou-layout-search-list`} key={`listPage${searchListPage}`}  onWheel={handleTangochouScroll}>
                     <TangoSearchListComp searchList={searchList} startListNum={searchListPage} setView={setView} setInfo={setInfo}
@@ -297,7 +297,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
             isTablet &&
             <>
               {
-                searchList == null &&
+                searchList === null &&
                 <>
                   <div className="tangochou-list-layout" key={`listPage${listPage}`}>
                     <TangochouListComp startListNum={listPage} setView={setView} setInfo={setInfo} selectedTId={info?.tId}/>
@@ -308,7 +308,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
                 </>
               }
               {
-                searchList != null &&
+                searchList !== null &&
                 <>
                   <div className="tangochou-layout-search-list" key={`listPage${searchListPage}`}>
                     <TangoSearchListComp searchList={searchList} startListNum={searchListPage} setView={setView} setInfo={setInfo}/>
@@ -319,7 +319,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
                 </>
               }
               {
-                view == 'kanji' &&
+                view === 'kanji' &&
                 <>
                   <div className="tangochou-info-layout">
                     <KanjiInfo kanji={info.jaText} kId={info.kId} setView={setView} setInfo={setInfo}/>
@@ -327,7 +327,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
                 </>
               }
               {
-                view == 'tango' &&
+                view === 'tango' &&
                 <>
                   <div className="tangochou-info-layout">
                     <TangoInfo tId={info.tId} setView={setView} setInfo={setInfo}/>
@@ -335,10 +335,10 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
                 </>
               }
               {
-                view == null &&
+                view === null &&
                 <>
                   {
-                    searchList == null ?
+                    searchList === null ?
                     <div className="tangochou-list-layout" key={`listPage${listPage+2}`}>
                       <TangochouListComp startListNum={listPage+2} setView={setView} setInfo={setInfo} selectedTId={info?.tId}/>
                     </div>
@@ -355,7 +355,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
             isPc &&
             <>
               {
-                searchList == null &&
+                searchList === null &&
                 <>
                   <div className="tangochou-list-layout" key={`listPage${listPage}`}>
                     <TangochouListComp startListNum={listPage} setView={setView} setInfo={setInfo} selectedTId={info?.tId}/>
@@ -366,7 +366,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
                 </>
               }
               {
-                searchList != null &&
+                searchList !== null &&
                 <>
                   <div className="tangochou-layout-search-list" key={`listPage${searchListPage}`}>
                     <TangoSearchListComp searchList={searchList} startListNum={searchListPage} setView={setView} setInfo={setInfo}/>
@@ -377,7 +377,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
                 </>
               }
               {
-                view == 'kanji' &&
+                view === 'kanji' &&
                 <>
                   <div className="tangochou-info-layout">
                     <KanjiInfo kanji={info.jaText} kId={info.kId} setView={setView} setInfo={setInfo}/>
@@ -385,7 +385,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
                 </>
               }
               {
-                view == 'tango' &&
+                view === 'tango' &&
                 <>
                   <div className="tangochou-info-layout">
                     <TangoInfo tId={info.tId} setView={setView} setInfo={setInfo}/>
@@ -393,10 +393,10 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
                 </>
               }
               {
-                view == null &&
+                view === null &&
                 <>
                   {
-                    searchList == null ?
+                    searchList === null ?
                     <>
                       <div className="tangochou-list-layout" key={`listPage${listPage+2}`}>
                         <TangochouListComp startListNum={listPage+2} setView={setView} setInfo={setInfo} selectedTId={info?.tId}/>
@@ -431,7 +431,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
             </div>
             <div className={`honyaku-bun-comp-layout ${isHonaykuEdit} ${isClickedHonyaku} ${isFocusedHonyaku}`}>
               {
-                bunList != null &&
+                bunList !== null &&
                 <>
                 {
                   bunList.map( (arr : BunListObj) =>
@@ -452,7 +452,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
               <div className="backdrop-up"/>
             }
             {
-              ( isPc || isTablet ) && honyakuEdit == true &&
+              ( isPc || isTablet ) && honyakuEdit === true &&
               <div className="honyakuComp-layout">
                 <HonyakuComp bId={honyakuSelected} clearEdit={honyakuClearEdit} refetch={refetch} getActive={getActive} setActive={setActive} styled={styled}
                 handleScroll={handleScroll}
@@ -467,7 +467,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
                   <ImiComp.MovePage selectedBun={selectedBun} textOffset={textOffset} changeRoute={changeRoute} setStyled={setStyled}/>
                 </ImiComp>
                 {
-                  hukumuData == null ?
+                  hukumuData === null ?
                   <>
                     <div className="honyaku-dictionary">
                       <Dictionary selection={selection}/>
@@ -483,14 +483,14 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
               </div>
           }
           {
-            isMobile && honyakuEdit == false &&
+            isMobile && honyakuEdit === false &&
             <div className={`honyaku-composite-layout ${isClickedHonyaku}`}>
               <ImiComp hukumuData={hukumuData} selection={selection} selectedBun={selectedBun} setStyled={setStyled} textOffset={textOffset} changeRoute={changeRoute}
               setToggle={handleMobileHonyaku} toggle={toggleHonyaku}>
                 <ImiComp.MovePage selectedBun={selectedBun} textOffset={textOffset} changeRoute={changeRoute} setStyled={setStyled}/>
               </ImiComp>
             {
-              hukumuData == null ?
+              hukumuData === null ?
               <>
                 <div className={`honyaku-dictionary ${isClickedHonyaku}`}>
                   <Dictionary selection={selection}/>
@@ -506,7 +506,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
             </div>
           }
           {
-            isMobile && honyakuEdit == true &&
+            isMobile && honyakuEdit === true &&
             <div className={`honyakuComp-layout ${isHonaykuEdit} ${isClickedHonyaku} ${isFocusedHonyaku}`}>
               <HonyakuComp bId={honyakuSelected} clearEdit={honyakuClearEdit}
               refetch={refetch}  getActive={getActive} setActive={setActive} styled={styled}
@@ -519,7 +519,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
     case 'Hon' :
       return(
         <div className="hon-page-layout">
-          <div className={`hon-layout ${edit == true ? 'editing' : ''}`}>
+          <div className={`hon-layout ${edit === true ? 'editing' : ''}`}>
             {
               isMobile &&
               <div className="hon-layout-search">
@@ -527,16 +527,16 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
               </div>
             }
             {
-              toggleHon == false && isMobile &&
+              toggleHon === false && isMobile &&
               <HonGrantWrapper restrict='WRITER'>
                 <div className="hon-layout-edit-button">
                   {
-                    edit == true &&
+                    edit === true &&
                     <ImportYoutubeModal importData={importData} setImportData={setImportData}/>
                   }
                   {
-                    edit == false ?
-                      <button className={`button-positive ${edit == false ? 'active' : ''}`} onClick={() => setWsEdit(true)}>편집</button>
+                    edit === false ?
+                      <button className={`button-positive ${edit === false ? 'active' : ''}`} onClick={() => setWsEdit(true)}>편집</button>
                     :
                       <button className={`button-positive`} onClick={() => setWsEdit(false)}>확인</button>
                   }
@@ -550,12 +550,12 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
                 <HonGrantWrapper restrict='WRITER'>
                   <div className="hon-layout-edit-button">
                     {
-                      edit == true &&
+                      edit === true &&
                       <ImportYoutubeModal importData={importData} setImportData={setImportData}/>
                     }
                     {
-                      edit == false ?
-                        <button className={`button-positive ${edit == false ? 'active' : ''}`} onClick={() => setWsEdit(true)}>편집</button>
+                      edit === false ?
+                        <button className={`button-positive ${edit === false ? 'active' : ''}`} onClick={() => setWsEdit(true)}>편집</button>
                       :
                         <button className={`button-positive`} onClick={() => setWsEdit(false)}>확인</button>
                     }
@@ -565,7 +565,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
             </div>
             {
               pageCount !== null && edit === false &&
-              <div className={`hon ${isClicked}`} id={`${edit == false ? "activeRange" : ""}`}>
+              <div className={`hon ${isClicked}`} id={`${edit === false ? "activeRange" : ""}`}>
                 <Hon page={page}
                 rowLength={rowLength} pageLength={pageLength}
                 bIdRef={bIdRef} styled={styled}
@@ -611,17 +611,17 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
               isMobile && edit === false &&
               <>
                 {
-                  searchBunList != null ?
+                  searchBunList !== null ?
                     <div className={`hon-list ${isClicked}`}>
                       <SearchListComp rowLength={rowLength} pageLength={pageLength} setPage={setPage} setStyled={setStyled} bIdList={searchBunList}/>
                     </div>
                   :
                   <>
                   {
-                    hukumuData == null ?
+                    hukumuData === null ?
                     <>
                       {
-                        osusumeList != null && osusumeList.length != 0 ?
+                        osusumeList !== null && osusumeList.length !== 0 ?
                         <div className={`hon-list ${isClicked}`}>
                           <OsusumeListComp osusumeList={osusumeList} selectedBun={selectedBun} textOffset={textOffset} refetch={refetch} setHukumuData={setHukumuData}/>
                         </div>
@@ -634,7 +634,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
                     :
                     <>
                       {
-                        hukumuList != null && hukumuList.length != 0 ?
+                        hukumuList !== null && hukumuList.length !== 0 ?
                         <div className={`hon-list ${isClicked}`}>
                           <HonHukumuListComp hukumuData={hukumuData} hukumuList={hukumuList} refetch={refetch}
                           rowLength={rowLength} pageLength={pageLength} setPage={setPage} setStyled={setStyled} fetchHukumuList={fetchHukumuList}/>
@@ -655,7 +655,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
               ( isTablet || isPc ) &&
               <>
                 {
-                  searchBunList != null ?
+                  searchBunList !== null ?
                     <div className="hon-searchList-layout">
                       <SearchListComp rowLength={rowLength} pageLength={pageLength} setPage={setPage} setStyled={setStyled} bIdList={searchBunList}/>
                     </div>
@@ -666,10 +666,10 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
                         isTablet ?
                         <>
                           {
-                            hukumuData == null ?
+                            hukumuData === null ?
                             <>
                               {
-                                osusumeList != null && osusumeList.length != 0 ?
+                                osusumeList !== null && osusumeList.length !== 0 ?
                                 <>
                                   <div className="backdrop-down"/>
                                   <div className="hon-list">
@@ -685,7 +685,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
                             :
                             <>
                               {
-                                hukumuList != null && hukumuList.length != 0 ?
+                                hukumuList !== null && hukumuList.length !== 0 ?
                                 <>
                                 <div className="backdrop-down"/>
                                   <div className="hon-list">
@@ -706,10 +706,10 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
                           <div className="backdrop-down"/>
                           <div className="hon-list">
                             {
-                              hukumuData == null ?
+                              hukumuData === null ?
                               <>
                                 {
-                                  osusumeList != null && osusumeList.length != 0 ?
+                                  osusumeList !== null && osusumeList.length !== 0 ?
                                   <>
                                     <OsusumeListComp osusumeList={osusumeList} selectedBun={selectedBun} textOffset={textOffset} refetch={refetch} setHukumuData={setHukumuData}/>
                                   </>
@@ -722,7 +722,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
                               :
                               <>
                                 {
-                                  hukumuList != null && hukumuList.length != 0 ?
+                                  hukumuList !== null && hukumuList.length !== 0 ?
                                   <HonHukumuListComp hukumuData={hukumuData} hukumuList={hukumuList} refetch={refetch}
                                   rowLength={rowLength} pageLength={pageLength} setPage={setPage} setStyled={setStyled}  fetchHukumuList={fetchHukumuList}/>
                                   :
@@ -733,7 +733,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
                           </div>
                           <div className="hon-dictionary">
                             {
-                              hukumuData == null ?
+                              hukumuData === null ?
                               <Dictionary selection={selection}/>
                               :
                               <Dictionary selection={hukumuData.hyouki}/>
