@@ -96,7 +96,17 @@ Adobe의 mogrt(모션 그래픽 템플릿) 파일에서 작동을 염두에 두�
 
 # 기능 소개
 
-![이미지](readme_img/Book_edit.gif)
+추가중....
+
+![책 편집](readme_img/Book_edit.gif)
+![책 검색](readme_img/Book_search.gif)
+![번역_1](readme_img/Honyaku_1.gif)
+![번역_2](readme_img/Honyaku_2.gif)
+![단어_1](readme_img/Tango_1.gif)
+![단어_2](readme_img/Tango_2.gif)
+![단어_3](readme_img/Tango_3.gif)
+![단어장](readme_img/Tangochou.gif)
+![단어장 검색](readme_img/Tangochou_search.gif)
 
 #
 
