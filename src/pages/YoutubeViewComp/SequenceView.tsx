@@ -261,6 +261,8 @@ const YoutubeCCModal = ({ ytsId } : YoutubeCCModalProps ) => {
     return timeCodeSecond.concat(secondStr);
   }
 
+  //유튜브 자막파일을 타임라인으로 임포트
+  /*
   const importCCtoDB = () => {
     let queryArr = new Array();
 
@@ -280,6 +282,7 @@ const YoutubeCCModal = ({ ytsId } : YoutubeCCModalProps ) => {
       }
     )
   }
+    */
 
   const exportDBtoJson = () => {
     let jsString = JSON.stringify(timelineData);

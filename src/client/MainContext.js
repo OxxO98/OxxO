@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UnicodeRangeContext = exports.UnicodeContext = exports.MediaQueryContext = exports.ServerContext = void 0;
 const react_1 = require("react");
-exports.ServerContext = (0, react_1.createContext)('http://localhost:5000');
+exports.ServerContext = (0, react_1.createContext)('http://oxxo.ddns.net:5000');
 exports.MediaQueryContext = (0, react_1.createContext)({
     pc: "(min-width:1024px)",
     tablet: "(min-width:758px) and (max-width:1023px)",

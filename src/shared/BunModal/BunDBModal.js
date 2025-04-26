@@ -32,6 +32,19 @@ const ModalInsertDan = ({ importData, selectImportBun, addPoint, value, handleRe
                 setParamsInsertDan({ userId: userId, hId: hId, critDId: dId, prev: prev, bunObj: bunObj });
             }
         }
+        else if (addPoint == null) {
+            if (importData !== null && selectImportBun !== null) {
+                // setParamsInsertDan({ userId : userId, hId : hId, bId : selectImportBun['BID'], critDId : dId, prev : prev});
+            }
+            else {
+                let bunArr = danToBun(value);
+                let bunObj = new Object();
+                for (let key in bunArr) {
+                    bunObj[key] = replaceSpecial(bunArr[key]);
+                }
+                // setParamsInsertDan({ userId : userId, hId : hId, critDId : 'init', prev : true, bunObj : bunObj });
+            }
+        }
     };
     const insertMultiDan = () => {
         if (addPoint !== null && addPoint.type !== null && addPoint.type === 'DAN') {
@@ -49,6 +62,21 @@ const ModalInsertDan = ({ importData, selectImportBun, addPoint, value, handleRe
                     multiObj[key] = dan;
                 }
                 setParamsInsertMultiDan({ userId: userId, hId: hId, critDId: dId, prev: prev, multiObj: multiObj });
+            }
+        }
+        else if (addPoint == null) {
+            if (importData === null || selectImportBun === null) {
+                let danArr = value.split('\n');
+                let multiObj = new Object();
+                for (let key in danArr) {
+                    let dan = new Object();
+                    let bunArr = danToBun(danArr[key]);
+                    for (let key in bunArr) {
+                        dan[key] = replaceSpecial(bunArr[key]);
+                    }
+                    multiObj[key] = dan;
+                }
+                // setParamsInsertMultiDan({ userId : userId, hId : hId, critDId : 'init', prev : true, multiObj : multiObj });
             }
         }
     };

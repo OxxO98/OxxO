@@ -100,9 +100,7 @@ const Bun = ({ bId, styled, ...props} : BunProps ) => {
   return(
     <>
       {
-        resBunLoad === true ?
-        <span className="loading">　</span>
-        :
+        resBunLoad === false &&
         <span className={`bun ${ (resBunLoad || resHukumuLoad) ? "loading" : ""}`} ref={ props?.setScroll !== null ? (el : HTMLSpanElement) => props?.setScroll?.(el, bId) : undefined }>
         {
           resHukumuLoad === true &&

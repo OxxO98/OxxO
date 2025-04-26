@@ -126,7 +126,7 @@ const AutoMultiInput = ({ multiInputData, multiValue, handleMultiChange, ...prop
         }) }));
 };
 const AutoLengthInput = ({ children }) => {
-    const length = children?.props.value === null ? 0 : children?.props.value.length;
+    const length = children?.props?.value !== undefined ? children?.props.value.length : 0;
     const inputWithProps = react_1.default.cloneElement(children, {
         className: `input dynamic-${length}`
     });

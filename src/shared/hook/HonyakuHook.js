@@ -7,7 +7,7 @@ const hook_1 = require("shared/hook");
 const client_1 = require("client");
 function useHonyakuView(page, rowLength, pageLength) {
     const hId = (0, react_1.useContext)(client_1.HonContext);
-    const [bunList, setBunList] = (0, react_1.useState)();
+    const [bunList, setBunList] = (0, react_1.useState)(null);
     const { response: res, setParams, fetch } = (0, hook_1.useAxios)('/hon/bun/range', true, { hId: hId, page: page, rowLength: rowLength, pageLength: pageLength });
     (0, react_1.useEffect)(() => {
         if (res !== null) {

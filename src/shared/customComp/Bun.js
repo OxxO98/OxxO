@@ -54,13 +54,11 @@ const Bun = ({ bId, styled, ...props }) => {
             };
         }
     }, [resHukumu]);
-    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: resBunLoad === true ?
-            (0, jsx_runtime_1.jsx)("span", { className: "loading", children: "\u3000" })
-            :
-                (0, jsx_runtime_1.jsxs)("span", { className: `bun ${(resBunLoad || resHukumuLoad) ? "loading" : ""}`, ref: props?.setScroll !== null ? (el) => props?.setScroll?.(el, bId) : undefined, children: [resHukumuLoad === true &&
-                            (0, jsx_runtime_1.jsx)("span", { children: "".padEnd(bunData.length, "　") }), resHukumuLoad === false && hukumuData !== null && hukumuData.length > 0 &&
-                            hukumuData.map((arr) => (0, jsx_runtime_1.jsx)(ComplexText, { bId: bId, offset: arr['offset'], data: arr['data'], ruby: arr['ruby'], styledOffset: styled }, bId + arr['offset'])), resHukumuLoad === false && hukumuData !== null && hukumuData.length === 0 &&
-                            (0, jsx_runtime_1.jsx)(ComplexText, { bId: bId, offset: 0, data: bunData, styledOffset: styled }, bId + '0')] }) }));
+    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: resBunLoad === false &&
+            (0, jsx_runtime_1.jsxs)("span", { className: `bun ${(resBunLoad || resHukumuLoad) ? "loading" : ""}`, ref: props?.setScroll !== null ? (el) => props?.setScroll?.(el, bId) : undefined, children: [resHukumuLoad === true &&
+                        (0, jsx_runtime_1.jsx)("span", { children: "".padEnd(bunData.length, "　") }), resHukumuLoad === false && hukumuData !== null && hukumuData.length > 0 &&
+                        hukumuData.map((arr) => (0, jsx_runtime_1.jsx)(ComplexText, { bId: bId, offset: arr['offset'], data: arr['data'], ruby: arr['ruby'], styledOffset: styled }, bId + arr['offset'])), resHukumuLoad === false && hukumuData !== null && hukumuData.length === 0 &&
+                        (0, jsx_runtime_1.jsx)(ComplexText, { bId: bId, offset: 0, data: bunData, styledOffset: styled }, bId + '0')] }) }));
 };
 const ComplexText = ({ bId, data, ruby, offset, styledOffset }) => {
     /*

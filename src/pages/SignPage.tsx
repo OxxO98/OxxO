@@ -74,6 +74,10 @@ const LogInComp = ({ setRoute, changeRoute, setUserName } : LogInCompProps ) => 
     }
   }
 
+  const guestLogIn = () => {
+    setParamsLogIn({ userName : "testuser", password : "testuser" });
+  }
+
   useEffect( () => {
     let res = resLogIn;
 
@@ -92,17 +96,24 @@ const LogInComp = ({ setRoute, changeRoute, setUserName } : LogInCompProps ) => 
   return(
     <>
       <div className="Login">
-        <div className="container_flexEnd">
-          <input className="id" name="id" placeholder="username" onChange={handleChange}/>
+        <div className="Login_input_container">
+          <div className="container_flexEnd">
+            <input className="id" name="id" placeholder="username" onChange={handleChange}/>
+          </div>
+          <div className="container_flexEnd">
+            <input className="password" type="password" name="password" placeholder="password" onChange={handleChange}/>
+          </div>
         </div>
-        <div className="container_flexEnd">
-          <input className="password" type="password" name="password" placeholder="password" onChange={handleChange}/>
-        </div>
-        <div className="button-container_flexEnd">
-          <button className="button_flex-grow button-positive" onClick={logIn}>로그인</button>
-        </div>
-        <div className="button-container_flexEnd">
-          <button className="button_flex-grow button-neutral" onClick={() => setRoute('signUp')}>회원가입</button>
+        <div className="Login_button_container">
+          <div className="button-container_flexEnd">
+            <button className="button_flex-grow button-positive" onClick={logIn}>로그인</button>
+          </div>
+          <div className="button-container_flexEnd">
+            <button className="button_flex-grow button-neutral" onClick={guestLogIn}>게스트 아이디로 로그인</button>
+          </div>
+          <div className="button-container_flexEnd">
+            <button className="button_flex-grow button-neutral" onClick={() => setRoute('signUp')}>회원가입</button>
+          </div>
         </div>
       </div>
     </>
@@ -220,48 +231,52 @@ const SignUpComp = ({ setRoute } : SignUpCompProps ) => {
   return(
     <>
       <div className="Login">
-        <div className="button-container_flexEnd">
-          <input className="input_flex" name="id" placeholder="username" onChange={handleChange}/>
-          <button className="button-positive" onClick={validateId}>중복 확인</button>
-        </div>
-        {
-          isIdValidate !== null && isIdValidate === false &&
-          <div>
-            이미 있는 아이디입니다.
+        <div className="Login_input_container">
+          <div className="button-container_flexEnd">
+            <input className="input_flex" name="id" placeholder="username" onChange={handleChange}/>
+            <button className="button-positive" onClick={validateId}>중복 확인</button>
           </div>
-        }
-        {
-          isIdValidate !== null && isIdValidate === true &&
-          <>
-            <div className="button-container_flexEnd">
-              <input className="input_flex" type="password" name="password" placeholder="password" onChange={handleChange}/>
-            </div>
-            <div className="button-container_flexEnd">
-              <input className="input_flex" name="email" onChange={handleChange} placeholder="example@mmail.com"/>
-              {
-                isMailValidate === null &&
-                <button className="button-positive" onClick={sendMailCode}>인증 코드 전송</button>
-              }
-            </div>
+          {
+            isIdValidate !== null && isIdValidate === false &&
             <div>
-            {
-              isMailValidate !== null && isMailValidate === false &&
-              <>
-                <input name="emailCode" onChange={handleChange}/>
-                <button className="button-positive" onClick={validateMailCode}>인증코드 확인</button>
-              </>
-            }
-            {
-              isMailValidate !== null && isMailValidate === true &&
-              <div className="button-container_flexEnd">
-                <button className="button_flex-grow button-positive" onClick={signUp}>회원가입</button>
-              </div>
-            }
+              이미 있는 아이디입니다.
             </div>
-          </>
-        }
-        <div className="button-container_flexEnd">
-          <button className="button_flex-grow button-neutral" onClick={() => setRoute('logIn')}>뒤로</button>
+          }
+          {
+            isIdValidate !== null && isIdValidate === true &&
+            <>
+              <div className="button-container_flexEnd">
+                <input className="input_flex" type="password" name="password" placeholder="password" onChange={handleChange}/>
+              </div>
+              <div className="button-container_flexEnd">
+                <input className="input_flex" name="email" onChange={handleChange} placeholder="example@mmail.com"/>
+                {
+                  isMailValidate === null &&
+                  <button className="button-positive" onClick={sendMailCode}>인증 코드 전송</button>
+                }
+              </div>
+              <div>
+              {
+                isMailValidate !== null && isMailValidate === false &&
+                <>
+                  <input name="emailCode" onChange={handleChange}/>
+                  <button className="button-positive" onClick={validateMailCode}>인증코드 확인</button>
+                </>
+              }
+              {
+                isMailValidate !== null && isMailValidate === true &&
+                <div className="button-container_flexEnd">
+                  <button className="button_flex-grow button-positive" onClick={signUp}>회원가입</button>
+                </div>
+              }
+              </div>
+            </>
+          }
+        </div>
+        <div className="Login_button_container">
+          <div className="button-container_flexEnd">
+            <button className="button_flex-grow button-neutral" onClick={() => setRoute('logIn')}>뒤로</button>
+          </div>
         </div>
       </div>
     </>

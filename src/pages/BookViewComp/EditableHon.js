@@ -206,12 +206,14 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
         }
         else {
             setRangeBIdObj(null);
-            setRangeBunIds(null);
+            setRangeBunIds([]);
         }
     }, [resGetRangeBun]);
     const isEditable = editBId !== null || (addPoint !== null && addPoint.type !== null);
-    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsxs)("div", { className: `hon_editable ${isEditable ? 'editing' : ''}`, children: [rangeBunIds !== null && rangeBunIds.map((arr) => ((0, jsx_runtime_1.jsx)(EditableDan, { dId: arr.dId, rowLength: rowLength, bIdList: arr.bunList, editBId: editBId, setEditBId: setEditBId, addPoint: addPoint, setAddPoint: setAddPoint, setAddDanPoint: setAddDanPoint, setAddBunPoint: setAddBunPoint, isAddPoint: isAddPoint, bIdRef: bIdRef, setScroll: setScroll }, arr.dId))), isMaxNum !== null && isMaxNum === true &&
-                        (0, jsx_runtime_1.jsx)("button", { className: `edit_dan ${lastDId !== null && isAddPoint(lastDId, null, false) ? 'selected' : ''}`, onClick: () => lastDId !== null && setAddDanPoint(lastDId, false), ref: (el) => setScroll(el, `ap${lastDId !== null && lastDId}_last`), children: " " })] }), isEditable &&
+    const isInit = rangeBunIds !== null && rangeBunIds.length == 0;
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsxs)("div", { className: `hon_editable ${(isEditable || isInit) ? 'editing' : ''}`, children: [rangeBunIds !== null && rangeBunIds.map((arr) => ((0, jsx_runtime_1.jsx)(EditableDan, { dId: arr.dId, rowLength: rowLength, bIdList: arr.bunList, editBId: editBId, setEditBId: setEditBId, addPoint: addPoint, setAddPoint: setAddPoint, setAddDanPoint: setAddDanPoint, setAddBunPoint: setAddBunPoint, isAddPoint: isAddPoint, bIdRef: bIdRef, setScroll: setScroll }, arr.dId))), isMaxNum !== null && isMaxNum === true &&
+                        (0, jsx_runtime_1.jsx)("button", { className: `edit_dan ${lastDId !== null && isAddPoint(lastDId, null, false) ? 'selected' : ''}`, onClick: () => lastDId !== null && setAddDanPoint(lastDId, false), ref: (el) => setScroll(el, `ap${lastDId !== null && lastDId}_last`), children: " " }), isInit &&
+                        (0, jsx_runtime_1.jsx)("button", { className: `edit_dan selected`, children: " " })] }), isEditable &&
                 (0, jsx_runtime_1.jsxs)("div", { className: "hon_editable_control", children: [(0, jsx_runtime_1.jsx)("div", { className: "backdrop-up" }), editBId !== null && editBIdObj !== null &&
                             (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("textarea", { className: "editableBun-textarea", value: value, onChange: handleChange, onFocus: () => handleCustomScroll() }), (0, jsx_runtime_1.jsxs)("div", { className: "button-container_flexEnd", children: [editBIdObj['JATEXT'] !== value &&
                                                 (0, jsx_runtime_1.jsx)(bunModal_1.ModalModifyBun, { bId: editBId, jaText: editBIdObj['JATEXT'], value: value, handleRefetch: handleBIdRefetch, cancelEdit: cancelEdit }), (0, jsx_runtime_1.jsx)(bunModal_1.ModalDeleteBunHon, { bId: editBId, jaText: editBIdObj['JATEXT'], handleRefetch: handleRefetch, cancelEdit: cancelEdit }), (0, jsx_runtime_1.jsx)("button", { className: "button-neutral", onClick: cancelEdit, children: "\uCDE8\uC18C" })] })] }), addPoint !== null && addPoint.type !== null &&
@@ -222,7 +224,9 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
                                                             (0, jsx_runtime_1.jsx)(bunModal_1.ModalMergeDan, { addPoint: addPoint, handleRefetch: handleRefetch })] }), value !== '' &&
                                                 (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [addPoint.type === 'BUN' &&
                                                             (0, jsx_runtime_1.jsx)(bunModal_1.ModalInsertBun, { importData: importData, selectImportBun: selectImportBun, addPoint: addPoint, value: value, handleRefetch: handleRefetch }), addPoint.type === 'DAN' &&
-                                                            (0, jsx_runtime_1.jsx)(bunModal_1.ModalInsertDan, { importData: importData, selectImportBun: selectImportBun, addPoint: addPoint, value: value, handleRefetch: handleRefetch })] }), (0, jsx_runtime_1.jsx)("button", { className: "button-neutral", onClick: cancelEdit, children: "\uCDE8\uC18C" })] })] })] })] }));
+                                                            (0, jsx_runtime_1.jsx)(bunModal_1.ModalInsertDan, { importData: importData, selectImportBun: selectImportBun, addPoint: addPoint, value: value, handleRefetch: handleRefetch })] }), (0, jsx_runtime_1.jsx)("button", { className: "button-neutral", onClick: cancelEdit, children: "\uCDE8\uC18C" })] })] })] }), isInit &&
+                (0, jsx_runtime_1.jsxs)("div", { className: "hon_editable_control", children: [(0, jsx_runtime_1.jsx)("textarea", { className: "editableBun-textarea", value: value, onChange: handleChange }), (0, jsx_runtime_1.jsx)("div", { className: "button-container_flexEnd", children: value !== '' &&
+                                (0, jsx_runtime_1.jsx)(bunModal_1.ModalInsertDan, { importData: importData, selectImportBun: selectImportBun, addPoint: null, value: value, handleRefetch: handleRefetch }) })] })] }));
 };
 exports.EditableHon = EditableHon;
 const EditableDan = ({ dId, rowLength, bIdList, editBId, setEditBId, addPoint, setAddPoint, setAddDanPoint, setAddBunPoint, isAddPoint, bIdRef, setScroll }) => {

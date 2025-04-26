@@ -122,9 +122,9 @@ const TangochouListComp = ({ startListNum, setView, setInfo, selectedTId, ...pro
     <>
       {
         list.map( (arr) =>
-          <p key={arr['NUM']} ref={ (el : HTMLParagraphElement) => { props.setScroll !== undefined && props.setScroll(el, arr['TID'] ) } }>
+          <div key={arr['NUM']} ref={ (el : HTMLParagraphElement) => { props.setScroll !== undefined && props.setScroll(el, arr['TID'] ) } }>
             <Tangochou tId={arr['TID']} defaultHyouki={arr['HYOUKI']} defaultYomi={arr['YOMI']} setView={setView} setInfo={setInfo} selectedTId={selectedTId}/>
-          </p>
+          </div>
         )
       }
     </>

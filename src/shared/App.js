@@ -8,6 +8,8 @@ import { Accordian } from 'components';
 
 import { ServerContext } from 'client';
 
+import '../style/MainComp.scss'
+
 const App = () => {
   //서버 켜져있는지 체크용도.
   const [ serverChecked, setServerChecked] = useState(false);

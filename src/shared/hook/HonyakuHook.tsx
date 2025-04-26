@@ -7,7 +7,7 @@ import { HonContext } from 'client';
 function useHonyakuView( page : number, rowLength : number, pageLength : number ){
   const hId = useContext<number>(HonContext);
 
-  const [bunList, setBunList] = useState();
+  const [bunList, setBunList] = useState(null);
 
   const { response : res, setParams, fetch } = useAxios('/hon/bun/range', true, { hId : hId, page : page, rowLength : rowLength, pageLength : pageLength} );
 

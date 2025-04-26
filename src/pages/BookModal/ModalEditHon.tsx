@@ -49,7 +49,7 @@ const ModalEditHon = ({ hId, title, handleRefetch } : ModalEditHonProps ) => {
                 <DropDown.Content>
                   <>
                   {
-                    selectArr.map( (arr, index) => <div onClick={() => setSelect(index)}>{arr}</div>)
+                    selectArr.map( (arr, index) => <div key={arr} onClick={() => setSelect(index)}>{arr}</div>)
                   }
                   </>
                 </DropDown.Content>

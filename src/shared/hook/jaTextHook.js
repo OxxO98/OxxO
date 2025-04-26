@@ -37,18 +37,15 @@ function useHuri() {
         if (arrOkuri !== null) {
             for (let idx = 0; idx < arrOkuri.length; idx++) {
                 let revise = endIndex + 1;
-                // let revise = endIndex + arrKanji[key].length;
                 let matchedYomi = yomi.indexOf(arrOkuri[idx], revise);
                 arrHuri.push(yomi.substring(endIndex, matchedYomi));
                 endIndex = matchedYomi + arrOkuri[idx].length;
-                //console.log('ythuri', endIndex, revise, matchedYomi);
             }
         }
         //후작업.
         if (yomi.substring(endIndex) !== '') {
-            // console.warn(`${endIndex} ${yomi.substring(endIndex)}`);
             //한자로 끝나서 okuri가 없는 경우에는 추가가 맞음
-            //히라가나로 끝나는 경우는 잘못 된 검색이 이루어진 것인데..
+            //히라가나로 끝나는 경우는 잘못 된 검색이 이루어진 것.
             if (arrOkuri !== null) {
                 let lastOkuri = arrOkuri[arrOkuri.length - 1];
                 if (yomi.lastIndexOf(lastOkuri) === yomi.length - lastOkuri.length) {
@@ -155,6 +152,10 @@ function useHuri() {
 function useJaText() {
     const unicodeRange = (0, react_1.useContext)(client_1.UnicodeRangeContext);
     const unicodeContext = (0, react_1.useContext)(client_1.UnicodeContext);
+    /**
+     * Original Code
+     * https://github.com/toss/es-hangul/blob/main/src/getChoseong/getChoseong.ts
+    */
     const nfd = [...'각힣'.normalize('NFD')].map(el => el.charCodeAt(0));
     const chosungsRegex = new RegExp(`[\\u${nfd[0].toString(16)}-\\u${nfd[3].toString(16)}]`, 'g');
     const jungsungsRegex = new RegExp(`[\\u${nfd[1].toString(16)}-\\u${nfd[4].toString(16)}]`, 'g');
@@ -361,7 +362,6 @@ function useJaText() {
     const hangulToHira = (char, index, arr) => {
         let normalized = char.normalize('NFD').replace(chosungsRegex, $0 => chosungs[$0.charCodeAt(0) - 0x1100]).replace(jungsungsRegex, $0 => junsungs[$0.charCodeAt(0) - 0x1161]).replace(jongsungsRegex, $0 => jongsungs[$0.charCodeAt(0) - 0x11A8]);
         if (normalized.length >= 2 && normalized.length <= 3) {
-            //NFD NFC에 대해 좀더 생각, 'ㅋ'이랑 ㅋ과는 다른 듯. 뭔가 변환 생각해서 es-hangul 참조.
             let first = hangulChosungHiraMatch[normalized[0]];
             let second = hangulJunsungHiraMatch[normalized[1]];
             let third = '';
@@ -404,8 +404,7 @@ function useJaText() {
         isAllHiraRegex.lastIndex = 0;
         return isAllHiraRegex.test(text);
     };
-    //오쿠리가나 관련 나중에 나눌지는 고민중.
-    //오쿠리 : 한자 일본어 섞인 상태, kanji는 한자 only, hira는 히라가나 only
+    //okuri : 한자 일본어 섞인 상태, kanji는 한자 only, hira는 히라가나 only
     const getRegexRevise = (text) => {
         let extractKanjiArr = extractKanji(text);
         let kanjiArr = extractKanjiArr !== null ? extractKanjiArr.join('').split('') : [""];
@@ -414,7 +413,6 @@ function useJaText() {
         return testRegex;
     };
     const extractKanji = (okuri) => {
-        //return 형식은 한자가 붙어있는 경우는 한번에 나감.
         let hyouki_kanji = okuri.match(isKanjiRegex);
         return hyouki_kanji;
     };
@@ -445,10 +443,8 @@ function useJaText() {
     const isOnajiOkuri = (hyouki, yomi, newText) => {
         let hyouki_type = checkKatachi(hyouki);
         let newText_type = checkKatachi(newText);
-        //console.log(`type : ${hyouki_type} ${newText_type}`);
         if (hyouki_type === 'kanji') {
             if (newText_type === 'okuri') {
-                //표기는 한자, 새로운 text는 오쿠리 형식
                 let exKanji = extractKanji(newText);
                 let exHira = extractHira(newText);
                 let exKanjiPattern = exKanji !== null ? exKanji.map((arr) => `(${arr}.*)`).join('') : "";
@@ -477,7 +473,6 @@ function useJaText() {
                 if (exKanjiRegex.test(newText) === true) {
                     let maeOkuriPattern = exKanji !== null ? exKanji.map((arr) => `${arr}(?:.*)`).join('') : "";
                     let maeOkuriRegex = new RegExp(`^(?<mae>.*)${maeOkuriPattern}$`);
-                    //console.log( hyouki.match(maeOkuriRegex) );
                     if (hyouki.match(maeOkuriRegex)?.groups?.mae === '') {
                         return true;
                     }
@@ -489,20 +484,15 @@ function useJaText() {
             else if (newText_type === 'okuri') {
                 let extractKanjiArr = extractKanji(newText);
                 let exKanjiNew = extractKanjiArr !== null ? extractKanjiArr.join('').split('') : [""];
-                //console.log(exKanjiNew);
                 let exHiraNew = extractHira(newText);
                 let exKanjiNewPattern = exKanjiNew !== null ? exKanjiNew.map((arr) => `(${arr}.*)`).join('') : "";
                 let exKanjiNewRegex = new RegExp(`^(.*)${exKanjiNewPattern}$`);
                 let exHiraNewPattern = exHiraNew !== null ? exHiraNew.map((arr) => `(.*${arr})`).join('') : "";
                 let exHiraNewRegex = new RegExp(`^${exHiraNewPattern}(.*)$`);
-                //console.log(exKanjiNewRegex);
-                //console.log(exHiraNewRegex);
                 exKanjiNewRegex.lastIndex = 0;
                 if (exKanjiNewRegex.test(hyouki)) {
                     let maeOkuriPattern = exKanjiNew.map((arr) => `${arr}(?:.*)`).join('');
                     let maeOkuriRegex = new RegExp(`^(?<mae>.*)${maeOkuriPattern}$`);
-                    //console.log( newText.match(maeOkuriRegex) );
-                    //console.log( hyouki.match(maeOkuriRegex) );
                     exHiraNewRegex.lastIndex = 0;
                     if (exHiraNewRegex.test(yomi)) {
                         if (hyouki.match(maeOkuriRegex)?.groups?.mae === newText.match(maeOkuriRegex)?.groups?.mae) {
@@ -524,11 +514,8 @@ function useJaText() {
             let match_bun = bunText.match(kanji_regex);
             let match_hyouki = hyouki.match(kanji_regex);
             if (match_bun === null) {
-                //return [bunText, -1, -1];
                 return [null, -1, -1];
             }
-            //console.log(match_hyouki);
-            //console.log(match_bun)
             let preStr = '';
             let sufStr = '';
             if (match_hyouki?.groups?.pre !== '') {
@@ -549,7 +536,6 @@ function useJaText() {
                 if (match_bun?.groups?.suf !== '') {
                     let sufMatch = match_bun?.groups?.suf.match(sufRegex);
                     if (sufMatch !== null && sufMatch !== undefined) {
-                        //console.log(sufMatch);
                         for (let key in sufMatch) {
                             let tmp_regex = new RegExp(`${sufMatch[key]}$`);
                             if (yomi.match(tmp_regex) !== null) {
@@ -566,7 +552,6 @@ function useJaText() {
                 if (match_bun?.groups?.suf !== '') {
                     let sufMatch = match_bun?.groups?.suf.match(sufRegex);
                     if (sufMatch !== null && sufMatch !== undefined) {
-                        //console.log(sufMatch);
                         for (let key in sufMatch) {
                             let tmp_regex = new RegExp(`${sufMatch[key]}$`);
                             if (yomi.match(tmp_regex) !== null) {
@@ -576,14 +561,10 @@ function useJaText() {
                     }
                 }
             }
-            //console.log(`${preStr}${match_bun.groups.pattern}${sufStr}`);
             let reviseRegex = new RegExp(`${preStr}${match_bun?.groups?.pattern}${sufStr}`, 'g');
             let match = bunText.match(reviseRegex);
-            // console.log(match);　
-            //두개 이상일경우 다 나옴. 근데 이단계에서 값이 나오는건 그다지 쓸모 없을 듯함.
             if (match === null) {
                 return [null, -1, -1];
-                //return [bunText, -1, -1];
             }
             let matchingIndex = bunText.indexOf(match[0]);
             let endIndex = matchingIndex + match[0].length;
@@ -595,7 +576,6 @@ function useJaText() {
                 return [replaceStr, matchingIndex, endIndex];
             }
         }
-        //return [bunText, -1, -1];
         return [null, -1, -1];
     };
     const matchOkuriExec = function (hyouki, yomi, bunText) {
@@ -621,11 +601,11 @@ function useJaText() {
         let arr;
         while ((arr = match.exec()) !== null) {
             // console.log(arr);
+            // 사용되지 않는 것으로 보임.
         }
     };
     const getMED = (bunText, newText) => {
         let medArr = Array.from(Array(bunText.length + 1), () => new Array(newText.length + 1));
-        // console.log(bunText.length, newText.length);
         for (let i = 0; i < medArr.length; i++) {
             for (let j = 0; j < medArr[i].length; j++) {
                 if (i === 0) {
@@ -699,7 +679,6 @@ function useJaText() {
             function getIsDel(start, end) {
                 return medValue.reduce((acc, v, i) => {
                     if (start <= i && i < end) {
-                        // console.log('v, i', v, i);
                         return acc + v;
                     }
                     return acc;
@@ -735,7 +714,6 @@ function useJaText() {
             function getIsAdd(start, end) {
                 return medValue.reduce((acc, v, i) => {
                     if (start <= i && i < end) {
-                        // console.log('v, i', v, i);
                         return acc + v;
                     }
                     return acc;
@@ -769,7 +747,7 @@ function useJaText() {
         const med = getMED(bunText, newText);
         //일단 현재 getHukumuData의 양식에 따라서.
         const matchArr = hukumu.map((arr) => { return matchOkuriExec(arr.DATA, arr.RUBY, newText); });
-        let ret = [...hukumu]; // 일단 얕은 복사로 되어서 hukumu의 내용을 수정하게 됨. 근데 딱히 문제는 없는 듯.
+        let ret = [...hukumu];
         let { del, add } = med;
         for (let i in hukumu) {
             let { STARTOFFSET: start, ENDOFFSET: end } = hukumu[i];
@@ -824,8 +802,6 @@ function useJaText() {
                 }
             }
         }
-        // console.log('jaTextHook DEL', del.getValue());
-        // console.log('ret', ret);
         return { trace: ret, del: del, add: add };
     };
     const isBun = (bunText) => {
@@ -862,7 +838,6 @@ function useJaText() {
     };
     const replaceSpecial = (bunText) => {
         let repBun = bunText.replaceAll('\'', '\'\'');
-        //console.log(repBun);
         return repBun;
     };
     const autoPeriod = (bunText) => {
@@ -996,9 +971,6 @@ function useMultiInput(dependancy, defaultInput) {
         let endIndex = 0;
         if (arrOkuri !== null) {
             for (let idx = 0; idx < arrOkuri.length; idx++) {
-                //console.log(props.ruby);
-                //console.log(arrOkuri[key]);
-                //console.log(props.ruby.indexOf(arrOkuri[key]));
                 if (tango.substring(endIndex, tango.indexOf(arrOkuri[idx], endIndex)) === '') {
                     startBool = false;
                 }
@@ -1006,12 +978,9 @@ function useMultiInput(dependancy, defaultInput) {
                     arrHuri.push(tango.substring(endIndex, tango.indexOf(arrOkuri[idx], endIndex)));
                 }
                 endIndex = tango.indexOf(arrOkuri[idx], endIndex) + arrOkuri[idx].length;
-                //console.log(endIndex);
                 //첫문자가 히라가나로 시작할 경우 빈문자열 push됨.
             }
             if (tango.substring(endIndex) !== '') {
-                //console.log(props.ruby);
-                //console.log(endIndex);
                 arrHuri.push(tango.substring(endIndex));
             }
         }
@@ -1056,15 +1025,12 @@ function useMultiInput(dependancy, defaultInput) {
     };
     (0, react_1.useEffect)(() => {
         if (dependancy !== null && dependancy !== undefined) {
-            // console.log('dependancy');
             if (dependancy.length > 10) {
                 return;
             }
             let tmp = multiInput(dependancy);
-            // console.log(tmp);
             setMultiInputData(tmp);
             let def = getDefaultInput();
-            // console.log(def);
             let huriIndex = 0;
             let ret = new Array();
             for (let key in tmp) {
@@ -1081,7 +1047,6 @@ function useMultiInput(dependancy, defaultInput) {
                     }
                 }
             }
-            // console.log(ret);
             setMultiValue(ret);
         }
     }, [dependancy]);
