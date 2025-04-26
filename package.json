@@ -1,11 +1,11 @@
 {
-  "name": "OxxO",
+  "name": "oxxo",
   "version": "0.1.0",
   "private": false,
   "homepage": "https://oxxo.ddns.net:3000",
   "proxy": "http://localhost:3000",
   "dependencies": {
-    "@distube/ytdl-core": "^4.16.8",
+    "@distube/ytdl-core": "^4.16.9",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",

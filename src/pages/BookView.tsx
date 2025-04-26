@@ -431,11 +431,11 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
             </div>
             <div className={`honyaku-bun-comp-layout ${isHonaykuEdit} ${isClickedHonyaku} ${isFocusedHonyaku}`}>
               {
-                bunList !== null &&
+                bunList !== null && bunList.length !== 0 &&
                 <>
                 {
                   bunList.map( (arr : BunListObj) =>
-                    <div ref={(el) => setScroll(el, arr['BID'])}>
+                    <div key={arr['BID']} ref={(el) => setScroll(el, arr['BID'])}>
                       <HonyakuBun key={arr['BID']} bId={arr['BID']} koText={arr['R_TL']} jaText={arr['JATEXT']}
                       getActive={getActive} setActive={setActive}
                       styled={styled}

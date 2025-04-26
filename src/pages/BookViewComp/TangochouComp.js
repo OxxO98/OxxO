@@ -17,7 +17,7 @@ const TangochouListComp = ({ startListNum, setView, setInfo, selectedTId, ...pro
             setList(res.data);
         }
     }, [res]);
-    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: list.map((arr) => (0, jsx_runtime_1.jsx)("p", { ref: (el) => { props.setScroll !== undefined && props.setScroll(el, arr['TID']); }, children: (0, jsx_runtime_1.jsx)(Tangochou, { tId: arr['TID'], defaultHyouki: arr['HYOUKI'], defaultYomi: arr['YOMI'], setView: setView, setInfo: setInfo, selectedTId: selectedTId }) }, arr['NUM'])) }));
+    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: list.map((arr) => (0, jsx_runtime_1.jsx)("div", { ref: (el) => { props.setScroll !== undefined && props.setScroll(el, arr['TID']); }, children: (0, jsx_runtime_1.jsx)(Tangochou, { tId: arr['TID'], defaultHyouki: arr['HYOUKI'], defaultYomi: arr['YOMI'], setView: setView, setInfo: setInfo, selectedTId: selectedTId }) }, arr['NUM'])) }));
 };
 exports.TangochouListComp = TangochouListComp;
 const Tangochou = ({ tId, defaultHyouki, defaultYomi, setView, setInfo, selectedTId }) => {

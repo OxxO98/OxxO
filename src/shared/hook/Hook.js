@@ -76,7 +76,7 @@ function useRoute() {
     return { route, changeRoute };
 }
 function useBunRefetch() {
-    const bIdRef = (0, react_1.useRef)(null);
+    const bIdRef = (0, react_1.useRef)([]);
     const refetchAll = () => {
         for (let key in bIdRef.current) {
             let fetchBUN = bIdRef.current[key]?.fetchBun;
@@ -94,6 +94,7 @@ function useBunRefetch() {
         }
     };
     const refetch = (bId, ...props) => {
+        console.log('refetch', bId, bIdRef.current);
         if (props[0] !== null && props[0] === 'all') {
             refetchAll();
             return;
@@ -101,9 +102,10 @@ function useBunRefetch() {
         if (bIdRef.current === null) {
             return;
         }
-        let fetchBUN = bIdRef.current['bId' + bId]?.fetchBun;
-        let fetchHUKUMU = bIdRef.current['bId' + bId]?.fetchHukumu;
-        let fetchTL = bIdRef.current['bId' + bId]?.fetchTL;
+        let key = 'bId'.concat(bId.toString());
+        let fetchBUN = bIdRef.current[key]?.fetchBun;
+        let fetchHUKUMU = bIdRef.current[key]?.fetchHukumu;
+        let fetchTL = bIdRef.current[key]?.fetchTL;
         if (fetchBUN !== null && fetchBUN !== undefined) {
             fetchBUN();
         }
@@ -115,7 +117,7 @@ function useBunRefetch() {
         }
     };
     const resetList = () => {
-        bIdRef.current = null;
+        bIdRef.current = [];
     };
     // console.log('useBunRefetch', Object.keys(bIdRef.current)[0], bIdRef.current);
     return { refetch, resetList, bIdRef };

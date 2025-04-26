@@ -8,7 +8,7 @@ const hook_1 = require("shared/hook");
 const customComp_1 = require("shared/customComp");
 const client_1 = require("client");
 const client_2 = require("client");
-const HonyakuBun = ({ key, bId, styled, selected, handleSelect, bIdRef, ...props }) => {
+const HonyakuBun = ({ bId, styled, selected, handleSelect, bIdRef, ...props }) => {
     /*
       props는 getActive, setActive
     */
@@ -19,11 +19,11 @@ const HonyakuBun = ({ key, bId, styled, selected, handleSelect, bIdRef, ...props
     const handleMobileTouch = isMobile ? () => { props?.setActive(bId); } : undefined;
     return ((0, jsx_runtime_1.jsxs)("div", { className: `honyakuBun ${isSelected}`, children: [(0, jsx_runtime_1.jsx)("div", { className: "honyakuText", children: props?.getActive ?
                     props.getActive(bId) ?
-                        (0, jsx_runtime_1.jsx)("div", { id: "activeRange", children: (0, jsx_runtime_1.jsx)(customComp_1.Bun, { bId: bId, styled: styled, bIdRef: bIdRef }, key) })
+                        (0, jsx_runtime_1.jsx)("div", { id: "activeRange", children: (0, jsx_runtime_1.jsx)(customComp_1.Bun, { bId: bId, styled: styled, bIdRef: bIdRef }) })
                         :
-                            (0, jsx_runtime_1.jsx)("div", { onMouseDown: () => props?.setActive(bId), onTouchStart: handleMobileTouch, onTouchMove: handleMobileTouch, children: (0, jsx_runtime_1.jsx)(customComp_1.Bun, { bId: bId, styled: styled, bIdRef: bIdRef }, key) })
+                            (0, jsx_runtime_1.jsx)("div", { onMouseDown: () => props?.setActive(bId), onTouchStart: handleMobileTouch, onTouchMove: handleMobileTouch, children: (0, jsx_runtime_1.jsx)(customComp_1.Bun, { bId: bId, styled: styled, bIdRef: bIdRef }) })
                     :
-                        (0, jsx_runtime_1.jsx)("div", { children: (0, jsx_runtime_1.jsx)(customComp_1.Bun, { bId: bId, styled: styled, bIdRef: bIdRef }, key) }) }), (0, jsx_runtime_1.jsx)(HonyakuRepresentive, { bId: bId, handleSelect: handleSelect, bIdRef: bIdRef })] }, bId));
+                        (0, jsx_runtime_1.jsx)("div", { children: (0, jsx_runtime_1.jsx)(customComp_1.Bun, { bId: bId, styled: styled, bIdRef: bIdRef }) }) }), (0, jsx_runtime_1.jsx)(HonyakuRepresentive, { bId: bId, handleSelect: handleSelect, bIdRef: bIdRef })] }, bId));
 };
 exports.HonyakuBun = HonyakuBun;
 const HonyakuRepresentive = ({ bId, handleSelect, ...props }) => {

@@ -15,8 +15,6 @@ import { useAxios, useRoute } from 'shared/hook';
 
 import { StepPage, Nav } from 'components';
 
-import 'style/MainComp.scss'
-
 interface IdObj {
   Book : number | null;
   Youtube : number | null;
@@ -310,7 +308,7 @@ const BookCardComp = ({ changeRoute } : BookCardCompProps ) => {
       {
         hIds !== null &&
         hIds.map( (arr) =>
-          <BookCard arr={arr} clickBook={clickBook}/>
+          <BookCard key={arr['key']} arr={arr} clickBook={clickBook}/>
         )
       }
       <div className="card_book">
@@ -345,7 +343,7 @@ const BookCard = ({ arr, clickBook } : BookCardProps) => {
   }, [response])
 
   return(
-    <div className="card_book" key={arr['key']}>
+    <div className="card_book">
       <div className="card_book-body" onClick={()=>{clickBook(arr['key'])}}>
         <div>{(arr['title'])}</div>
         <div className={`${loading ? "loading" : ""}`}>
@@ -358,7 +356,7 @@ const BookCard = ({ arr, clickBook } : BookCardProps) => {
         </div>
       </div>
       <div className="card_book-footer">
-        <ModalEditHon hId={arr['key']} title={arr['title']} handleRefetch={handleRefetch} setImgSrc={setImgSrc}/>
+        <ModalEditHon key={arr['key']} hId={arr['key']} title={arr['title']} handleRefetch={handleRefetch} setImgSrc={setImgSrc}/>
       </div>
     </div>
   )

@@ -290,15 +290,16 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
     }
     else{
       setRangeBIdObj(null);
-      setRangeBunIds(null);
+      setRangeBunIds([]);
     }
   }, [resGetRangeBun])
 
   const isEditable = editBId !== null || ( addPoint !== null && addPoint.type !== null );
+  const isInit = rangeBunIds !== null && rangeBunIds.length == 0;
 
   return(
     <>
-      <div className={`hon_editable ${isEditable ? 'editing' : ''}`}>
+      <div className={`hon_editable ${ ( isEditable || isInit ) ? 'editing' : ''}`}>
         {
           rangeBunIds !== null && rangeBunIds.map( (arr) => (
             <EditableDan key={arr.dId} dId={arr.dId} rowLength={rowLength} bIdList={arr.bunList}
@@ -311,6 +312,10 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
           isMaxNum !== null && isMaxNum === true &&
           <button className={`edit_dan ${lastDId !== null && isAddPoint(lastDId, null, false) ? 'selected' : ''}`} onClick={() => lastDId !== null && setAddDanPoint(lastDId, false)}
           ref={(el) => setScroll(el, `ap${lastDId !== null && lastDId}_last`)}> </button>
+        }
+        {
+          isInit &&
+          <button className={`edit_dan selected`}> </button>
         }
       </div>
       {
@@ -375,6 +380,19 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
               </div>
             </>
           }
+        </div>
+      }
+      {
+        isInit &&
+        <div className="hon_editable_control">
+          <textarea className="editableBun-textarea" value={value} onChange={handleChange}/>
+          <div className="button-container_flexEnd">
+            {
+              value !== '' &&
+              <ModalInsertDan importData={importData} selectImportBun={selectImportBun}
+              addPoint={null} value={value} handleRefetch={handleRefetch}/>
+            }
+          </div>
         </div>
       }
     </>

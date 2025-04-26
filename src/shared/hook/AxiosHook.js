@@ -321,4 +321,41 @@ function useAxiosPut(url, ...props) {
   return { response, error, loading, setParams, fetch };
 }
 
-export { useAxios, useAxiosPost, useAxiosDelete, useAxiosPut }
+// YoutubeView
+function useAudioDecode(videoId){
+  const [audioError, setAudioError] = useState(false);
+  const [audioData, setAudioData] = useState(null);
+  
+  const baseUrl = useContext(ServerContext);
+  
+  const decode = async () => {
+    axios.get(
+      baseUrl.concat('/youtube/video/audioStream'),
+      { params : { videoId : videoId }, responseType: 'arraybuffer' }
+    ).then(
+      res => {
+        const audioCtx = new AudioContext();
+        audioCtx.decodeAudioData( res.data ).then( (audioBuffer) => {
+            // console.log(audioBuffer);
+            setAudioData(audioBuffer);
+          }
+        );
+      }
+    ).catch(
+      function(error){
+        console.log('audioDecode error', error);
+        setAudioError(true);
+      }
+    );
+  }
+
+  useEffect( () => {
+    if(videoId !== null && videoId !== undefined){
+      decode();
+    }
+  }, [])
+
+  return { audioData, audioError }
+}
+
+export { useAxios, useAxiosPost, useAxiosDelete, useAxiosPut, useAudioDecode }

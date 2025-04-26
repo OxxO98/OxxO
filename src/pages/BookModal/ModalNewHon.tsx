@@ -48,7 +48,7 @@ const ModalNewHon = ({ fetch } : ModalNewHonProps ) => {
                 <DropDown.Content>
                   <>
                   {
-                    selectArr.map( (arr, index) => <div onClick={() => setSelect(index)}>{arr}</div>)
+                    selectArr.map( (arr, index) => <div key={arr} onClick={() => setSelect(index)}>{arr}</div>)
                   }
                   </>
                 </DropDown.Content>

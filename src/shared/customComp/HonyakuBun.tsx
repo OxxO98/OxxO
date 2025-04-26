@@ -10,7 +10,6 @@ import { MediaQueryContext } from 'client'
 import { UserContext, HonContext, YoutubeContext } from 'client';
 
 interface HonyakuBunProps {
-  key : string;
   bId : number;
   styled : StyledObj;
   selected : number;
@@ -26,7 +25,7 @@ interface HonyakuRepresentiveProps {
   bIdRef : React.RefObject<ObjKey>;
 }
 
-const HonyakuBun = ({ key, bId, styled, selected, handleSelect, bIdRef, ...props } : HonyakuBunProps ) => {
+const HonyakuBun = ({ bId, styled, selected, handleSelect, bIdRef, ...props } : HonyakuBunProps ) => {
   /*
     props는 getActive, setActive
   */
@@ -46,15 +45,15 @@ const HonyakuBun = ({ key, bId, styled, selected, handleSelect, bIdRef, ...props
           props?.getActive ?
             props.getActive(bId) ?
             <div id="activeRange">
-              <Bun key={key} bId={bId} styled={styled} bIdRef={bIdRef}/>
+              <Bun bId={bId} styled={styled} bIdRef={bIdRef}/>
             </div>
             :
             <div onMouseDown={ () => props?.setActive(bId) } onTouchStart={handleMobileTouch} onTouchMove={handleMobileTouch}>
-              <Bun key={key} bId={bId} styled={styled} bIdRef={bIdRef}/>
+              <Bun bId={bId} styled={styled} bIdRef={bIdRef}/>
             </div>
           :
           <div>
-            <Bun key={key} bId={bId} styled={styled} bIdRef={bIdRef}/>
+            <Bun bId={bId} styled={styled} bIdRef={bIdRef}/>
           </div>
         }
       </div>

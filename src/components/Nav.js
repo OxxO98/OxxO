@@ -84,12 +84,12 @@ const Nav = ({ route, changeRoute, userName }) => {
         }
     };
     return ((0, jsx_runtime_1.jsx)("div", { className: "WrapNav", children: (0, jsx_runtime_1.jsx)("div", { className: "Nav", children: route.idRoute === null ?
-                (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("div", { className: "logo", children: userName }), (0, jsx_runtime_1.jsx)("div", { className: "itemContainer", children: parentNavItems.map((item) => (0, jsx_runtime_1.jsx)(NavItem, { eventKey: item.eventKey, active: route.parentRoute, disabled: item.disabled, onActive: selectItem, onSelect: changeRoute, children: item.name })) })] })
+                (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("div", { className: "logo", children: userName }), (0, jsx_runtime_1.jsx)("div", { className: "itemContainer", children: parentNavItems.map((item) => (0, jsx_runtime_1.jsx)(NavItem, { eventKey: item.eventKey, active: route.parentRoute, disabled: item.disabled, onActive: selectItem, onSelect: changeRoute, children: item.name }, item.name)) })] })
                 :
                     (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("div", { className: `logo ${isMobile === false ? "expand" : ""}`, onClick: () => { changeRoute("parent"); }, children: userName }), (0, jsx_runtime_1.jsxs)("div", { className: "itemContainer", children: [isMobile === false &&
                                         (0, jsx_runtime_1.jsx)("div", { className: "item disabled" }), route.parentRoute === "Book" &&
-                                        bookNavItems.map((item) => (0, jsx_runtime_1.jsx)(NavItem, { eventKey: item.eventKey, active: route.idRoute, disabled: item.disabled, onActive: selectItem, onSelect: changeRoute, children: item.name })), route.parentRoute === "Youtube" &&
-                                        youtubeNavItems.map((item) => (0, jsx_runtime_1.jsx)(NavItem, { eventKey: item.eventKey, active: route.idRoute, disabled: item.disabled, onActive: selectItem, onSelect: changeRoute, children: item.name }))] })] }) }) }));
+                                        bookNavItems.map((item) => (0, jsx_runtime_1.jsx)(NavItem, { eventKey: item.eventKey, active: route.idRoute, disabled: item.disabled, onActive: selectItem, onSelect: changeRoute, children: item.name }, item.name)), route.parentRoute === "Youtube" &&
+                                        youtubeNavItems.map((item) => (0, jsx_runtime_1.jsx)(NavItem, { eventKey: item.eventKey, active: route.idRoute, disabled: item.disabled, onActive: selectItem, onSelect: changeRoute, children: item.name }, item.name))] })] }) }) }));
 };
 const NavItem = ({ children, eventKey, active, disabled, onSelect, onActive }) => {
     const isActive = active === eventKey ? 'active' : '';

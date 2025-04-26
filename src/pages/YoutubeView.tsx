@@ -4,12 +4,11 @@ import { ServerContext } from 'client';
 import { MediaQueryContext } from 'client'
 import { UserContext, YoutubeContext } from 'client';
 
-import axios from 'axios';
+// import axios from 'axios';
 import ReactPlayer from 'react-player/lazy';
 import { useMediaQuery } from 'react-responsive';
 
-//import Button from 'react-bootstrap/Button';
-import { useAxios, useHandleSelection, useBunRefetch } from 'shared/hook';
+import { useAudioDecode, useHandleSelection, useBunRefetch } from 'shared/hook';
 import { useHukumu, useOsusumeList, useHukumuList } from 'shared/hook';
 import { useYoutubeTangoListCompHook } from 'shared/hook';
 
@@ -92,9 +91,9 @@ const YoutubeView = ({ navRoute, changeRoute, videoId } : YoutubeViewProps ) => 
   const [styled, setStyled] = useState<StyledObj | null>(null);
 
   //audioData
-  const [audioData, setAudioData] = useState<AudioBuffer | null>(null);
   const [filteredData, setFilteredData] = useState(null);
-  const [audioError, setAudioError] = useState(false);
+
+  const { audioData, audioError } = useAudioDecode( videoId );
 
   //import Hon
   const [importData, setImportData] = useState(null);
@@ -123,36 +122,7 @@ const YoutubeView = ({ navRoute, changeRoute, videoId } : YoutubeViewProps ) => 
   const { hukumuList, fetch : fetchHukumuList } = useHukumuList(hukumuData);
 
   const { tangoData } = useYoutubeTangoListCompHook(ytsId);
-
-  const baseUrl = useContext<string>(ServerContext);
-
-  const decode = async () => {
-    axios.get(
-      baseUrl.concat('/youtube/video/audioStream'),
-      { params : { videoId : videoId }, responseType: 'arraybuffer' }
-    ).then(
-      res => {
-        const audioCtx = new AudioContext();
-        audioCtx.decodeAudioData( res.data as ArrayBuffer ).then( (audioBuffer : AudioBuffer) => {
-            //console.log(rawData);
-            setAudioData(audioBuffer);
-          }
-        );
-      }
-    ).catch(
-      function(error){
-        // console.log('error');
-        setAudioError(true);
-      }
-    );
-  }
-
-  useEffect( () => {
-    if(videoId !== null){
-      decode();
-    }
-  }, [])
-
+  
   switch( navRoute ){
     case 'Marking' :
       return(

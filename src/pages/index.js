@@ -4,7 +4,7 @@ export * from './BookViewComp/HonComp.js'
 export * from './BookViewComp/EditableHon.js'
 export * from './BookViewComp/HonyakuComp.js'
 export * from './BookViewComp/ImiComp.js'
-export * from './BookViewComp/IndependentComp.js'
+// export * from './BookViewComp/IndependentComp.js'
 export * from './BookViewComp/TangochouComp.js'
 export * from './BookViewComp/TangoComp.js'
 

@@ -126,7 +126,7 @@ const Nav = ({ route, changeRoute, userName } : NavProps) => {
           </div>
           <div className="itemContainer">
             {
-              parentNavItems.map( (item) => <NavItem eventKey={item.eventKey} active={route.parentRoute} disabled={item.disabled} onActive={selectItem} onSelect={changeRoute}>{item.name}</NavItem> )
+              parentNavItems.map( (item) => <NavItem key={item.name} eventKey={item.eventKey} active={route.parentRoute} disabled={item.disabled} onActive={selectItem} onSelect={changeRoute}>{item.name}</NavItem> )
             }
           </div>
         </>
@@ -142,11 +142,11 @@ const Nav = ({ route, changeRoute, userName } : NavProps) => {
             }
             {
               route.parentRoute === "Book" &&
-              bookNavItems.map( (item) => <NavItem eventKey={item.eventKey} active={route.idRoute} disabled={item.disabled} onActive={selectItem} onSelect={changeRoute}>{item.name}</NavItem> )
+              bookNavItems.map( (item) => <NavItem key={item.name} eventKey={item.eventKey} active={route.idRoute} disabled={item.disabled} onActive={selectItem} onSelect={changeRoute}>{item.name}</NavItem> )
             }
             {
               route.parentRoute === "Youtube" &&
-              youtubeNavItems.map( (item) => <NavItem eventKey={item.eventKey} active={route.idRoute} disabled={item.disabled} onActive={selectItem} onSelect={changeRoute}>{item.name}</NavItem> )
+              youtubeNavItems.map( (item) => <NavItem key={item.name} eventKey={item.eventKey} active={route.idRoute} disabled={item.disabled} onActive={selectItem} onSelect={changeRoute}>{item.name}</NavItem> )
             }
           </div>
         </>

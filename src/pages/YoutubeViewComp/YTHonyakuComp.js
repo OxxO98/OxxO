@@ -5,7 +5,7 @@ import { UserContext, YoutubeContext } from 'client/UserContext.js';
 import { Bun, HonyakuBun } from 'shared/customComp';
 import { useAxios } from 'shared/hook';
 
-//사용되지 않는 것으로 보임.
+//사용되지 않음.
 const YTHonyakuComp = () => {
   const ytId = useContext(YoutubeContext);
 

@@ -1,12 +1,8 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SequenceComp = void 0;
 const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
-const axios_1 = __importDefault(require("axios"));
 const client_1 = require("client");
 const hook_1 = require("shared/hook");
 const hook_2 = require("shared/hook");
@@ -140,19 +136,28 @@ const YoutubeCCModal = ({ ytsId }) => {
         const secondStr = String(Math.floor(1000 / frame * frameTime)).padEnd(3, "0");
         return timeCodeSecond.concat(secondStr);
     };
+    //유튜브 자막파일을 타임라인으로 임포트
+    /*
     const importCCtoDB = () => {
-        let queryArr = new Array();
-        for (let index in reviseObj) {
-            queryArr.push({
-                start: frameToSecond(divideStartEnd(reviseObj[index]['timeCode'])[0], 24),
-                end: frameToSecond(divideStartEnd(reviseObj[index]['timeCode'])[1], 24),
-                jaText: reviseObj[index]['jaText']
-            });
+      let queryArr = new Array();
+  
+      for(let index in reviseObj){
+        queryArr.push({
+          start : frameToSecond( divideStartEnd(reviseObj[index]['timeCode'])[0], 24),
+          end :  frameToSecond( divideStartEnd(reviseObj[index]['timeCode'])[1], 24),
+          jaText : reviseObj[index]['jaText']
+        })
+      }
+  
+      axios.post(
+        'http://localhost:5000/youtube/bun/multi', { userId : userId, ytId : ytId, array : queryArr, ytsId : ytsId }
+      ).then(
+        res => {
+          // console.log(res.data);
         }
-        axios_1.default.post('http://localhost:5000/youtube/bun/multi', { userId: userId, ytId: ytId, array: queryArr, ytsId: ytsId }).then(res => {
-            // console.log(res.data);
-        });
-    };
+      )
+    }
+      */
     const exportDBtoJson = () => {
         let jsString = JSON.stringify(timelineData);
         setInput({
