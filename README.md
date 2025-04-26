@@ -96,6 +96,8 @@ Adobe의 mogrt(모션 그래픽 템플릿) 파일에서 작동을 염두에 두�
 
 # 기능 소개
 
+![이미지](readme_img/Book_edit.gif)
+
 #
 
 # 추가 개선 사항
