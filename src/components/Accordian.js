@@ -68,7 +68,7 @@ const AccordianWrap = ({ show, handleShow, handleClose, children, index }) => {
     return ((0, jsx_runtime_1.jsxs)("div", { className: "accordian-wrap", children: [headerWithProps, show === index && children[1]] }));
 };
 const AccordianHeader = ({ show, handleShow, handleClose, index, children }) => {
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "accordian-header", children: [children, show === index ?
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "accordian-header", onClick: () => show === index ? handleClose() : handleShow(index), children: [children, show === index ?
                 (0, jsx_runtime_1.jsx)("button", { className: "accordian-button", onClick: handleClose, children: "X" })
                 :
                     (0, jsx_runtime_1.jsx)("button", { className: "accordian-button", onClick: () => handleShow(index), children: "\uC5F4\uAE30" })] }));
