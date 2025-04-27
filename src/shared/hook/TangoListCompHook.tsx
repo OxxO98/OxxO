@@ -26,19 +26,17 @@ function useTangoListCompHook( page : number, pageLength : number, rowLength : n
 
   useEffect( () => {
     let res = resBIds;
-    if(res !== null){
-      let bIdsList : ObjKey = new Object();
+    if(res !== null && res.data !== null && res.data !== undefined ){
+      let bIdsList : number[] = [];
       for(let key in res.data){
-        bIdsList[key] = res.data[key]['BID'];
+        bIdsList.push( res.data[key]['BID'] );
       }
 
-      if(bIdsList !== null && bIdsList.length !== 0){
-        setParamsTL({
-          userId : userId,
-          hId : hId,
-          bIds : bIdsList
-        })
-      }
+      setParamsTL({
+        userId : userId,
+        hId : hId,
+        bIds : bIdsList.join(',')
+      })
     }
   }, [resBIds])
 
