@@ -1,5 +1,8 @@
 # OxxO
 
+> [!WARNING]
+> 現在、日本語への対応はできておりません。近いうちに対応できるようにしますので、お待たせいただきます。ご了承お願い申し上げます。
+
 [한국어](README.md) | 日本語
 
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
