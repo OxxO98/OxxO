@@ -245,7 +245,7 @@ const YoutubeCardComp = ({ changeRoute, setVideoId } : YoutubeCardCompProps ) =>
       {
         ytIds !== null &&
         ytIds.map( (arr) => (
-          <div className="card_youtube">
+          <div key={arr['videoId']} className="card_youtube">
             <div className="card_youtube-body" onClick={()=>{
               setVideoId(arr['videoId']); clickCard(arr['key']);
             }}>
@@ -259,12 +259,13 @@ const YoutubeCardComp = ({ changeRoute, setVideoId } : YoutubeCardCompProps ) =>
           </div>
         ))
       }
-      {/*
+      {
+        userId !== 81 &&
         <div className="YoutubeCardComp">
           <ModalNewVideo fetch={fetch}/>
           <div>+</div>
         </div>
-      */}
+      }
     </>
   )
 }
@@ -311,11 +312,14 @@ const BookCardComp = ({ changeRoute } : BookCardCompProps ) => {
           <BookCard key={arr['key']} arr={arr} clickBook={clickBook}/>
         )
       }
-      <div className="card_book">
-        <div className="card_book_body">
-          <ModalNewHon fetch={fetch}/>
+      {
+        userId !== 81 &&
+        <div className="card_book">
+          <div className="card_book_body">
+            <ModalNewHon fetch={fetch}/>
+          </div>
         </div>
-      </div>
+      }
     </>
   );
 }

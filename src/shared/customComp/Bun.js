@@ -125,7 +125,7 @@ const Text = ({ bId, data, ruby, offset, styledOffset }) => {
     };
     let _offset = (v) => offset !== null && offset !== undefined ? v : '0';
     return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: convertStyled().map((arr) => {
-            if (arr?.ruby === null) {
+            if (arr?.ruby === null || arr?.ruby === undefined) {
                 return ((0, jsx_runtime_1.jsx)("span", { className: `${arr.style !== null ? arr.style : ''} rubyNasi`, "data-bid": bId, "data-offset": _offset(arr.offset), children: arr.data }, bId + '-' + arr.offset));
             }
             else {

@@ -94,7 +94,7 @@ function useBunRefetch() {
         }
     };
     const refetch = (bId, ...props) => {
-        console.log('refetch', bId, bIdRef.current);
+        // console.log('refetch', bId, bIdRef.current);
         if (props[0] !== null && props[0] === 'all') {
             refetchAll();
             return;
@@ -119,7 +119,6 @@ function useBunRefetch() {
     const resetList = () => {
         bIdRef.current = [];
     };
-    // console.log('useBunRefetch', Object.keys(bIdRef.current)[0], bIdRef.current);
     return { refetch, resetList, bIdRef };
 }
 function useHukumu(selectedBun, textOffset, setStyled) {

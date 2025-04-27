@@ -42,7 +42,7 @@ const ModalInsertDan = ({ importData, selectImportBun, addPoint, value, handleRe
                 for (let key in bunArr) {
                     bunObj[key] = replaceSpecial(bunArr[key]);
                 }
-                // setParamsInsertDan({ userId : userId, hId : hId, critDId : 'init', prev : true, bunObj : bunObj });
+                setParamsInsertDan({ userId: userId, hId: hId, critDId: 'init', prev: true, bunObj: bunObj });
             }
         }
     };
@@ -76,7 +76,7 @@ const ModalInsertDan = ({ importData, selectImportBun, addPoint, value, handleRe
                     }
                     multiObj[key] = dan;
                 }
-                // setParamsInsertMultiDan({ userId : userId, hId : hId, critDId : 'init', prev : true, multiObj : multiObj });
+                setParamsInsertMultiDan({ userId: userId, hId: hId, critDId: 'init', prev: true, multiObj: multiObj });
             }
         }
     };
@@ -302,8 +302,8 @@ const ModalDeleteBun = ({ bId, jaText, cancelEdit, deleteHukumu }) => {
             setDeleteData(res.data);
         }
     }, [response]);
-    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsxs)(components_1.Modal, { children: [(0, jsx_runtime_1.jsx)(components_1.Modal.Button, { onClick: handleOpen, children: (0, jsx_runtime_1.jsx)("button", { className: "button-negative", type: "button", children: "\uC0AD\uC81C" }) }), (0, jsx_runtime_1.jsxs)(components_1.Modal.Wrap, { children: [(0, jsx_runtime_1.jsx)(components_1.Modal.Header, { children: (0, jsx_runtime_1.jsx)("div", { children: "\uC774 \uBB38\uC7A5\uC744 \uC0AD\uC81C\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C" }) }), (0, jsx_runtime_1.jsxs)(components_1.Modal.Body, { children: [(0, jsx_runtime_1.jsx)(customComp_1.Bun, { bId: bId }), (0, jsx_runtime_1.jsx)("div", { children: "\uC544\uB798 \uB2E8\uC5B4\uB294 \uC790\uB3D9\uC73C\uB85C \uC0AD\uC81C\uB429\uB2C8\uB2E4." }), deleteData !== null && deleteData.huIds !== null &&
-                                    deleteData.huIds.map((arr) => (0, jsx_runtime_1.jsx)("div", { children: (0, jsx_runtime_1.jsx)(customComp_1.ComplexText, { data: arr.hyouki, ruby: arr.yomi }) }))] }), (0, jsx_runtime_1.jsxs)(components_1.Modal.Footer, { children: [(0, jsx_runtime_1.jsx)(components_1.Modal.CloseButton, { onClick: deleteHukumu, children: (0, jsx_runtime_1.jsx)("button", { className: "button-negative", children: "\uC0AD\uC81C\uD558\uAE30" }) }), (0, jsx_runtime_1.jsx)(components_1.Modal.CloseButton, { children: (0, jsx_runtime_1.jsx)("button", { className: "button-neutral", children: "\uB2EB\uAE30" }) })] })] })] }) }));
+    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsxs)(components_1.Modal, { children: [(0, jsx_runtime_1.jsx)(components_1.Modal.Button, { onClick: handleOpen, children: (0, jsx_runtime_1.jsx)("button", { className: "button-negative", type: "button", children: "\uC0AD\uC81C" }) }), (0, jsx_runtime_1.jsxs)(components_1.Modal.Wrap, { children: [(0, jsx_runtime_1.jsx)(components_1.Modal.Header, { children: (0, jsx_runtime_1.jsx)("div", { children: "\uC774 \uBB38\uC7A5\uC744 \uC0AD\uC81C\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C" }) }), (0, jsx_runtime_1.jsxs)(components_1.Modal.Body, { children: [(0, jsx_runtime_1.jsx)(customComp_1.Bun, { bId: bId }), (0, jsx_runtime_1.jsx)("div", { children: "\uC544\uB798 \uB2E8\uC5B4\uB294 \uC790\uB3D9\uC73C\uB85C \uC0AD\uC81C\uB429\uB2C8\uB2E4." }), (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: deleteData !== null && deleteData?.huIds !== undefined && deleteData.huIds.length !== 0 &&
+                                        deleteData.huIds.map((arr) => (0, jsx_runtime_1.jsx)("div", { children: (0, jsx_runtime_1.jsx)(customComp_1.ComplexText, { data: arr.hyouki, ruby: arr.yomi }) })) })] }), (0, jsx_runtime_1.jsxs)(components_1.Modal.Footer, { children: [(0, jsx_runtime_1.jsx)(components_1.Modal.CloseButton, { onClick: deleteHukumu, children: (0, jsx_runtime_1.jsx)("button", { className: "button-negative", children: "\uC0AD\uC81C\uD558\uAE30" }) }), (0, jsx_runtime_1.jsx)(components_1.Modal.CloseButton, { children: (0, jsx_runtime_1.jsx)("button", { className: "button-neutral", children: "\uB2EB\uAE30" }) })] })] })] }) }));
 };
 //Hon Only Comp
 const ModalMergeDan = ({ addPoint, handleRefetch }) => {

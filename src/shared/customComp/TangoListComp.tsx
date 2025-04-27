@@ -48,6 +48,9 @@ const BookTangoListComp = ({ tangoData, changeRoute, setView, setInfo } : BookTa
   const throttledSetMax = throttle( (value : number) => setPlusMax(value), 2000);
 
   const setPlusMax = (value : number) => {
+    if(tangoData === null || tangoData === undefined){
+      return;
+    }
     if(max + value < tangoData.length){
       setMax(max + value);
     }
@@ -121,9 +124,11 @@ const YouTubeTangoListComp = ({ tangoData } : YouTubeTangoListCompProps ) => {
       {
         tangoData !== null &&
         <>
-          {tangoData.slice(0, max).map( (arr) => (
-            <YoutubeTango key={arr['TID']} tId={arr['TID']}/>
-          ))}
+          {
+            tangoData.slice(0, max).map( (arr) => (
+              <YoutubeTango key={arr['TID']} tId={arr['TID']}/>
+            ))
+          }
         </>
       }
       {

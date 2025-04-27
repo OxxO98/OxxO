@@ -32,11 +32,13 @@ function useTangoListCompHook( page : number, pageLength : number, rowLength : n
         bIdsList[key] = res.data[key]['BID'];
       }
 
-      setParamsTL({
-        userId : userId,
-        hId : hId,
-        bIds : bIdsList
-      })
+      if(bIdsList !== null && bIdsList.length !== 0){
+        setParamsTL({
+          userId : userId,
+          hId : hId,
+          bIds : bIdsList
+        })
+      }
     }
   }, [resBIds])
 
