@@ -209,7 +209,7 @@ const Text = ({ bId, data, ruby, offset, styledOffset } : TextProps ) => {
     <>
     {
       convertStyled().map( (arr) => {
-        if(arr?.ruby === null){
+        if(arr?.ruby === null || arr?.ruby === undefined){
           return(
             <span className={`${arr.style !== null ? arr.style : ''} rubyNasi`} data-bid={bId} data-offset={_offset(arr.offset)} key={bId+'-'+arr.offset}>
               {arr.data}

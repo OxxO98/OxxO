@@ -12,6 +12,9 @@ const BookTangoListComp = ({ tangoData, changeRoute, setView, setInfo }) => {
     const throttle = (0, hook_1.useThrottle)();
     const throttledSetMax = throttle((value) => setPlusMax(value), 2000);
     const setPlusMax = (value) => {
+        if (tangoData === null || tangoData === undefined) {
+            return;
+        }
         if (max + value < tangoData.length) {
             setMax(max + value);
         }

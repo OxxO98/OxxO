@@ -100,14 +100,15 @@ const YoutubeCardComp = ({ changeRoute, setVideoId }) => {
             setYtIds(a);
         }
     }, [response]);
-    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: ytIds !== null &&
-            ytIds.map((arr) => ((0, jsx_runtime_1.jsxs)("div", { className: "card_youtube", children: [(0, jsx_runtime_1.jsx)("div", { className: "card_youtube-body", onClick: () => {
-                            setVideoId(arr['videoId']);
-                            clickCard(arr['key']);
-                        }, children: (0, jsx_runtime_1.jsx)("img", { src: `https://i.ytimg.com/vi/${arr['videoId']}/hqdefault.jpg` }) }), (0, jsx_runtime_1.jsx)("div", { className: "card_youtube-footer", onClick: () => {
-                            setVideoId(arr['videoId']);
-                            clickCard(arr['key']);
-                        }, children: (0, jsx_runtime_1.jsxs)("div", { children: [arr['key'], (arr['title'])] }) })] }))) }));
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [ytIds !== null &&
+                ytIds.map((arr) => ((0, jsx_runtime_1.jsxs)("div", { className: "card_youtube", children: [(0, jsx_runtime_1.jsx)("div", { className: "card_youtube-body", onClick: () => {
+                                setVideoId(arr['videoId']);
+                                clickCard(arr['key']);
+                            }, children: (0, jsx_runtime_1.jsx)("img", { src: `https://i.ytimg.com/vi/${arr['videoId']}/hqdefault.jpg` }) }), (0, jsx_runtime_1.jsx)("div", { className: "card_youtube-footer", onClick: () => {
+                                setVideoId(arr['videoId']);
+                                clickCard(arr['key']);
+                            }, children: (0, jsx_runtime_1.jsxs)("div", { children: [arr['key'], (arr['title'])] }) })] }, arr['videoId']))), userId !== 81 &&
+                (0, jsx_runtime_1.jsxs)("div", { className: "YoutubeCardComp", children: [(0, jsx_runtime_1.jsx)(pages_2.ModalNewVideo, { fetch: fetch }), (0, jsx_runtime_1.jsx)("div", { children: "+" })] })] }));
 };
 const BookCardComp = ({ changeRoute }) => {
     const { userId } = (0, react_1.useContext)(client_2.UserContext);
@@ -135,7 +136,8 @@ const BookCardComp = ({ changeRoute }) => {
         }
     }, [response]);
     return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [hIds !== null &&
-                hIds.map((arr) => (0, jsx_runtime_1.jsx)(BookCard, { arr: arr, clickBook: clickBook }, arr['key'])), (0, jsx_runtime_1.jsx)("div", { className: "card_book", children: (0, jsx_runtime_1.jsx)("div", { className: "card_book_body", children: (0, jsx_runtime_1.jsx)(pages_2.ModalNewHon, { fetch: fetch }) }) })] }));
+                hIds.map((arr) => (0, jsx_runtime_1.jsx)(BookCard, { arr: arr, clickBook: clickBook }, arr['key'])), userId !== 81 &&
+                (0, jsx_runtime_1.jsx)("div", { className: "card_book", children: (0, jsx_runtime_1.jsx)("div", { className: "card_book_body", children: (0, jsx_runtime_1.jsx)(pages_2.ModalNewHon, { fetch: fetch }) }) })] }));
 };
 const BookCard = ({ arr, clickBook }) => {
     const [imgSrc, setImgSrc] = (0, react_1.useState)(null);

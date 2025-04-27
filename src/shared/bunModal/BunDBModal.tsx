@@ -128,7 +128,7 @@ const ModalInsertDan = ({ importData, selectImportBun, addPoint, value, handleRe
           bunObj[key] = replaceSpecial(bunArr[key]);
         }
 
-        // setParamsInsertDan({ userId : userId, hId : hId, critDId : 'init', prev : true, bunObj : bunObj });
+        setParamsInsertDan({ userId : userId, hId : hId, critDId : 'init', prev : true, bunObj : bunObj });
       }
     }
   }
@@ -173,7 +173,7 @@ const ModalInsertDan = ({ importData, selectImportBun, addPoint, value, handleRe
           multiObj[key] = dan;
         }
 
-        // setParamsInsertMultiDan({ userId : userId, hId : hId, critDId : 'init', prev : true, multiObj : multiObj });
+        setParamsInsertMultiDan({ userId : userId, hId : hId, critDId : 'init', prev : true, multiObj : multiObj });
       }
     }
   }
@@ -660,12 +660,16 @@ const ModalDeleteBun = ({ bId, jaText, cancelEdit, deleteHukumu } : ModalDeleteB
           <Modal.Body>
             <Bun bId={bId}/>
             <div>아래 단어는 자동으로 삭제됩니다.</div>
+            <>
             {
-              deleteData !== null && deleteData.huIds !== null &&
+              deleteData !== null && deleteData?.huIds !== undefined && deleteData.huIds.length !== 0 && 
               deleteData.huIds.map( (arr) =>
-                <div><ComplexText data={arr.hyouki} ruby={arr.yomi}/></div>
+                <div>
+                  <ComplexText data={arr.hyouki} ruby={arr.yomi}/>
+                </div>
               )
             }
+            </>
           </Modal.Body>
           <Modal.Footer>
             <Modal.CloseButton onClick={deleteHukumu}>

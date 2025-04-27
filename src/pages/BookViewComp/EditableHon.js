@@ -210,7 +210,7 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
         }
     }, [resGetRangeBun]);
     const isEditable = editBId !== null || (addPoint !== null && addPoint.type !== null);
-    const isInit = rangeBunIds !== null && rangeBunIds.length == 0;
+    const isInit = rangeBunIds !== null && rangeBunIds.length === 0;
     return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsxs)("div", { className: `hon_editable ${(isEditable || isInit) ? 'editing' : ''}`, children: [rangeBunIds !== null && rangeBunIds.map((arr) => ((0, jsx_runtime_1.jsx)(EditableDan, { dId: arr.dId, rowLength: rowLength, bIdList: arr.bunList, editBId: editBId, setEditBId: setEditBId, addPoint: addPoint, setAddPoint: setAddPoint, setAddDanPoint: setAddDanPoint, setAddBunPoint: setAddBunPoint, isAddPoint: isAddPoint, bIdRef: bIdRef, setScroll: setScroll }, arr.dId))), isMaxNum !== null && isMaxNum === true &&
                         (0, jsx_runtime_1.jsx)("button", { className: `edit_dan ${lastDId !== null && isAddPoint(lastDId, null, false) ? 'selected' : ''}`, onClick: () => lastDId !== null && setAddDanPoint(lastDId, false), ref: (el) => setScroll(el, `ap${lastDId !== null && lastDId}_last`), children: " " }), isInit &&
                         (0, jsx_runtime_1.jsx)("button", { className: `edit_dan selected`, children: " " })] }), isEditable &&

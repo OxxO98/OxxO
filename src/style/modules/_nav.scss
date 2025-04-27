@@ -76,11 +76,21 @@
 
           @include defaultBorder(1px);
         }
-        &.disabled {
+        &.bar {
           grid-column: 1/4;
+          
+          background-color: $white;
 
           @include darkmode{
-            color : $white;
+            background-color: gray-auto(-2);
+          }
+        }
+        &.disabled {
+          color : $white;
+          background-color: $white;
+
+          @include darkmode{
+            color : gray-auto(-2);
             background-color: gray-auto(-2);
           }
         }

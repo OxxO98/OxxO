@@ -59,7 +59,7 @@ const Nav = ({ route, changeRoute, userName } : NavProps) => {
     {
       eventKey : "Comic",
       name : "만화",
-      disabled : isMobile ? true : false
+      disabled : true
     }
   ]
 
@@ -138,7 +138,7 @@ const Nav = ({ route, changeRoute, userName } : NavProps) => {
           <div className="itemContainer">
             {
               isMobile === false &&
-              <div className="item disabled"/>
+              <div className="item bar"/>
             }
             {
               route.parentRoute === "Book" &&
@@ -176,7 +176,7 @@ const NavItem = ({ children, eventKey, active, disabled, onSelect, onActive} : N
         :
         <>
           <div
-            className={`item`}
+            className={`item disabled`}
           >
             <div>
                {children}

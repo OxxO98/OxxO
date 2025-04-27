@@ -13,6 +13,15 @@ function useMobileToggle(){
       if(e.currentTarget?.tagName === 'INPUT' || e.currentTarget?.tagName ==='BUTTON' || e.currentTarget?.tagName === 'TEXTAREA'){
         return;
       }
+      if(e.currentTarget.tagName === 'DIV'){
+        let tmp_target = e.target as HTMLElement;
+        if( tmp_target?.tagName === 'INPUT' || tmp_target?.tagName ==='BUTTON' || tmp_target?.tagName === 'TEXTAREA' ){
+          return;
+        }
+        if( tmp_target?.className === 'dropDownRepresentive' || tmp_target?.className === 'dropDownContent' || tmp_target?.className === 'content'){
+          return;
+        }
+      }
     }
     if(e.currentTarget?.className === 'dropDownRepresentive' || e.currentTarget?.className === 'dropDownContent' || e.currentTarget?.className === 'content'){
       return;

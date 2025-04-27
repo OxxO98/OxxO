@@ -295,7 +295,7 @@ const EditableHon = ({ page, rowLength, pageLength, bIdRef, styled, importData, 
   }, [resGetRangeBun])
 
   const isEditable = editBId !== null || ( addPoint !== null && addPoint.type !== null );
-  const isInit = rangeBunIds !== null && rangeBunIds.length == 0;
+  const isInit = rangeBunIds !== null && rangeBunIds.length === 0;
 
   return(
     <>

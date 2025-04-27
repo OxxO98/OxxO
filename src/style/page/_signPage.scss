@@ -6,18 +6,35 @@
   flex-direction: column;
   align-items: center;
 
+  margin-top: 48px;
+
   @include darkmode{
     color : $white;
     background-color: gray-auto(-4);
   }
 
   .Login_input_container{
+    width : 100%;
+    display: flex;
+    flex-direction: column;
 
+    input{
+      display: block;
+      width: 100%;
+      height: 36px;
+    }
+
+    margin-bottom: 8px;
   }
 
   .Login_button_container{
+    width : 100%;
     display: flex;
     flex-direction: column;
-    gap: 12px 0px;
+    gap: 8px 0px;
+
+    button{
+      height: 48px;
+    }
   }
 }

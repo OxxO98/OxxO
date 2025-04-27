@@ -75,6 +75,7 @@ const LogInComp = ({ setRoute, changeRoute, setUserName } : LogInCompProps ) => 
   }
 
   const guestLogIn = () => {
+    setInput({ id : "testuser "});
     setParamsLogIn({ userName : "testuser", password : "testuser" });
   }
 
@@ -97,23 +98,13 @@ const LogInComp = ({ setRoute, changeRoute, setUserName } : LogInCompProps ) => 
     <>
       <div className="Login">
         <div className="Login_input_container">
-          <div className="container_flexEnd">
-            <input className="id" name="id" placeholder="username" onChange={handleChange}/>
-          </div>
-          <div className="container_flexEnd">
-            <input className="password" type="password" name="password" placeholder="password" onChange={handleChange}/>
-          </div>
+          <input className="id" name="id" placeholder="username" onChange={handleChange}/>
+          <input className="password" type="password" name="password" placeholder="password" onChange={handleChange}/>
         </div>
         <div className="Login_button_container">
-          <div className="button-container_flexEnd">
-            <button className="button_flex-grow button-positive" onClick={logIn}>로그인</button>
-          </div>
-          <div className="button-container_flexEnd">
-            <button className="button_flex-grow button-neutral" onClick={guestLogIn}>게스트 아이디로 로그인</button>
-          </div>
-          <div className="button-container_flexEnd">
-            <button className="button_flex-grow button-neutral" onClick={() => setRoute('signUp')}>회원가입</button>
-          </div>
+          <button className="button-positive" onClick={logIn}>로그인</button>
+          <button className="button-neutral" onClick={guestLogIn}>게스트 아이디로 로그인</button>
+          <button className="button-neutral" onClick={() => setRoute('signUp')}>회원가입</button>
         </div>
       </div>
     </>
@@ -233,7 +224,7 @@ const SignUpComp = ({ setRoute } : SignUpCompProps ) => {
       <div className="Login">
         <div className="Login_input_container">
           <div className="button-container_flexEnd">
-            <input className="input_flex" name="id" placeholder="username" onChange={handleChange}/>
+            <input className="input_flex" name="id" placeholder="username" onChange={handleChange} disabled={isIdValidate !== null ? isIdValidate : false}/>
             <button className="button-positive" onClick={validateId}>중복 확인</button>
           </div>
           {
@@ -246,10 +237,10 @@ const SignUpComp = ({ setRoute } : SignUpCompProps ) => {
             isIdValidate !== null && isIdValidate === true &&
             <>
               <div className="button-container_flexEnd">
-                <input className="input_flex" type="password" name="password" placeholder="password" onChange={handleChange}/>
+                <input className="input_flex" type="password" name="password" placeholder="password" onChange={handleChange} disabled={isMailValidate !== null ? true : false}/>
               </div>
               <div className="button-container_flexEnd">
-                <input className="input_flex" name="email" onChange={handleChange} placeholder="example@mmail.com"/>
+                <input className="input_flex" name="email" onChange={handleChange} placeholder="example@gmail.com" disabled={isMailValidate !== null ? isMailValidate : false}/>
                 {
                   isMailValidate === null &&
                   <button className="button-positive" onClick={sendMailCode}>인증 코드 전송</button>
@@ -258,10 +249,10 @@ const SignUpComp = ({ setRoute } : SignUpCompProps ) => {
               <div>
               {
                 isMailValidate !== null && isMailValidate === false &&
-                <>
+                <div className="button-container_flexEnd">
                   <input name="emailCode" onChange={handleChange}/>
                   <button className="button-positive" onClick={validateMailCode}>인증코드 확인</button>
-                </>
+                </div>
               }
               {
                 isMailValidate !== null && isMailValidate === true &&

@@ -26,11 +26,13 @@ function useTangoListCompHook(page, pageLength, rowLength) {
             for (let key in res.data) {
                 bIdsList[key] = res.data[key]['BID'];
             }
-            setParamsTL({
-                userId: userId,
-                hId: hId,
-                bIds: bIdsList
-            });
+            if (bIdsList !== null && bIdsList.length !== 0) {
+                setParamsTL({
+                    userId: userId,
+                    hId: hId,
+                    bIds: bIdsList
+                });
+            }
         }
     }, [resBIds]);
     (0, react_1.useEffect)(() => {

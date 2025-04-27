@@ -182,7 +182,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength }) => {
         case 'Hon':
             return ((0, jsx_runtime_1.jsxs)("div", { className: "hon-page-layout", children: [(0, jsx_runtime_1.jsxs)("div", { className: `hon-layout ${edit === true ? 'editing' : ''}`, children: [isMobile &&
                                 (0, jsx_runtime_1.jsx)("div", { className: "hon-layout-search", children: (0, jsx_runtime_1.jsx)(customComp_1.SearchComp, { value: searchBunValue, setValue: setSearchBunValue, rowLength: rowLength, pageLength: pageLength, setPage: setPage, setStyled: setStyled, bIdList: searchBunList, setbIdList: setSearchBunList }) }), toggleHon === false && isMobile &&
-                                (0, jsx_runtime_1.jsx)(customComp_1.HonGrantWrapper, { restrict: 'WRITER', children: (0, jsx_runtime_1.jsxs)("div", { className: "hon-layout-edit-button", children: [edit === true &&
+                                (0, jsx_runtime_1.jsx)(customComp_1.HonGrantWrapper, { restrict: 'ADMIN', children: (0, jsx_runtime_1.jsxs)("div", { className: "hon-layout-edit-button", children: [edit === true &&
                                                 (0, jsx_runtime_1.jsx)(customComp_1.ImportYoutubeModal, { importData: importData, setImportData: setImportData }), edit === false ?
                                                 (0, jsx_runtime_1.jsx)("button", { className: `button-positive ${edit === false ? 'active' : ''}`, onClick: () => setWsEdit(true), children: "\uD3B8\uC9D1" })
                                                 :

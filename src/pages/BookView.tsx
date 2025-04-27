@@ -528,7 +528,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
             }
             {
               toggleHon === false && isMobile &&
-              <HonGrantWrapper restrict='WRITER'>
+              <HonGrantWrapper restrict='ADMIN'>
                 <div className="hon-layout-edit-button">
                   {
                     edit === true &&
