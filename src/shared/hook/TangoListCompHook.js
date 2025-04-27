@@ -21,18 +21,16 @@ function useTangoListCompHook(page, pageLength, rowLength) {
     }, [page]);
     (0, react_1.useEffect)(() => {
         let res = resBIds;
-        if (res !== null) {
-            let bIdsList = new Object();
+        if (res !== null && res.data !== null && res.data !== undefined) {
+            let bIdsList = [];
             for (let key in res.data) {
-                bIdsList[key] = res.data[key]['BID'];
+                bIdsList.push(res.data[key]['BID']);
             }
-            if (bIdsList !== null && bIdsList.length !== 0) {
-                setParamsTL({
-                    userId: userId,
-                    hId: hId,
-                    bIds: bIdsList
-                });
-            }
+            setParamsTL({
+                userId: userId,
+                hId: hId,
+                bIds: bIdsList.join(',')
+            });
         }
     }, [resBIds]);
     (0, react_1.useEffect)(() => {
