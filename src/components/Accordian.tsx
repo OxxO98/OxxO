@@ -81,7 +81,7 @@ const AccordianWrap = ({ show, handleShow, handleClose, children, index } : Acco
 
 const AccordianHeader = ({ show, handleShow, handleClose, index, children } : AccordianHeaderProps ) => {
   return(
-    <div className="accordian-header">
+    <div className="accordian-header" onClick={ () => show === index ? handleClose() : handleShow(index) }>
       {children}
       {
         show === index ?

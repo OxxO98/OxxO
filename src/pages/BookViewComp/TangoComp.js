@@ -368,10 +368,11 @@ const TangoDB = ({ data, handleSubmit }) => {
             setTangoData(res.data);
         }
     }, [response]);
-    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("div", { children: (0, jsx_runtime_1.jsx)(customComp_1.ComplexText, { data: data['DATA'], ruby: data['RUBY'] }) }), (0, jsx_runtime_1.jsx)("div", { children: tangoData !== null &&
+    return ((0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("div", { children: tangoData !== null &&
                     (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [tangoData.data !== null &&
                                 tangoData.data.map((arr) => (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)(customComp_1.ComplexText, { data: arr.hyouki, ruby: arr.yomi }), (0, jsx_runtime_1.jsx)("label", { children: "\u3000" })] })), tangoData.imi !== null &&
-                                tangoData.imi.map((arr) => (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("span", { children: arr }), (0, jsx_runtime_1.jsx)("label", { children: "\u3000" })] }))] }) }), (0, jsx_runtime_1.jsx)("button", { className: "button-positive", onClick: () => { handleSubmit(data['TID']); }, children: "\uC774 \uB2E8\uC5B4\uB85C \uB4F1\uB85D" })] }));
+                                tangoData.imi.map((arr) => (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("span", { children: arr }), (0, jsx_runtime_1.jsx)("label", { children: "\u3000" })] })), tangoData.imi === null &&
+                                (0, jsx_runtime_1.jsx)("span", { children: "\uB4F1\uB85D\uB41C \uB73B \uC5C6\uC74C" })] }) }), (0, jsx_runtime_1.jsx)("div", { className: "button-container_flexEnd", children: (0, jsx_runtime_1.jsx)("button", { className: "button-positive", onClick: () => { handleSubmit(data['TID']); }, children: "\uC774 \uB2E8\uC5B4\uB85C \uB4F1\uB85D" }) })] }));
 };
 const ModalDeleteHukumu = ({ huId, handleRefetch }) => {
     const { userId } = (0, react_1.useContext)(client_2.UserContext);

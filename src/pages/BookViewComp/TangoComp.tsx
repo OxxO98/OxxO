@@ -644,29 +644,35 @@ const TangoDB = ({ data, handleSubmit } : TangoDBProps ) => {
   return(
     <>
       <div>
-        <ComplexText data={data['DATA']} ruby={data['RUBY']}/>
-      </div>
-      <div>
         {
           tangoData !== null &&
           <>
           {
             tangoData.data !== null &&
             tangoData.data.map( (arr) =>
-            <>
-              <ComplexText data={arr.hyouki} ruby={arr.yomi}/><label>　</label>
-            </> )
+              <>
+                <ComplexText data={arr.hyouki} ruby={arr.yomi}/><label>　</label>
+              </> 
+            )
           }
           {
             tangoData.imi !== null &&
-            tangoData.imi.map( (arr) => <>
-              <span>{arr}</span><label>　</label>
-            </> )
+            tangoData.imi.map( (arr) => 
+              <>
+                <span>{arr}</span><label>　</label>
+              </> 
+            )
+          }
+          {
+            tangoData.imi === null &&
+            <span>등록된 뜻 없음</span>
           }
           </>
         }
       </div>
-      <button className="button-positive" onClick={() => { handleSubmit(data['TID']) }}>이 단어로 등록</button>
+      <div className="button-container_flexEnd">
+        <button className="button-positive" onClick={() => { handleSubmit(data['TID']) }}>이 단어로 등록</button>
+      </div>
     </>
   )
 }
