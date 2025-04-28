@@ -175,3 +175,5 @@ Adobe PremierePro の mogrt(モーショングラフィックステンプレー�
 - ユーチューブ翻訳ページの安定化
 - 招待または共有機能の安定化
 - mogrt 形式に書き出し機能の活性化
+
+_translated by me_
