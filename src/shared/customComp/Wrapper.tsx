@@ -7,15 +7,16 @@ import { UserContext, HonContext, YoutubeContext } from 'client';
 interface GrantWrapperProps {
   restrict : "ADMIN" | 'admin' | 'WRITER' | 'writer' | 'READER' | 'reader';
   children : any;
+  hId? : number;
 }
 
-const HonGrantWrapper = ({ restrict, children } : GrantWrapperProps ) => {
+const HonGrantWrapper = ({ restrict, children, ...props } : GrantWrapperProps ) => {
   const { userId } = useContext<UserContextInterface>(UserContext);
   const hId = useContext(HonContext);
 
   const [granted, setGranted] = useState(false);
 
-  const { response, loading, setParams, fetch } = useAxios('/grant/hon', false, { userId : userId, hId : hId });
+  const { response, loading, setParams, fetch } = useAxios('/grant/hon', false, { userId : userId, hId : props?.hId !== undefined ? props.hId : hId });
 
   const isRestrict = (grant : string | null) => {
     if(grant !== null){

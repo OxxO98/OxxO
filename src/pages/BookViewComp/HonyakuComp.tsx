@@ -20,7 +20,7 @@ interface TranslateObj {
 interface HonyakuCompProps {
   bId : number;
   clearEdit : () => void;
-  refetch : (bId : number) => void;
+  refetch? : (bId : number) => void;
   handleScroll? : (id : string) => void;
   handleFocus? : (e : React.FocusEvent) => void;
   handleBlur? : (e : React.FocusEvent) => void;
@@ -37,7 +37,7 @@ interface HonyakuTLDropDownProps {
   repTL : TranslateObj | null;
   tls : Array<TranslateObj>;
   fetch : () => void;
-  refetch : (bId : number) => void;
+  refetch? : (bId : number) => void;
 }
 
 interface HonaykuInput {
@@ -53,10 +53,10 @@ interface HonyakuControllerProps {
   value : string;
   clearEdit : () => void;
   fetch : () => void;
-  refetch : (bId : number) => void;
+  refetch? : (bId : number) => void;
 }
 
-const HonyakuComp = ({ bId, clearEdit, refetch, ...props } : HonyakuCompProps ) => {
+const HonyakuComp = ({ bId, clearEdit, ...props } : HonyakuCompProps ) => {
 
   const { userId } = useContext<UserContextInterface>(UserContext);
 
@@ -122,7 +122,7 @@ const HonyakuComp = ({ bId, clearEdit, refetch, ...props } : HonyakuCompProps ) 
           </div>
           {
             (tls !== null && tls.length !== 0) ?
-            <HonyakuTLDropDown bId={bId} repTL={repTL} tls={tls} fetch={fetch} refetch={refetch}/>
+            <HonyakuTLDropDown bId={bId} repTL={repTL} tls={tls} fetch={fetch} refetch={props?.refetch}/>
             :
             <>
             {
@@ -134,7 +134,7 @@ const HonyakuComp = ({ bId, clearEdit, refetch, ...props } : HonyakuCompProps ) 
           <HonaykuInput value={value} handleChange={handleChange}
           handleFocus={mobileFocus} handleBlur={mobileBlur}/>
           <div className="button-container">
-            <HonyakuController bId={bId} repTL={repTL} value={value} clearEdit={clearEdit} fetch={fetch} refetch={refetch}/>
+            <HonyakuController bId={bId} repTL={repTL} value={value} clearEdit={clearEdit} fetch={fetch} refetch={props?.refetch}/>
           </div>
         </>
       }
@@ -153,7 +153,7 @@ const HonyakuRepTranslate = ({ bId, repTL } : HonyakuRepTranslateProps ) => {
   )
 }
 
-const HonyakuTLDropDown = ({ bId, repTL, tls, fetch, refetch } : HonyakuTLDropDownProps) => {
+const HonyakuTLDropDown = ({ bId, repTL, tls, fetch, ...props } : HonyakuTLDropDownProps) => {
   const { userId } = useContext<UserContextInterface>(UserContext);
 
   const hId = useContext(HonContext);
@@ -173,7 +173,7 @@ const HonyakuTLDropDown = ({ bId, repTL, tls, fetch, refetch } : HonyakuTLDropDo
     let res = resSetR_TL;
     if(res !== null){
       fetch();
-      refetch(bId);
+      props?.refetch !== undefined && props?.refetch(bId);
     }
   }, [resSetR_TL])
 
@@ -233,7 +233,7 @@ const HonaykuInput = ({ value, handleChange, ...props } : HonaykuInput ) => {
   )
 }
 
-const HonyakuController = ({ bId, repTL, value, clearEdit, fetch, refetch } : HonyakuControllerProps) => {
+const HonyakuController = ({ bId, repTL, value, clearEdit, fetch, ...props } : HonyakuControllerProps) => {
 
   const { userId } = useContext<UserContextInterface>(UserContext);
 
@@ -277,7 +277,7 @@ const HonyakuController = ({ bId, repTL, value, clearEdit, fetch, refetch } : Ho
     let res = resInsert;
     if(res !== null){
       fetch();
-      refetch(bId);
+      props?.refetch !== undefined && props?.refetch(bId);
       clearEdit();
     }
   }, [resInsert])
@@ -286,7 +286,7 @@ const HonyakuController = ({ bId, repTL, value, clearEdit, fetch, refetch } : Ho
     let res = resDelete;
     if(res !== null){
       fetch();
-      refetch(bId);
+      props?.refetch !== undefined && props?.refetch(bId);
       clearEdit();
     }
   }, [resDelete])
@@ -295,7 +295,7 @@ const HonyakuController = ({ bId, repTL, value, clearEdit, fetch, refetch } : Ho
     let res = resUpdate;
     if(res !== null){
       fetch();
-      refetch(bId);
+      props?.refetch !== undefined && props?.refetch(bId);
       clearEdit();
     }
   }, [resUpdate])

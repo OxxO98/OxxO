@@ -119,8 +119,29 @@ const YouTubeTangoListComp = ({ tangoData } : YouTubeTangoListCompProps ) => {
 
   const [max, setMax] = useState(8);
 
+  const throttle = useThrottle();
+  const throttledSetMax = throttle( (value : number) => setPlusMax(value), 2000);
+
+  const setPlusMax = (value : number) => {
+    if(tangoData === null || tangoData === undefined){
+      return;
+    }
+    if(max + value < tangoData.length){
+      setMax(max + value);
+    }
+    else{
+      setMax(tangoData.length);
+    }
+  }
+  
+  const onWheelFunction = (e : React.WheelEvent) => {
+    if( e.deltaY > 0){
+      throttledSetMax( Math.floor(e.deltaY/3) );
+    }
+  }
+
   return(
-    <div className="tangolist_comp">
+    <div className="tangolist_comp" onWheel={(e) => onWheelFunction(e)}>
       {
         tangoData !== null &&
         <>

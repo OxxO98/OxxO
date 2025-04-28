@@ -9,7 +9,7 @@ const client_2 = require("client");
 const customComp_1 = require("shared/customComp");
 const components_1 = require("components");
 const hook_1 = require("shared/hook");
-const HonyakuComp = ({ bId, clearEdit, refetch, ...props }) => {
+const HonyakuComp = ({ bId, clearEdit, ...props }) => {
     const { userId } = (0, react_1.useContext)(client_1.UserContext);
     const hId = (0, react_1.useContext)(client_1.HonContext);
     const ytId = (0, react_1.useContext)(client_1.YoutubeContext);
@@ -53,16 +53,16 @@ const HonyakuComp = ({ bId, clearEdit, refetch, ...props }) => {
     const mobileBlur = isMobile ? props.handleBlur : undefined;
     return ((0, jsx_runtime_1.jsx)("div", { className: `honyakuComp`, children: loading === false &&
             (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, { children: [(0, jsx_runtime_1.jsx)("div", { className: "honyaku-bun", children: (0, jsx_runtime_1.jsx)(customComp_1.Bun, { bId: bId }, bId) }), (tls !== null && tls.length !== 0) ?
-                        (0, jsx_runtime_1.jsx)(HonyakuTLDropDown, { bId: bId, repTL: repTL, tls: tls, fetch: fetch, refetch: refetch })
+                        (0, jsx_runtime_1.jsx)(HonyakuTLDropDown, { bId: bId, repTL: repTL, tls: tls, fetch: fetch, refetch: props?.refetch })
                         :
                             (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: repTL !== null &&
-                                    (0, jsx_runtime_1.jsx)("span", { onClick: () => setValue(repTL['KOTEXT']), children: repTL['KOTEXT'] }) }), (0, jsx_runtime_1.jsx)(HonaykuInput, { value: value, handleChange: handleChange, handleFocus: mobileFocus, handleBlur: mobileBlur }), (0, jsx_runtime_1.jsx)("div", { className: "button-container", children: (0, jsx_runtime_1.jsx)(HonyakuController, { bId: bId, repTL: repTL, value: value, clearEdit: clearEdit, fetch: fetch, refetch: refetch }) })] }) }));
+                                    (0, jsx_runtime_1.jsx)("span", { onClick: () => setValue(repTL['KOTEXT']), children: repTL['KOTEXT'] }) }), (0, jsx_runtime_1.jsx)(HonaykuInput, { value: value, handleChange: handleChange, handleFocus: mobileFocus, handleBlur: mobileBlur }), (0, jsx_runtime_1.jsx)("div", { className: "button-container", children: (0, jsx_runtime_1.jsx)(HonyakuController, { bId: bId, repTL: repTL, value: value, clearEdit: clearEdit, fetch: fetch, refetch: props?.refetch }) })] }) }));
 };
 exports.HonyakuComp = HonyakuComp;
 const HonyakuRepTranslate = ({ bId, repTL }) => {
     return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsx)("div", { children: repTL['KOTEXT'] }, bId) }));
 };
-const HonyakuTLDropDown = ({ bId, repTL, tls, fetch, refetch }) => {
+const HonyakuTLDropDown = ({ bId, repTL, tls, fetch, ...props }) => {
     const { userId } = (0, react_1.useContext)(client_1.UserContext);
     const hId = (0, react_1.useContext)(client_1.HonContext);
     const ytId = (0, react_1.useContext)(client_1.YoutubeContext);
@@ -77,7 +77,7 @@ const HonyakuTLDropDown = ({ bId, repTL, tls, fetch, refetch }) => {
         let res = resSetR_TL;
         if (res !== null) {
             fetch();
-            refetch(bId);
+            props?.refetch !== undefined && props?.refetch(bId);
         }
     }, [resSetR_TL]);
     return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsxs)(components_1.DropDown, { children: [(0, jsx_runtime_1.jsx)(components_1.DropDown.Representive, { children: repTL !== null ?
@@ -100,7 +100,7 @@ const HonaykuInput = ({ value, handleChange, ...props }) => {
     const mobileBlur = isMobile ? props.handleBlur : undefined;
     return ((0, jsx_runtime_1.jsx)("textarea", { id: "inputHonyaku", value: value, onChange: handleChange, autoComplete: 'off', onFocus: mobileFocus, onBlur: mobileBlur }));
 };
-const HonyakuController = ({ bId, repTL, value, clearEdit, fetch, refetch }) => {
+const HonyakuController = ({ bId, repTL, value, clearEdit, fetch, ...props }) => {
     const { userId } = (0, react_1.useContext)(client_1.UserContext);
     const hId = (0, react_1.useContext)(client_1.HonContext);
     const ytId = (0, react_1.useContext)(client_1.YoutubeContext);
@@ -133,7 +133,7 @@ const HonyakuController = ({ bId, repTL, value, clearEdit, fetch, refetch }) => 
         let res = resInsert;
         if (res !== null) {
             fetch();
-            refetch(bId);
+            props?.refetch !== undefined && props?.refetch(bId);
             clearEdit();
         }
     }, [resInsert]);
@@ -141,7 +141,7 @@ const HonyakuController = ({ bId, repTL, value, clearEdit, fetch, refetch }) => 
         let res = resDelete;
         if (res !== null) {
             fetch();
-            refetch(bId);
+            props?.refetch !== undefined && props?.refetch(bId);
             clearEdit();
         }
     }, [resDelete]);
@@ -149,7 +149,7 @@ const HonyakuController = ({ bId, repTL, value, clearEdit, fetch, refetch }) => 
         let res = resUpdate;
         if (res !== null) {
             fetch();
-            refetch(bId);
+            props?.refetch !== undefined && props?.refetch(bId);
             clearEdit();
         }
     }, [resUpdate]);

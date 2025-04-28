@@ -8,6 +8,10 @@
 # testing
 /coverage
 
+/src/pages/BookViewComp/ExpComp.js
+/src/pages/YoutubeViewComp/YTHonyakuComp.js
+/src/pages/TestPageComp.js
+
 # production
 /server
 

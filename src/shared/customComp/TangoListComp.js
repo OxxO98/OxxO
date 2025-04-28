@@ -50,7 +50,25 @@ const BookTango = ({ tId, changeRoute, setView, setInfo }) => {
 };
 const YouTubeTangoListComp = ({ tangoData }) => {
     const [max, setMax] = (0, react_1.useState)(8);
-    return ((0, jsx_runtime_1.jsxs)("div", { className: "tangolist_comp", children: [tangoData !== null &&
+    const throttle = (0, hook_1.useThrottle)();
+    const throttledSetMax = throttle((value) => setPlusMax(value), 2000);
+    const setPlusMax = (value) => {
+        if (tangoData === null || tangoData === undefined) {
+            return;
+        }
+        if (max + value < tangoData.length) {
+            setMax(max + value);
+        }
+        else {
+            setMax(tangoData.length);
+        }
+    };
+    const onWheelFunction = (e) => {
+        if (e.deltaY > 0) {
+            throttledSetMax(Math.floor(e.deltaY / 3));
+        }
+    };
+    return ((0, jsx_runtime_1.jsxs)("div", { className: "tangolist_comp", onWheel: (e) => onWheelFunction(e), children: [tangoData !== null &&
                 (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: tangoData.slice(0, max).map((arr) => ((0, jsx_runtime_1.jsx)(YoutubeTango, { tId: arr['TID'] }, arr['TID']))) }), tangoData !== null && tangoData.length > max &&
                 (0, jsx_runtime_1.jsx)("button", { onClick: () => setMax(max + 7), children: "\uB354\uBCF4\uAE30" })] }));
 };

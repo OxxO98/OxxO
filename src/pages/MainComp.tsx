@@ -15,6 +15,8 @@ import { useAxios, useRoute } from 'shared/hook';
 
 import { StepPage, Nav } from 'components';
 
+import { HonGrantWrapper } from 'shared/customComp';
+
 interface IdObj {
   Book : number | null;
   Youtube : number | null;
@@ -359,9 +361,11 @@ const BookCard = ({ arr, clickBook } : BookCardProps) => {
         }
         </div>
       </div>
-      <div className="card_book-footer">
-        <ModalEditHon key={arr['key']} hId={arr['key']} title={arr['title']} handleRefetch={handleRefetch} setImgSrc={setImgSrc}/>
-      </div>
+      <HonGrantWrapper restrict='ADMIN' hId={arr['key']}>
+        <div className="card_book-footer">
+          <ModalEditHon key={arr['key']} hId={arr['key']} title={arr['title']} handleRefetch={handleRefetch} setImgSrc={setImgSrc}/>
+        </div>
+      </HonGrantWrapper>
     </div>
   )
 }
