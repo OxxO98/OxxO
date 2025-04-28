@@ -5,11 +5,11 @@ const jsx_runtime_1 = require("react/jsx-runtime");
 const react_1 = require("react");
 const hook_1 = require("shared/hook");
 const client_1 = require("client");
-const HonGrantWrapper = ({ restrict, children }) => {
+const HonGrantWrapper = ({ restrict, children, ...props }) => {
     const { userId } = (0, react_1.useContext)(client_1.UserContext);
     const hId = (0, react_1.useContext)(client_1.HonContext);
     const [granted, setGranted] = (0, react_1.useState)(false);
-    const { response, loading, setParams, fetch } = (0, hook_1.useAxios)('/grant/hon', false, { userId: userId, hId: hId });
+    const { response, loading, setParams, fetch } = (0, hook_1.useAxios)('/grant/hon', false, { userId: userId, hId: props?.hId !== undefined ? props.hId : hId });
     const isRestrict = (grant) => {
         if (grant !== null) {
             if (restrict === 'ADMIN' || restrict === 'admin') {

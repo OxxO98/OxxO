@@ -572,7 +572,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
                 setScroll={setScrollHon}/>
               </div>
             }
-            <HonGrantWrapper restrict='WRITER'>
+            <HonGrantWrapper restrict='ADMIN'>
             {
               edit === true &&
               <div className="hon-edit-layout">

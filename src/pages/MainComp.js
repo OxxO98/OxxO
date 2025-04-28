@@ -9,6 +9,7 @@ const pages_1 = require("pages");
 const pages_2 = require("pages");
 const hook_1 = require("shared/hook");
 const components_1 = require("components");
+const customComp_1 = require("shared/customComp");
 const MainComp = () => {
     const [id, setId] = (0, react_1.useState)({
         Book: null,
@@ -157,6 +158,6 @@ const BookCard = ({ arr, clickBook }) => {
         }
     }, [response]);
     return ((0, jsx_runtime_1.jsxs)("div", { className: "card_book", children: [(0, jsx_runtime_1.jsxs)("div", { className: "card_book-body", onClick: () => { clickBook(arr['key']); }, children: [(0, jsx_runtime_1.jsx)("div", { children: (arr['title']) }), (0, jsx_runtime_1.jsx)("div", { className: `${loading ? "loading" : ""}`, children: imgSrc !== null &&
-                            (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsx)("img", { src: `${process.env.REACT_APP_API_URL}/${imgSrc}` }) }) })] }), (0, jsx_runtime_1.jsx)("div", { className: "card_book-footer", children: (0, jsx_runtime_1.jsx)(pages_2.ModalEditHon, { hId: arr['key'], title: arr['title'], handleRefetch: handleRefetch, setImgSrc: setImgSrc }, arr['key']) })] }));
+                            (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: (0, jsx_runtime_1.jsx)("img", { src: `${process.env.REACT_APP_API_URL}/${imgSrc}` }) }) })] }), (0, jsx_runtime_1.jsx)(customComp_1.HonGrantWrapper, { restrict: 'ADMIN', hId: arr['key'], children: (0, jsx_runtime_1.jsx)("div", { className: "card_book-footer", children: (0, jsx_runtime_1.jsx)(pages_2.ModalEditHon, { hId: arr['key'], title: arr['title'], handleRefetch: handleRefetch, setImgSrc: setImgSrc }, arr['key']) }) })] }));
 };
 exports.default = MainComp;
