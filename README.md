@@ -6,11 +6,26 @@
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 ![Oracle](https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white)
 
+[프로젝트 소개](#프로젝트-소개)
+[취지](#취지)
+[프로젝트 구성](#프로젝트-구성)
+[페이지 구성](#페이지-구성)
+[폴더 구조](#폴더-구조)
+[주요 기능](#주요-기능)
+[부가 기능](#부가-기능)
+[기능 소개](#기능-소개)
+[추가 개선 사항](#추가-개선-사항)
+
 ## 개발 환경
 
-- Front-end : React, Typescript
-- back-end : NodeJS, Express.js
-- DB : Oracle
+- Front-end
+  - React, Typescript
+  - scss
+- back-end
+  - NodeJS, Express.js
+  - nodemailer, multer, OracleCloud
+- Database
+  - OracleDB(AutonomousDatabase)
 
 ## 참조
 
@@ -29,6 +44,305 @@
 기본적인 번역문 버전 관리, 단어를 관계형 데이터베이스로 저장해 이를 활용하는 기능을 추가하였습니다.
 
 처음에는 개인 사용 목적으로 시작하였지만, 현재는 공동작업이 가능하게 프로젝트를 변경중에 있습니다.
+
+## 프로젝트 구성
+
+![Block_Diagram](readme_img/Block_Diagram_white.png)
+
+## 페이지 구성
+
+- 로그인
+- 회원가입
+- 메인 페이지
+  - 책 페이지
+    - 책 편집
+    - 단어장
+    - 번역
+  - 유튜브 페이지
+    - 마킹
+    - 타임라인
+    - 번역
+
+## 폴더 구조
+
+### src
+
+```
+src
+│  index.css
+│  index.js
+│  serviceWorker.js
+│
+├─@types
+│      global.d.ts
+│
+├─client
+│      index.d.ts
+│      index.js
+│      MainContext.js
+│      MainContext.tsx
+│      UserContext.js
+│      UserContext.tsx
+│
+├─components
+│      Accordian.js
+│      Accordian.tsx
+│      DropDown.js
+│      DropDown.tsx
+│      index.d.ts
+│      index.js
+│      Modal.js
+│      Modal.tsx
+│      Nav.js
+│      Nav.tsx
+│      Pagination.js
+│      Pagination.tsx
+│      StepPage.js
+│      StepPage.tsx
+│
+├─pages
+│  │  BookView.js
+│  │  BookView.tsx
+│  │  index.d.ts
+│  │  index.js
+│  │  MainComp.js
+│  │  MainComp.tsx
+│  │  SignPage.js
+│  │  SignPage.tsx
+│  │  TestPageComp.js
+│  │  YoutubeView.js
+│  │  YoutubeView.tsx
+│  │
+│  ├─BookModal
+│  │      ModalEditHon.js
+│  │      ModalEditHon.tsx
+│  │      ModalNewHon.js
+│  │      ModalNewHon.tsx
+│  │
+│  ├─BookViewComp
+│  │      EditableHon.js
+│  │      EditableHon.tsx
+│  │      ExpComp.js
+│  │      HonComp.js
+│  │      HonComp.tsx
+│  │      HonyakuComp.js
+│  │      HonyakuComp.tsx
+│  │      ImiComp.js
+│  │      ImiComp.tsx
+│  │      IndependentComp.js
+│  │      IndependentComp.tsx
+│  │      TangochouComp.js
+│  │      TangochouComp.tsx
+│  │      TangoComp.js
+│  │      TangoComp.tsx
+│  │
+│  ├─YoutubeModal
+│  │      ModalNewVideo.js
+│  │      ModalNewVideo.tsx
+│  │
+│  └─YoutubeViewComp
+│          AudioWaveComp.js
+│          AudioWaveComp.tsx
+│          SequenceView.js
+│          SequenceView.tsx
+│          TimeLineView.js
+│          TimeLineView.tsx
+│          YTHonyakuComp.js
+│
+├─shared
+│  │  App.js
+│  │
+│  ├─bunModal
+│  │      BunDBModal.js
+│  │      BunDBModal.tsx
+│  │      index.d.ts
+│  │      index.js
+│  │
+│  ├─customComp
+│  │      Bun.js
+│  │      Bun.tsx
+│  │      CompareBun.js
+│  │      Dictionary.js
+│  │      Dictionary.tsx
+│  │      EditableBun.js
+│  │      EditableBun.tsx
+│  │      HonyakuBun.js
+│  │      HonyakuBun.tsx
+│  │      HukumuListComp.js
+│  │      HukumuListComp.tsx
+│  │      ImportComp.js
+│  │      ImportComp.tsx
+│  │      index.d.ts
+│  │      index.js
+│  │      OsusumeListComp.js
+│  │      OsusumeListComp.tsx
+│  │      SearchComp.js
+│  │      SearchComp.tsx
+│  │      TangoListComp.js
+│  │      TangoListComp.tsx
+│  │      Wrapper.js
+│  │      Wrapper.tsx
+│  │
+│  └─hook
+│          AxiosHook.js
+│          HonHook.js
+│          HonHook.tsx
+│          HonyakuHook.js
+│          HonyakuHook.tsx
+│          Hook.js
+│          Hook.tsx
+│          HukumuListHook.js
+│          HukumuListHook.tsx
+│          index.d.ts
+│          index.js
+│          jaTextHook.js
+│          jaTextHook.tsx
+│          mobileHook.js
+│          mobileHook.tsx
+│          OptimizationHook.js
+│          OptimizationHook.tsx
+│          OsusumeHook.js
+│          OsusumeHook.tsx
+│          SelectionHook.js
+│          SelectionHook.tsx
+│          SocketHook.js
+│          TangochouHook.js
+│          TangochouHook.tsx
+│          TangoListCompHook.js
+│          TangoListCompHook.tsx
+│          VideoPlayHook.js
+│          VideoPlayHook.tsx
+│
+└─style
+    │  MainComp.scss
+    │  youtube-layout.scss
+    │  _components.scss
+    │  _layoutSize.scss
+    │  _mediaquery.scss
+    │  _testComp.scss
+    │  _textStyle.scss
+    │  _theme.scss
+    │  _variables.scss
+    │
+    ├─customComp
+    │      _Dictionary.scss
+    │      _HonyakuBun.scss
+    │      _HonyakuComp.scss
+    │      _ImiComp.scss
+    │      _TangoComp.scss
+    │
+    ├─modal
+    │      EditHon.scss
+    │      NewHon.scss
+    │
+    ├─modules
+    │      _accordian.scss
+    │      _button.scss
+    │      _card.scss
+    │      _dropDown.scss
+    │      _input.scss
+    │      _modal.scss
+    │      _nav.scss
+    │      _pagination.scss
+    │      _searchComp.scss
+    │
+    └─page
+        │  _bookView.scss
+        │  _honLayout.scss
+        │  _honyakuLayout.scss
+        │  _signPage.scss
+        │  _tangochouLayout.scss
+        │  _youtubeView.scss
+        │
+        ├─BookView
+        │      _HonComp.scss
+        │      _TangochouComp.scss
+        │
+        └─YoutubeView
+```
+
+### server
+
+```
+server
+│  server.js
+│
+├─asset
+│  └─img
+│
+└─Router
+    │  api.js
+    │  bun.js
+    │  exp_newHon.js
+    │  grant.js
+    │  hon.js
+    │  hukumu.js
+    │  image.js
+    │  imi.js
+    │  mail.js
+    │  myUser.js
+    │  socket.js
+    │  tango.js
+    │  translate.js
+    │  yomi.js
+    │  youtube.js
+    │
+    ├─dbCRUDModule
+    │     db_bun.js
+    │     db_core.js
+    │     db_group.js
+    │     db_hon.js
+    │     db_hukumu.js
+    │     db_medium.js
+    │     db_tango.js
+    │     db_translate.js
+    │     db_user.js
+    │     db_youtube.js
+    │     index.js
+    │
+    │
+    ├─dbModule
+    │      db_bun.js
+    │      db_error.js
+    │      db_grant.js
+    │      db_group.js
+    │      db_hukumu.js
+    │      db_hyouki.js
+    │      db_imi.js
+    │      db_invite.js
+    │      db_kanji.js
+    │      db_komu.js
+    │      db_tango.js
+    │      db_translate.js
+    │      db_user.js
+    │      db_userHukumu.js
+    │      db_yomi.js
+    │      db_youtube.js
+    │      index.js
+    │
+    ├─db_conn
+    │      dbconfig.js
+    │      db_connection.js
+    │
+    ├─hon
+    │      tangochou.js
+    │
+    └─youtube
+            sequence.js
+            timeline.js
+            video.js
+```
+
+## 기능 개요
+
+- 메인기능
+  - 단어 DB 관리 기능
+  - 번역 버전 관리 기능
+  - 문장 검색 기능
+  - 단어 검색 기능
+- 서브 기능
+  - 한글 -> 히라가나 변환 기능
+  - 유튜브 문장 내보내기 기능
 
 ## 주요 기능
 

@@ -187,7 +187,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength }) => {
                                                 (0, jsx_runtime_1.jsx)("button", { className: `button-positive ${edit === false ? 'active' : ''}`, onClick: () => setWsEdit(true), children: "\uD3B8\uC9D1" })
                                                 :
                                                     (0, jsx_runtime_1.jsx)("button", { className: `button-positive`, onClick: () => setWsEdit(false), children: "\uD655\uC778" })] }) }), (0, jsx_runtime_1.jsxs)("div", { className: "hon-layout-pagination", children: [(0, jsx_runtime_1.jsx)(components_1.Pagination, { page: page, pageCount: pageCount, nextPage: nextPage, previousPage: previousPage, clickPage: clickPage }), (isPc || isTablet) &&
-                                        (0, jsx_runtime_1.jsx)(customComp_1.HonGrantWrapper, { restrict: 'WRITER', children: (0, jsx_runtime_1.jsxs)("div", { className: "hon-layout-edit-button", children: [edit === true &&
+                                        (0, jsx_runtime_1.jsx)(customComp_1.HonGrantWrapper, { restrict: 'ADMIN', children: (0, jsx_runtime_1.jsxs)("div", { className: "hon-layout-edit-button", children: [edit === true &&
                                                         (0, jsx_runtime_1.jsx)(customComp_1.ImportYoutubeModal, { importData: importData, setImportData: setImportData }), edit === false ?
                                                         (0, jsx_runtime_1.jsx)("button", { className: `button-positive ${edit === false ? 'active' : ''}`, onClick: () => setWsEdit(true), children: "\uD3B8\uC9D1" })
                                                         :

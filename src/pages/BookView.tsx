@@ -547,7 +547,7 @@ const BookView = ({ navRoute, changeRoute, rowLength, pageLength } : BookViewPro
               <Pagination page={page} pageCount={pageCount} nextPage={nextPage} previousPage={previousPage} clickPage={clickPage}/>
               {
                 ( isPc || isTablet ) &&
-                <HonGrantWrapper restrict='WRITER'>
+                <HonGrantWrapper restrict='ADMIN'>
                   <div className="hon-layout-edit-button">
                     {
                       edit === true &&
