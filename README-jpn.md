@@ -1,7 +1,7 @@
 # OxxO
 
 > [!WARNING]
-> 現在、日本語への対応はできておりません。近いうちに対応できるようにしますので、お待たせいただきます。ご了承お願い申し上げます。
+> 現在、日本語への対応はできておりません。近いうちに対応できるようにしますので、お待たせいただき、ご了承お願い申し上げます。
 
 [한국어](README.md) | 日本語
 
@@ -9,17 +9,41 @@
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 ![Oracle](https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white)
 
+## 配布ウェブページ
+
+[配布ウェブページ](http://oxxo.ddns.net:3000/)
+
+## 目次
+
+[プロジェクト紹介](#プロジェクト紹介)
+
+[開発の背景](#開発の背景)
+
+[重要機能](#重要機能)
+
+[その他の機能](#その他の機能)
+
+[機能紹介](#機能紹介)
+
+[これからの改善事項](#これからの改善事項)
+
 ## 開発環境
 
-- Front-end : React, Typescript
-- back-end : NodeJS, Express.js
-- DB : Oracle
+- Front-end
+  - React, Typescript
+  - scss
+- back-end
+  - NodeJS, Express.js
+  - nodemailer, multer, OracleCloud
+- Database
+  - OracleDB(AutonomousDatabase)
 
 ## 参照
 
-- JamesKyburz/youtube-audio-stream
-- @distube/ytdl-core
-- toss/es-hangul
+- [JamesKyburz/youtube-audio-stream](https://github.com/JamesKyburz/youtube-audio-stream)
+- [@distube/ytdl-core](https://github.com/distubejs/ytdl-core)
+- [toss/es-hangul](https://github.com/toss/es-hangul)
+- [オーディオ波形の参照文献](https://blog.rhostem.com/posts/2022-01-08-canvas-web-audio-player)
 
 # プロジェクト紹介
 
@@ -27,11 +51,9 @@
 
 ## 開発の背景
 
-日本語を翻訳することに、既存の文章作成プログラムでは物足りなさを感じ、満たすために開発を始めました。
-
-基本的な翻訳文を管理する事と、単語をデーターベースに保存して活用する機能を追加。
-
-最初は個人的使用を目的として開発いたしましたが、共同作業ができるようにプロジェクトを修正しています。
+- 日本語を翻訳することに、既存の文章作成プログラムでは物足りなさを感じ、改善のために開発を始めました。
+- 基本的な翻訳文を管理する事と、単語をデーターベースに保存して活用する機能を追加しました。
+- 最初は個人的使用を目的で開発に挑みましたが、共同作業もできるようにプロジェクトを修正しています。
 
 ## 重要機能
 
@@ -148,3 +170,8 @@ Adobe PremierePro の mogrt(モーショングラフィックステンプレー�
 ![단어장 검색](readme_img/Tangochou_search.gif)
 
 # これからの改善事項
+
+- ウェブページの日本語対応
+- ユーチューブ翻訳ページの安定化
+- 招待または共有機能の安定化
+- mogrt 形式に書き出し機能の活性化
