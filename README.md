@@ -6,10 +6,6 @@
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 ![Oracle](https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white)
 
-## 배포 웹페이지
-
-[배포 웹페이지](http://oxxo.ddns.net:3000/)
-
 ## 목차
 
 [프로젝트 소개](#프로젝트-소개)
